@@ -1,4 +1,4 @@
-package com.adroidmobile.map;
+package com.androidmobile.map;
 
 import java.io.BufferedReader;
 
