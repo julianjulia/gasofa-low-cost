@@ -17,8 +17,9 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
-import com.adroidmobile.map.GMapV2Direction;
-import com.adroidmobile.map.GMapV2GasProx;
+
+import com.androidmobile.map.GMapV2Direction;
+import com.androidmobile.map.GMapV2GasProx;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
