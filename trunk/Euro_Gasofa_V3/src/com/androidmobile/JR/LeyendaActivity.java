@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 import org.json.JSONArray;
 
-import com.adroidmobile.map.GMapV2Direction;
+import com.androidmobile.map.GMapV2Direction;
 import com.google.ads.AdRequest;
 import com.google.ads.AdSize;
 import com.google.ads.AdView;
