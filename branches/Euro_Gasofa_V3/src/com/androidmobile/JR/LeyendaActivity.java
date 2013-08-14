@@ -19,11 +19,11 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
+// he modificado para probar
 @SuppressLint("JavascriptInterface")
 public class LeyendaActivity extends Activity {
 	WebView webview;
-	private AdView adView;
+	private AdView adView ;
 	private LinearLayout lytMain;
 	private static final String JAVASCRIPT = "javascript:";
 	private static final String BRC_OPEN = "('";
