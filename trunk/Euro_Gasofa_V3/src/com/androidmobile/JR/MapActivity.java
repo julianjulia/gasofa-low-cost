@@ -1,11 +1,15 @@
 package com.androidmobile.JR;
 
+import java.io.IOException;
 import java.util.List;
 
 
 import java.util.Locale;
+
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.Address;
@@ -14,8 +18,10 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.Editable;
 import android.view.View;
 import android.view.Window;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.androidmobile.map.GMapV2Direction;
@@ -171,21 +177,72 @@ public class MapActivity extends FragmentActivity implements
 	}
 
 	public void animateCamera_N(View view) {
-		 if (mapa.getMyLocation() != null){
-			
-			 UPV= new LatLng(mapa.getMyLocation().getLatitude(),mapa.getMyLocation().getLongitude());
 		
-		GMapV2Direction md = new GMapV2Direction(this);		
+		final CharSequence[] items = {"Ubicacion Actual", "Ya decido..."};
+		 
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Ubicacion?");
+		builder.setItems(items, new DialogInterface.OnClickListener() {
+		    public void onClick(DialogInterface dialog, int item) {
+		    	if(items[item].equals("Ubicacion Actual")){
+		    	try {
+					visualizar(null);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		    	}else{	
+		    	consultaDireccion();
+		    	
+		    	}
+		        Toast toast = Toast.makeText(getApplicationContext(), "Haz elegido la opcion: " + items[item] , Toast.LENGTH_SHORT);
+		        toast.show();
+		        dialog.cancel();
+		    }
+		});
 		
-			md.getDocument(mapa,UPV, UPV2, GMapV2Direction.MODE_DRIVING);
-		 mapa.addMarker(new MarkerOptions().position(UPV).title("Ubicacion").snippet(UPV.latitude+"  " +UPV.longitude)
-   			  .icon(BitmapDescriptorFactory.fromResource(R.drawable.start)));
-		}else			 
-			 Toast.makeText(this,"No se ha encontrado Ubicacion ", Toast.LENGTH_LONG).show();
+		AlertDialog alert = builder.create();
+		alert.show();
+	}	
+	public Editable consultaDireccion(){
+		Editable value = null;
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+		alert.setTitle("Introduzca direccion");
+		alert.setMessage("Direccion-Poblacion");
+
+		// Set an EditText view to get user input 
+		final EditText input = new EditText(this);
+		alert.setView(input);
+
+		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+		public void onClick(DialogInterface dialog, int whichButton) {
+		   Editable value = input.getText();
+		  // Do something with value!
+		   try {
+			visualizar(value.toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		  }
+		});
+
+		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+		  public void onClick(DialogInterface dialog, int whichButton) {
+		    // Canceled.
+		  }
+		});
+
+		alert.show();	
+		return value;
+ 
+		
+		 
 	}
 
 	public void animateCamera_L(View view) {
-		
+	
 		 if (mapa.getMyLocation() != null){
 			 
 			   
@@ -231,7 +288,8 @@ public class MapActivity extends FragmentActivity implements
 			int num=valor.indexOf(" ");
 			System.out.println(num);
 			valor=valor.substring(num).trim();
-		}else{		
+		}else{	
+		
 		bundle = getIntent().getExtras();
 		valor= bundle.getString("direccion");
 		nombre= bundle.getString("nombre");
@@ -266,5 +324,36 @@ public class MapActivity extends FragmentActivity implements
 }
 
 	
-	
+	public void visualizar(String dir) throws IOException{
+		
+		if(dir != null && dir!=""){
+			Geocoder geoCoder = new Geocoder(getBaseContext(), Locale.getDefault());
+		
+				addresses = geoCoder.getFromLocationName(dir, 5);
+				if ( addresses!=null && addresses.size() > 0) {
+		        	 UPV = new LatLng(addresses.get(0).getLatitude() ,addresses.get(0).getLongitude() );
+		        	 GMapV2Direction md = new GMapV2Direction(this);		
+		     		
+		 			md.getDocument(mapa,UPV, UPV2, GMapV2Direction.MODE_DRIVING);
+		 		 mapa.addMarker(new MarkerOptions().position(UPV).title("Ubicacion").snippet(UPV.latitude+"  " +UPV.longitude)
+		  			  .icon(BitmapDescriptorFactory.fromResource(R.drawable.start)));
+		         }else{
+		        	 Toast.makeText(getApplicationContext(),"No se ha encontrado Ubicacion "+ dir, Toast.LENGTH_LONG).show();
+		         }
+				}else{
+		
+		if (mapa.getMyLocation() != null){
+			
+			 UPV= new LatLng(mapa.getMyLocation().getLatitude(),mapa.getMyLocation().getLongitude());
+		
+		GMapV2Direction md = new GMapV2Direction(this);		
+		
+			md.getDocument(mapa,UPV, UPV2, GMapV2Direction.MODE_DRIVING);
+		 mapa.addMarker(new MarkerOptions().position(UPV).title("Ubicacion").snippet(UPV.latitude+"  " +UPV.longitude)
+ 			  .icon(BitmapDescriptorFactory.fromResource(R.drawable.start)));
+		}else{			 
+			 Toast.makeText(getApplicationContext(),"No se ha encontrado Ubicacion ", Toast.LENGTH_LONG).show();
+		}
+	}
+	}
 }
