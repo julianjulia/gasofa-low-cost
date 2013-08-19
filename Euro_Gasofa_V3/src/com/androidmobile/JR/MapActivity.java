@@ -178,7 +178,7 @@ public class MapActivity extends FragmentActivity implements
 
 	public void animateCamera_N(View view) {
 		
-		final CharSequence[] items = {"Ubicacion Actual", "Ya decido..."};
+		final CharSequence[] items = {"Ubicacion Actual", "Introducir Direccion"};
 		 
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("Ubicacion?");
