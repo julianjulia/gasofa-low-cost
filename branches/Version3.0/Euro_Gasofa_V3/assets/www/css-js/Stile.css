@@ -1,0 +1,23 @@
+@CHARSET "ISO-8859-1";
+.ui-listview-filter-inset {
+    margin-top: 0;
+}
+body {
+    background-image: url(images/gas-station.jpg);
+    background-repeat:repeat-y;
+    background-position:center center;
+    background-attachment:scroll;
+    background-size:100% 100%;
+}
+.ui-page
+{background: transparent;
+}
+.ui-header {
+    background: transparent;
+    }
+.ui-footer {
+    background: aqua;
+    }
+.ui-content{
+    background: transparent;
+}

@@ -1,0 +1,71 @@
+<html title="Results">
+<head>
+<link rel="stylesheet"
+	href="css-js/jquery.mobile-1.0a4.1.css" />	
+<script type="text/javascript"
+	src="css-js/jquery-1.7.1.js"></script>
+<script type="text/javascript"
+	src="css-js/jquery.mobile-1.0a4.1.js"></script>
+<link rel="stylesheet" href="css-js/Stile.css" />
+</head>
+<body  >
+		<div data-role="page" data-theme="c"  id="pageResultados">
+		<div data-role="header" ></div>
+		<div data-role="content" >
+		
+			<div id="notation">
+			<ul style="opacity:0.7;" data-role="listview" data-inset="true" id="lista">
+			</ul>
+		</div>
+				
+		</div>
+		
+		<div data-role="footer" data-theme="c"></div>
+	</div>
+	<script>
+	$(document).ready(function() {		
+		//androidSupportley.writeRes();
+		});
+	function showToast(valor) {
+		androidSupport.loadToast(valor);
+	}
+	function showRest(nombre,direccion) {
+		androidSupport.EscribirBD(nombre,direccion);
+	}
+	
+	function setRestList(jsonText) {
+		var data = JSON.parse(jsonText);
+		$("#lista").html('');
+		for ( var i in data.listagasolineras) {
+			if (i%2==0){
+				output = '<li id="ligas" ><a href="javascript:showRest('+"'"+data.listagasolineras[i].nombre+"','"+data.listagasolineras[i].direccion+" "+data.listagasolineras[i].localidad +"'"+');"><table width="100%" style="font-size: 10px;font-family:verdana"><tr><td width="50%">'
+				
+			}else{
+				output = '<li id="ligas" style="background:#d2d2d2"><a href="javascript:showRest('+"'"+data.listagasolineras[i].nombre+"','"+data.listagasolineras[i].direccion+" "+data.listagasolineras[i].localidad +"'"+');"><table width="100%" style="font-size: 10px;font-family:verdana"><tr><td width="50%">'
+				
+			}
+			output=output + data.listagasolineras[i].localidad + '</td><td width="50%">'
+			+ data.listagasolineras[i].provincia
+			+ '</td></tr><tr><td colspan="2" width="100%">'
+			+ data.listagasolineras[i].direccion
+			+ '</td></tr><tr><td width="50%">distancia:</td><td width="50%">'
+			+ data.listagasolineras[i].distancia
+			+ ' Km'+'</td></tr><tr><td width="50%">nombre:</td><td width="50%">'
+			+ data.listagasolineras[i].nombre
+			+ '</td></tr><tr><td width="50%">gasoleo:</td><td width="50%">'
+			+ data.listagasolineras[i].gasoleo
+			+ '</td></tr><tr><td width="50%">gasolina95:</td><td width="50%">'
+			+ data.listagasolineras[i].gasolina95
+			+ '</td></tr><tr><td width="50%">gasolina98:</td><td width="50%">'
+			+ data.listagasolineras[i].gasolina98
+			+ '</td></tr></table></a></li>';
+	$('#lista').append(output);
+		}
+
+		$('#lista').listview('refresh');
+		
+	}
+	
+	</script>
+</body>
+</html>
