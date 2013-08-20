@@ -1,12 +1,14 @@
 package com.androidmobile.JR;
 
 import java.io.IOException;
+
 import java.util.List;
 
 
 import java.util.Locale;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -26,6 +28,8 @@ import android.widget.Toast;
 
 import com.androidmobile.map.GMapV2Direction;
 import com.androidmobile.map.GMapV2GasProx;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
@@ -38,7 +42,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 
-public class MapActivity extends FragmentActivity implements
+public class MapActivity extends FragmentActivity  implements
 		OnMapClickListener {
 	
 	private  LatLng UPV = new LatLng(39.481106, -0.340987);
@@ -60,9 +64,24 @@ public class MapActivity extends FragmentActivity implements
 	
 		mContext=this;
 		
-		mapa = ((SupportMapFragment) getSupportFragmentManager()
-				.findFragmentById(R.id.map)).getMap();
-
+			
+		 int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getBaseContext());
+		 
+	        // Showing status
+	        if(status!=ConnectionResult.SUCCESS){ // Google Play Services are not available
+	 
+	            int requestCode = 10;
+	            Dialog dialog = GooglePlayServicesUtil.getErrorDialog(status, this, requestCode);
+	            dialog.show();
+	 
+	        }else { // Google Play Services are available
+	 
+	            // Getting reference to the SupportMapFragment of activity_main.xml
+	            SupportMapFragment fm = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+	 
+	            // Getting GoogleMap object from the fragment
+	            mapa = fm.getMap();
+	     
 		mapa.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
 		//mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(UPV, 15));
@@ -83,6 +102,7 @@ public class MapActivity extends FragmentActivity implements
 
 			
 		});
+	       
 /*
 		mapa.addMarker(new MarkerOptions()
 
@@ -160,7 +180,7 @@ public class MapActivity extends FragmentActivity implements
 			 }	
 			
 	}
-	
+	 }
 	public void leyenda(View view) {
 		Intent intent = new Intent(MapActivity.this, LeyendaActivity.class);
 		Bundle bundle = new Bundle();
