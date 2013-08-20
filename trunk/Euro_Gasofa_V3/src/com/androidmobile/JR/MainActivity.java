@@ -35,7 +35,7 @@ import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
+//19/08/2013
 @SuppressLint("JavascriptInterface")
 public class MainActivity extends Activity {
 	private AdView adView;
