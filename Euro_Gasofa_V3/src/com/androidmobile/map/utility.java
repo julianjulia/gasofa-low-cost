@@ -196,7 +196,7 @@ public class utility {
 				webview.loadUrl(JAVASCRIPT + "setRestList" + BRC_OPEN + json
 						+ BRC_CLOSE);
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(500);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -256,7 +256,7 @@ public class utility {
 				webview.loadUrl(JAVASCRIPT + "setRestList" + BRC_OPEN + json
 						+ BRC_CLOSE);
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(500);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
