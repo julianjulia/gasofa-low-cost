@@ -1,0 +1,40 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background" >
+
+    <TextView
+        android:id="@+id/titleYamba"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/titleYamba" 
+        android:textColor="@android:color/white"/>
+
+    <TextView
+        android:id="@+id/titleStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="000" 
+        android:textSize="30sp"
+        />
+    
+    <EditText
+        android:id="@+id/hintText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+         android:padding="50dp"      
+         android:hint="@string/hintText" 
+         android:gravity="top|center_horizontal" android:background="#cfff"         
+        />
+
+    <Button
+        android:id="@+id/buttonUpdate"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+         android:layout_marginTop="120dp"
+         android:padding="10dp"
+        android:text="@string/buttonUpdate" />
+
+</LinearLayout>

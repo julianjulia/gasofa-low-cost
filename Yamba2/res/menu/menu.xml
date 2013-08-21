@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/itemPrefs"
+        android:title="@string/titlePrefs"/>
+    
+     <item
+        android:id="@+id/viewMyMessages"
+        android:title="@string/titleMessages"/>
+    
+ <item
+        android:id="@+id/viewAllMessages"
+        android:title="@string/titleAllMessages"/>
+ 
+  <item
+        android:id="@+id/itemServiceStart"
+        android:title="@string/titleServiceStart"/>
+   <item
+        android:id="@+id/itemServiceStop"
+        android:title="@string/titleServiceStop"/>
+</menu>

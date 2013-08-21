@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Yamba</string>
+   
+    <string name="titleYamba">Yamba</string>
+    <string name="titleStatus">Status Update</string>
+    <string name="hintText">Por favor introduzca 140-caracteres max</string>
+    <string name="buttonUpdate">Update</string>
+    
+    <string name="titlePrefs">Configuracion</string>
+    <string name="titleUsername">titleUsername</string>
+    <string name="titlePassword">titlePassword</string>
+    <string name="titleApiRoot">titleApiRoot</string>
+    
+    <string name="sumaryUsername">please enter your username</string>
+    <string name="sumaryPassword">please enter your password</string>
+    <string name="sumaryApiRoot">URL of Root API for your service</string>
+    
+     <string name="titleMessages">Mensajes</string>
+      <string name="title_activiy_mu_messages">mensajes</string>
+      
+       <string name="titleAllMessages">Mensajes Amigos</string>
+      
+        <string name="titleServiceStart">Arrancar Servicio</string>
+         <string name="titleServiceStop">Parar Servicio</string>
+       
+</resources>
