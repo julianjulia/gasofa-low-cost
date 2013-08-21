@@ -108,7 +108,7 @@ public class MainActivity extends Activity {
 			loadDialog("€ Gasofa V 1.0","Desarrollado"
 					+ " por J.R.  " 
 					+ "email: jrmh@ya.com  "
-					+ "svn: https://code.google.com/p/gasofa-low-cost/source/browse/#svn%2Ftrunk%2FEuro_Gasofa_V3")	;
+					+ "svn: http://gasofa-low-cost.googlecode.com/svn/trunk")	;
 			return true;
 		case R.id.GasProx:
 			
