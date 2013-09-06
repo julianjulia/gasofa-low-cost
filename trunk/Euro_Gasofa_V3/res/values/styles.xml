@@ -18,8 +18,13 @@
     </style>
 
     <style name="miestilo" parent="android:Theme.Dialog">
-	<item name="android:colorForeground">#f0f0</item>
+    <item name="android:windowNoTitle">true</item>
+	
+	<item name="android:typeface">sans</item>
 	<item name="android:textSize">22px</item>
+	<item name="android:textColor">#AA7755</item>
+	
+	
 </style> 
     
 </resources>
