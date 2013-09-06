@@ -217,7 +217,7 @@ public class MainActivity extends Activity {
 		}
 		
 		public void GasCercanas(){
-			salir=false;
+			//salir=false;
 			Intent intent = new Intent(MainActivity.this, MapActivity.class);
 			Bundle bundle = new Bundle();
 			bundle.putString("gas","falso");
