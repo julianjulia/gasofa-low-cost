@@ -27,6 +27,7 @@ import android.view.Window;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.androidmobile.map.GMapGeocoderInverter;
 import com.androidmobile.map.GMapV2Direction;
 import com.androidmobile.map.GMapV2GasProx;
 import com.google.android.gms.common.ConnectionResult;
@@ -46,16 +47,16 @@ import com.google.android.gms.maps.model.PolylineOptions;
 public class MapActivity extends FragmentActivity  implements
 		OnMapClickListener {
 	
-	private  LatLng UPV = new LatLng(39.481106, -0.340987);
+	private static  LatLng UPV = new LatLng(39.481106, -0.340987);
 	LatLng UPV2;
 	private String valor="madrid";
-	private GoogleMap mapa;
+	private static GoogleMap mapa;
 	List<Address> addresses ;
 	Bundle bundle;
-	Context mContext;
-	String gasprox;
+	static Context mContext;
+	static String gasprox;
 	String nombre;
-	
+	GMapGeocoderInverter ggi;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -181,17 +182,20 @@ public class MapActivity extends FragmentActivity  implements
 		    public void onClick(DialogInterface dialog, int item) {
 		    	if(items[item].equals("Ubicacion Actual")){
 		    	try {
+		    		
 		    		 if(gasprox != null && gasprox.equals("falso")){
 		    			 try{
+		    				 dialog.cancel();
 		    			UPV= new LatLng(mapa.getMyLocation().getLatitude(),mapa.getMyLocation().getLongitude());
-		    			
-		    			 resulgascer("Mi ubicacion");
+		    			ggi =new GMapGeocoderInverter(mapa,UPV);
+		    			resulgascer("mi ubicacion");
 		    			 }catch(Exception e){
+		    				 e.printStackTrace();
 		    				 Toast.makeText(getApplicationContext(),"No se ha encontrado Ubicacion ", Toast.LENGTH_LONG).show();
 		    			 }
 		    		 }else
-					visualizar(null);
-				} catch (IOException e) {
+		    		visualizar(null);	
+					} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -337,13 +341,14 @@ public class MapActivity extends FragmentActivity  implements
 			
 			 UPV= new LatLng(mapa.getMyLocation().getLatitude(),mapa.getMyLocation().getLongitude());
 		
+			 ggi =new GMapGeocoderInverter(mapa,UPV); 
+			 
 		GMapV2Direction md = new GMapV2Direction(this);		
 		
 			md.getDocument(mapa,UPV, UPV2, GMapV2Direction.MODE_DRIVING);
-		 mapa.addMarker(new MarkerOptions().position(UPV).title("Ubicacion").snippet(UPV.latitude+"  " +UPV.longitude)
- 			  .icon(BitmapDescriptorFactory.fromResource(R.drawable.start)));
-		}else{			 
-			 Toast.makeText(getApplicationContext(),"No se ha encontrado Ubicacion ", Toast.LENGTH_LONG).show();
+		// mapa.addMarker(new MarkerOptions().position(UPV).title("Ubicacion").snippet(ggi.aldir.get(0))
+ 			  //.icon(BitmapDescriptorFactory.fromResource(R.drawable.start)));	}else{			 
+			 //Toast.makeText(getApplicationContext(),"No se ha encontrado Ubicacion ", Toast.LENGTH_LONG).show();
 		}
 	}
 	}
@@ -409,22 +414,16 @@ public class MapActivity extends FragmentActivity  implements
   			  .icon(BitmapDescriptorFactory.fromResource(R.drawable.start)));
 			 }
 			 }
-		public void resulgascer(String d){
+		public static void resulgascer(String d){
 			gasprox="verdadero";
+			
 		 try{  				
 				
 			// UPV= new LatLng(mapa.getMyLocation().getLatitude(),mapa.getMyLocation().getLongitude());
-		         mapa.addMarker(new MarkerOptions().position(UPV).title("Ubicacion").snippet(d)
-		      			  .icon(BitmapDescriptorFactory.fromResource(R.drawable.start)));
-		         Toast.makeText(mContext,"pulse marcador para informacion o calcular ruta", Toast.LENGTH_LONG).show();
+		        		         Toast.makeText(mContext,"pulse marcador para informacion o calcular ruta", Toast.LENGTH_LONG).show();
 		  new GMapV2GasProx(mContext,mapa,UPV);
 		 }catch(Exception e){
 			 Toast.makeText(mContext,"No se ha encontrado Ubicacion ", Toast.LENGTH_LONG).show();
-			 try {
-				finalize();
-			} catch (Throwable e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			
 		 }}
 }
