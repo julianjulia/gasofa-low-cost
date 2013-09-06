@@ -21,6 +21,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
@@ -103,21 +104,6 @@ public class MapActivity extends FragmentActivity  implements
 			
 		});
 	       
-/*
-		mapa.addMarker(new MarkerOptions()
-
-		.position(UPV)
-
-		.title("UPV")
-
-		.snippet("Universidad Politécnica de Valencia")
-
-		.icon(BitmapDescriptorFactory
-
-		.fromResource(R.drawable.ic_launcher))
-
-		.anchor(0.5f, 0.5f));
-*/
 		mapa.setOnMapClickListener(this);
 		
 		  class taskgas extends AsyncTask<Void, Void, Void> {
@@ -135,7 +121,7 @@ public class MapActivity extends FragmentActivity  implements
 				@Override
 				protected Void doInBackground(Void... args) {
 						 try {
-							Thread.sleep(2000);
+							Thread.sleep(1000);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -146,21 +132,8 @@ public class MapActivity extends FragmentActivity  implements
 				@Override
 				protected void onPostExecute(Void json) {
 					pd.dismiss();
-					 try{   
-					         UPV2= new LatLng(mapa.getMyLocation().getLatitude(),mapa.getMyLocation().getLongitude());
-					         mapa.addMarker(new MarkerOptions().position(UPV2).title("Ubicacion").snippet(UPV2.latitude+"  " +UPV2.longitude)
-					      			  .icon(BitmapDescriptorFactory.fromResource(R.drawable.start)));
-					         Toast.makeText(mContext,"pulse marcador para informacion o calcular ruta", Toast.LENGTH_LONG).show();
-					  new GMapV2GasProx(mContext,mapa,UPV2);
-					 }catch(Exception e){
-						 Toast.makeText(mContext,"No se ha encontrado Ubicacion ", Toast.LENGTH_LONG).show();
-						 try {
-							finalize();
-						} catch (Throwable e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-					 }
+					animateCamera_N(null);
+					
 					}
 				}
 		  bundle = getIntent().getExtras();
@@ -198,14 +171,25 @@ public class MapActivity extends FragmentActivity  implements
 
 	public void animateCamera_N(View view) {
 		
+		ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.miestilo);
+		
 		final CharSequence[] items = {"Ubicacion Actual", "Introducir Direccion"};
 		 
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("Ubicacion?");
+		AlertDialog.Builder builder = new AlertDialog.Builder(ctw);
+		builder.setTitle("Ubicacion");
 		builder.setItems(items, new DialogInterface.OnClickListener() {
 		    public void onClick(DialogInterface dialog, int item) {
 		    	if(items[item].equals("Ubicacion Actual")){
 		    	try {
+		    		 if(gasprox != null && gasprox.equals("falso")){
+		    			 try{
+		    			UPV= new LatLng(mapa.getMyLocation().getLatitude(),mapa.getMyLocation().getLongitude());
+		    			
+		    			 resulgascer("Mi ubicacion");
+		    			 }catch(Exception e){
+		    				 Toast.makeText(getApplicationContext(),"No se ha encontrado Ubicacion ", Toast.LENGTH_LONG).show();
+		    			 }
+		    		 }else
 					visualizar(null);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -215,16 +199,17 @@ public class MapActivity extends FragmentActivity  implements
 		    	consultaDireccion();
 		    	
 		    	}
-		        Toast toast = Toast.makeText(getApplicationContext(), "Haz elegido la opcion: " + items[item] , Toast.LENGTH_SHORT);
-		        toast.show();
+		        //Toast toast = Toast.makeText(getApplicationContext(), "Haz elegido la opcion: " + items[item] , Toast.LENGTH_SHORT);
+		        //toast.show();
 		        dialog.cancel();
 		    }
 		});
 		
 		AlertDialog alert = builder.create();
 		alert.show();
-	}	
-	public Editable consultaDireccion(){
+	}
+	
+	public  void consultaDireccion(){
 		Editable value = null;
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
@@ -242,7 +227,8 @@ public class MapActivity extends FragmentActivity  implements
 		   try {
 			visualizar(value.toString());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-generated catch block ''''
+			Toast.makeText(getApplicationContext(),"No se ha encontrado Ubicacion ", Toast.LENGTH_LONG).show();
 			e.printStackTrace();
 		}
 		  }
@@ -255,10 +241,7 @@ public class MapActivity extends FragmentActivity  implements
 		});
 
 		alert.show();	
-		return value;
- 
-		
-		 
+			 
 	}
 
 	public void animateCamera_L(View view) {
@@ -347,19 +330,7 @@ public class MapActivity extends FragmentActivity  implements
 	public void visualizar(String dir) throws IOException{
 		
 		if(dir != null && dir!=""){
-			Geocoder geoCoder = new Geocoder(getBaseContext(), Locale.getDefault());
-		
-				addresses = geoCoder.getFromLocationName(dir, 5);
-				if ( addresses!=null && addresses.size() > 0) {
-		        	 UPV = new LatLng(addresses.get(0).getLatitude() ,addresses.get(0).getLongitude() );
-		        	 GMapV2Direction md = new GMapV2Direction(this);		
-		     		
-		 			md.getDocument(mapa,UPV, UPV2, GMapV2Direction.MODE_DRIVING);
-		 		 mapa.addMarker(new MarkerOptions().position(UPV).title("Ubicacion").snippet(UPV.latitude+"  " +UPV.longitude)
-		  			  .icon(BitmapDescriptorFactory.fromResource(R.drawable.start)));
-		         }else{
-		        	 Toast.makeText(getApplicationContext(),"No se ha encontrado Ubicacion "+ dir, Toast.LENGTH_LONG).show();
-		         }
+			showresultados(dir);
 				}else{
 		
 		if (mapa.getMyLocation() != null){
@@ -376,4 +347,84 @@ public class MapActivity extends FragmentActivity  implements
 		}
 	}
 	}
+	
+	
+	public void showresultados(String dir) throws IOException{
+		Geocoder geoCoder = new Geocoder(getBaseContext(), Locale.getDefault());
+		
+		addresses = geoCoder.getFromLocationName(dir, 5);
+		if ( addresses!=null && addresses.size() > 0) {
+			
+			final CharSequence[] itemsdir = new CharSequence[addresses.size()];
+			for(int i=0;i<addresses.size();i++){
+				String call="";
+				if(addresses.get(i).getThoroughfare()== null)
+					call="";
+					else
+						call=addresses.get(i).getThoroughfare();
+				String d=call+" "+addresses.get(i).getFeatureName()+" " +addresses.get(i).getLocality()+" "+addresses.get(i).getSubAdminArea();
+										
+				itemsdir[i]=d;
+			}
+			ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.miestilo);
+			AlertDialog.Builder builder = new AlertDialog.Builder(ctw);
+			builder.setTitle("Resultados");
+			builder.setItems(itemsdir, new DialogInterface.OnClickListener() {
+			    public void onClick(DialogInterface dialog, int item) {
+			    	paintResult(item);
+			        dialog.cancel();
+			        
+			    }
+			});
+			
+			AlertDialog alert = builder.create();
+			alert.show();
+			
+					
+			
+        	
+         }else{
+        	 Toast.makeText(getApplicationContext(),"No se ha encontrado Ubicacion "+ dir, Toast.LENGTH_LONG).show();
+         }
+	}
+	
+		public void paintResult(int item){
+			 UPV = new LatLng(addresses.get(item).getLatitude() ,addresses.get(item).getLongitude() );
+			 String call="";
+	 			if(addresses.get(item).getThoroughfare()== null)
+					call="";
+					else
+	 			call=addresses.get(item).getThoroughfare();
+				String d=call+" "+addresses.get(item).getFeatureName()+" " +addresses.get(item).getLocality()+" "+addresses.get(item).getSubAdminArea();
+						
+			 if(gasprox != null && gasprox.equals("falso")){
+				 resulgascer(d);
+			 }else{
+				 
+        	 GMapV2Direction md = new GMapV2Direction(this);		
+     		
+ 			md.getDocument(mapa,UPV, UPV2, GMapV2Direction.MODE_DRIVING);
+ 						
+ 		 mapa.addMarker(new MarkerOptions().position(UPV).title("Ubicacion").snippet(d)
+  			  .icon(BitmapDescriptorFactory.fromResource(R.drawable.start)));
+			 }
+			 }
+		public void resulgascer(String d){
+			gasprox="verdadero";
+		 try{  				
+				
+			// UPV= new LatLng(mapa.getMyLocation().getLatitude(),mapa.getMyLocation().getLongitude());
+		         mapa.addMarker(new MarkerOptions().position(UPV).title("Ubicacion").snippet(d)
+		      			  .icon(BitmapDescriptorFactory.fromResource(R.drawable.start)));
+		         Toast.makeText(mContext,"pulse marcador para informacion o calcular ruta", Toast.LENGTH_LONG).show();
+		  new GMapV2GasProx(mContext,mapa,UPV);
+		 }catch(Exception e){
+			 Toast.makeText(mContext,"No se ha encontrado Ubicacion ", Toast.LENGTH_LONG).show();
+			 try {
+				finalize();
+			} catch (Throwable e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		 }}
 }
