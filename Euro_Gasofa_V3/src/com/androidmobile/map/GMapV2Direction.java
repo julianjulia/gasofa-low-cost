@@ -21,6 +21,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -46,7 +47,7 @@ public class GMapV2Direction {
     public GMapV2Direction(Context mContext) {
     	this.mContext=mContext;
     }
-
+   
     public void getDocument(final GoogleMap mapa,LatLng start, LatLng end, String mode) {
     	
      final String url = "http://maps.googleapis.com/maps/api/directions/xml?" 
@@ -130,7 +131,7 @@ public class GMapV2Direction {
        
         
     }
-
+    @SuppressLint("NewApi")
     public String getDurationText (Document doc) {
         NodeList nl1 = doc.getElementsByTagName("duration");
         Node node1 = nl1.item(nl1.getLength()-1);
@@ -140,7 +141,7 @@ public class GMapV2Direction {
         return node2.getTextContent();
     }
 
-       
+    @SuppressLint("NewApi")
     public int getDurationValue (Document doc) {
         NodeList nl1 = doc.getElementsByTagName("duration");
         Node node1 = nl1.item(0);
@@ -149,7 +150,7 @@ public class GMapV2Direction {
         Log.i("DurationValue", node2.getTextContent());
         return Integer.parseInt(node2.getTextContent());
     }
-
+    @SuppressLint("NewApi")
     public String getDistanceText (Document doc) {
         NodeList nl1 = doc.getElementsByTagName("distance");
         Node node1 = nl1.item(nl1.getLength()-1);
@@ -158,7 +159,7 @@ public class GMapV2Direction {
         Log.i("DistanceText", node2.getTextContent());
         return node2.getTextContent();
     }
-
+    @SuppressLint("NewApi")
     public int getDistanceValue (Document doc) {
         NodeList nl1 = doc.getElementsByTagName("distance");
         Node node1 = nl1.item(0);
@@ -169,28 +170,28 @@ public class GMapV2Direction {
     }
 
     	
-    
+    @SuppressLint("NewApi")
     public String getStartAddress (Document doc) {
         NodeList nl1 = doc.getElementsByTagName("start_address");
         Node node1 = nl1.item(0);
         Log.i("StartAddress", node1.getTextContent());
         return node1.getTextContent();
     }
-
+    @SuppressLint("NewApi")
     public String getEndAddress (Document doc) {
         NodeList nl1 = doc.getElementsByTagName("end_address");
         Node node1 = nl1.item(0);
         Log.i("StartAddress", node1.getTextContent());
         return node1.getTextContent();
     }
-
+    @SuppressLint("NewApi")
     public String getCopyRights (Document doc) {
         NodeList nl1 = doc.getElementsByTagName("copyrights");
         Node node1 = nl1.item(0);
         Log.i("CopyRights", node1.getTextContent());
         return node1.getTextContent();
     }
-
+    @SuppressLint("NewApi")
     public ArrayList<LatLng> getDirection (Document doc) {
     	al.add("DISTANCIA: "+getDistanceText(doc));
     	al.add("TIEMPO Aprox: "+getDurationText(doc));
@@ -227,7 +228,7 @@ public class GMapV2Direction {
                 listGeopoints.add(new LatLng(lat, lng));
                 
                 latNode= nl2.item(getNodeIndex(nl2, "html_instructions"));
-                String inst= latNode.getTextContent().replaceAll("\"", "");
+                String inst= latNode.getTextContent().replaceAll("\"", "").replaceAll("\'", "");
                 
                 if (i==0){
                 	                    
