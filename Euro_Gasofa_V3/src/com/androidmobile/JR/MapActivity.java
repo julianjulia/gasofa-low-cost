@@ -56,7 +56,7 @@ public class MapActivity extends FragmentActivity  implements
 	static Context mContext;
 	static String gasprox;
 	String nombre;
-	GMapGeocoderInverter ggi;
+	String dirElegida=null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -107,42 +107,11 @@ public class MapActivity extends FragmentActivity  implements
 	       
 		mapa.setOnMapClickListener(this);
 		
-		  class taskgas extends AsyncTask<Void, Void, Void> {
-			  private ProgressDialog pd;
-				 @Override
-				protected void onPreExecute() {		
-					 pd = new ProgressDialog(mContext);
-						//pd.setTitle("Procesando Datos...");
-						pd.setMessage("Espere...");
-						pd.setCancelable(false);
-						pd.setIndeterminate(true);
-						pd.show();
-				 }
-					
-				@Override
-				protected Void doInBackground(Void... args) {
-						 try {
-							Thread.sleep(1000);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						return null;
-				}
-
-				@Override
-				protected void onPostExecute(Void json) {
-					pd.dismiss();
-					animateCamera_N(null);
-					
-					}
-				}
+		 
 		  bundle = getIntent().getExtras();
 			gasprox= bundle.getString("gas");
 			 if(gasprox != null && gasprox.equals("falso")){
-								
-		  new taskgas().execute();
-		
+				 animateCamera_N(null);
 			 }else{
 		// mapa.moveCamera(CameraUpdateFactory.zoomTo(12));
 		try {
@@ -171,23 +140,25 @@ public class MapActivity extends FragmentActivity  implements
 	}
 
 	public void animateCamera_N(View view) {
-		
+		final CharSequence[] items;
 		ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.miestilo);
-		
-		final CharSequence[] items = {"Ubicacion Actual", "Introducir Direccion"};
-		 
+		if(dirElegida==null || (gasprox == null )){
+		 items =new CharSequence[2] ;items[0] = "Ubicacion Actual";items[1]= "Introducir Direccion";
+		}else{
+			items =new CharSequence[3] ;items[0] = "Ubicacion Actual";items[1]= "Introducir Direccion";items[2]= dirElegida;
+		}
 		AlertDialog.Builder builder = new AlertDialog.Builder(ctw);
 		builder.setTitle("Ubicacion");
 		builder.setItems(items, new DialogInterface.OnClickListener() {
 		    public void onClick(DialogInterface dialog, int item) {
 		    	if(items[item].equals("Ubicacion Actual")){
 		    	try {
-		    		
+		    		dirElegida=null;
 		    		 if(gasprox != null && gasprox.equals("falso")){
 		    			 try{
 		    				 dialog.cancel();
 		    			UPV= new LatLng(mapa.getMyLocation().getLatitude(),mapa.getMyLocation().getLongitude());
-		    			ggi =new GMapGeocoderInverter(mapa,UPV);
+		    			new GMapGeocoderInverter(mapa,UPV);
 		    			resulgascer("mi ubicacion");
 		    			 }catch(Exception e){
 		    				 e.printStackTrace();
@@ -199,9 +170,15 @@ public class MapActivity extends FragmentActivity  implements
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-		    	}else{	
+		    	}else if(items[item].equals("Introducir Direccion")){	
 		    	consultaDireccion();
-		    	
+		    	}else{
+		    		try {
+						visualizar(dirElegida);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 		    	}
 		        //Toast toast = Toast.makeText(getApplicationContext(), "Haz elegido la opcion: " + items[item] , Toast.LENGTH_SHORT);
 		        //toast.show();
@@ -341,15 +318,19 @@ public class MapActivity extends FragmentActivity  implements
 			
 			 UPV= new LatLng(mapa.getMyLocation().getLatitude(),mapa.getMyLocation().getLongitude());
 		
-			 ggi =new GMapGeocoderInverter(mapa,UPV); 
+			new GMapGeocoderInverter(mapa,UPV); 
 			 
 		GMapV2Direction md = new GMapV2Direction(this);		
-		
+		try{
 			md.getDocument(mapa,UPV, UPV2, GMapV2Direction.MODE_DRIVING);
+		}catch(Exception e){
+			Toast.makeText(getApplicationContext(),"No se ha seleccionado ningun marcador", Toast.LENGTH_LONG).show();
+		}
 		// mapa.addMarker(new MarkerOptions().position(UPV).title("Ubicacion").snippet(ggi.aldir.get(0))
  			  //.icon(BitmapDescriptorFactory.fromResource(R.drawable.start)));	}else{			 
 			 //Toast.makeText(getApplicationContext(),"No se ha encontrado Ubicacion ", Toast.LENGTH_LONG).show();
-		}
+		}else
+			Toast.makeText(getApplicationContext(),"No se ha encontrado Ubicacion ", Toast.LENGTH_LONG).show();
 	}
 	}
 	
@@ -376,6 +357,7 @@ public class MapActivity extends FragmentActivity  implements
 			builder.setTitle("Resultados");
 			builder.setItems(itemsdir, new DialogInterface.OnClickListener() {
 			    public void onClick(DialogInterface dialog, int item) {
+			    	dirElegida=itemsdir[item].toString();
 			    	paintResult(item);
 			        dialog.cancel();
 			        
@@ -407,18 +389,24 @@ public class MapActivity extends FragmentActivity  implements
 			 }else{
 				 
         	 GMapV2Direction md = new GMapV2Direction(this);		
-     		
+     		try{
  			md.getDocument(mapa,UPV, UPV2, GMapV2Direction.MODE_DRIVING);
- 						
- 		 mapa.addMarker(new MarkerOptions().position(UPV).title("Ubicacion").snippet(d)
-  			  .icon(BitmapDescriptorFactory.fromResource(R.drawable.start)));
+ 					
+ 			new GMapGeocoderInverter(mapa,UPV);
+ 		 //mapa.addMarker(new MarkerOptions().position(UPV).title("Ubicacion").snippet(d)
+  			//  .icon(BitmapDescriptorFactory.fromResource(R.drawable.start)));
+     		}catch(Exception e){
+     			Toast.makeText(getApplicationContext(),"No se ha seleccionado ningun marcador", Toast.LENGTH_LONG).show();
+     		}
 			 }
 			 }
 		public static void resulgascer(String d){
 			gasprox="verdadero";
 			
-		 try{  				
-				
+		 try{  		
+			 if (!d.equals("mi ubicacion")){
+			 mapa.addMarker(new MarkerOptions().position(UPV).title("Ubicacion").snippet(d)
+		  			 .icon(BitmapDescriptorFactory.fromResource(R.drawable.start)));}
 			// UPV= new LatLng(mapa.getMyLocation().getLatitude(),mapa.getMyLocation().getLongitude());
 		        		         Toast.makeText(mContext,"pulse marcador para informacion o calcular ruta", Toast.LENGTH_LONG).show();
 		  new GMapV2GasProx(mContext,mapa,UPV);
