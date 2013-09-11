@@ -1,15 +1,18 @@
 package com.androidmobile.JR;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import java.util.concurrent.ExecutionException;
 
 import com.androidmobile.bd.BdGas;
+import com.androidmobile.map.GMapGeocoderInverter;
 import com.androidmobile.map.utility;
 import com.androidmobile.model.Favoritos;
 import com.google.ads.AdRequest;
 import com.google.ads.AdSize;
 import com.google.ads.AdView;
+import com.google.android.gms.maps.model.LatLng;
 
 import android.os.Bundle;
 import android.annotation.SuppressLint;
@@ -23,6 +26,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -127,6 +131,7 @@ public class MainActivity extends Activity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
+
 
 	public void loadDialog(String titulo,String valor) {
 		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
