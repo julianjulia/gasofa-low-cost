@@ -43,7 +43,9 @@ public class MainActivity extends Activity {
 	WebView webview;
 	boolean salir = true;
 	private static final String HTML_ROOT = "file:///android_asset/www/";
-
+	private static final String JAVASCRIPT = "javascript:";
+	private static final String BRC_OPEN = "('";
+	private static final String BRC_CLOSE = "')";
 	@SuppressLint("SetJavaScriptEnabled")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -111,12 +113,15 @@ public class MainActivity extends Activity {
 					+ "svn: http://gasofa-low-cost.googlecode.com/svn/trunk")	;
 			return true;
 		case R.id.GasProx:
-			
+			/*
 			Intent intent = new Intent(MainActivity.this, MapActivity.class);
 			Bundle bundle = new Bundle();
 			bundle.putString("gas","falso");
 			intent.putExtras(bundle);
 			startActivity(intent);
+			*/
+			
+			webview.loadUrl(JAVASCRIPT + "irMenOrd" + BRC_OPEN + BRC_CLOSE);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
