@@ -65,7 +65,7 @@ public class GMapV2Direction {
     			protected void onPreExecute() {
     				pd = new ProgressDialog(mContext);
     				//pd.setTitle("Procesando Datos...");
-    				pd.setMessage("Espere...");
+    				pd.setMessage("Espere...                    ");
     				pd.setCancelable(false);
     				pd.setIndeterminate(true);
     				pd.show();
