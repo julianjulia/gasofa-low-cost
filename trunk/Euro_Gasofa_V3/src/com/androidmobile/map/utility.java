@@ -89,7 +89,7 @@ public class utility {
 			protected void onPreExecute() {
 				pd = new ProgressDialog(mContext);
 				//pd.setTitle("Procesando Datos...");
-				pd.setMessage("Espere...");
+				pd.setMessage("Espere...                    ");
 				pd.setCancelable(false);
 				pd.setIndeterminate(true);
 				pd.show();
@@ -225,7 +225,7 @@ public class utility {
 			
 				pd = new ProgressDialog(mContext);
 				//pd.setTitle("Procesando Datos...");
-				pd.setMessage("Espere...");
+				pd.setMessage("Espere...                    ");
 				pd.setCancelable(false);
 				pd.setIndeterminate(true);
 				pd.show();
