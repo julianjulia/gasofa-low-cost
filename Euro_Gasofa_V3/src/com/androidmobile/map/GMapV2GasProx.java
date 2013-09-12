@@ -30,11 +30,16 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 
 
+@TargetApi(Build.VERSION_CODES.FROYO)
+@SuppressLint("NewApi")
 public class GMapV2GasProx {
 	GoogleMap mapa;
 	private Context mContext;	
@@ -69,7 +74,7 @@ public class GMapV2GasProx {
 				
 				pd = new ProgressDialog(mContext);
 				//pd.setTitle("Procesando Datos...");
-				pd.setMessage("Espere...");
+				pd.setMessage("Espere...                    ");
 				pd.setCancelable(false);
 				pd.setIndeterminate(true);
 				pd.show();
