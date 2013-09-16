@@ -111,7 +111,7 @@ public class MainActivity extends Activity {
 			return true;
 		case R.id.help:
 			
-			loadDialog("€ Gasofa V 1.0","Desarrollado"
+			loadDialog("€ Gasofa V 1.0.3","Desarrollado"
 					+ " por J.R.  " 
 					+ "email: jrmh@ya.com  "
 					+ "svn: http://gasofa-low-cost.googlecode.com/svn/trunk")	;
