@@ -104,7 +104,6 @@ public class utility {
 					URLConnection cnn = url.openConnection();
 					br = new BufferedReader(new InputStreamReader(
 							cnn.getInputStream()));
-
 					String text;
 					String rdo = "";
 					String nombre = "";
@@ -118,6 +117,7 @@ public class utility {
 					while ((text = br.readLine()) != null) {
 						rdo += text;
 					}
+					br.close();								//añadido 13/09/2013
 					int pos = rdo.indexOf("<td>");
 					String distancia;
 					int pos2;
@@ -176,6 +176,7 @@ public class utility {
 							+ ex.getMessage() + BRC_CLOSE);
 					webview.loadUrl(HTML_ROOT + "indexGas.html");
 				}
+				try{
 				BdGas bdgas = new BdGas(mContext);
 				bdgas.writerBdGas(alg);
 				ArrayList<Gasolinera> algOrder = bdgas.readBdGas(null);
@@ -186,21 +187,32 @@ public class utility {
 					webview.loadUrl(HTML_ROOT + "indexGas.html");
 				}
 				return json;
-
+				}catch(Exception e){
+					webview.loadUrl(JAVASCRIPT + "showToast" + BRC_OPEN
+							+ "Problema de conexion al Servidor" + BRC_CLOSE);
+					webview.loadUrl(HTML_ROOT + "indexGas.html");
+				}
+				return EMPTY_GSOLIN_LIST;
 			}
 
 			@Override
 			protected void onPostExecute(String json) {
+				try{
 				Log.i("onpostexecute", json);
 				
 				webview.loadUrl(JAVASCRIPT + "setRestList" + BRC_OPEN + json
 						+ BRC_CLOSE);
+				}catch(Exception e){
+					Log.i("err", e.getMessage());
+				}	
+				/*
 				try {
 					Thread.sleep(500);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				*/
 				pd.dismiss();
 
 			}
@@ -255,12 +267,14 @@ public class utility {
 				
 				webview.loadUrl(JAVASCRIPT + "setRestList" + BRC_OPEN + json
 						+ BRC_CLOSE);
+				
 				try {
 					Thread.sleep(500);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			
 				pd.dismiss();
 			}
 		}
