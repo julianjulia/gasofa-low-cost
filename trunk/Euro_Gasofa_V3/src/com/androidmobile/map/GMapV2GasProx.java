@@ -57,7 +57,7 @@ public class GMapV2GasProx {
 			lon=UPV.longitude;
 			
 		  url="https://maps.googleapis.com/maps/api/place/textsearch/"
-					+"xml?location="+lat+","+lon+"&query=gasolineras&radius=2000&sensor=true&key=AIzaSyBbew32IyIjmhVtRqOuw1VDVeESwyJUMjk";
+					+"xml?location="+lat+","+lon+"&query=gasolinera&radius=2000&sensor=true&key=AIzaSyBbew32IyIjmhVtRqOuw1VDVeESwyJUMjk";
 		  
 		  new taskgasP().execute();
 	   }
