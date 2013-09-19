@@ -1,0 +1,422 @@
+<html title="gasofa">
+<head>
+<link rel="stylesheet" href="css-js/jquery.mobile-1.0a4.1.css" />
+<script type="text/javascript" src="css-js/jquery-1.7.1.js"></script>
+<script type="text/javascript" src="css-js/jquery.mobile-1.0a4.1.js"></script>
+<link rel="stylesheet" href="css-js/Stile.css" />
+</head>
+<body>
+	<div data-role="page" data-theme="c" id="containerPage2">
+		<div data-role="header"></div>
+		<div data-role="content">
+
+			<h4>Encuentra las gasolineras más baratas de España</h4>
+			<h6>Escribe una ciudad, pueblo, provincia…</h6>
+			
+			<table>
+				<tr>
+					<td><input style="opacity: 0.7;" data-clear-btn="true"
+						name="poblacion" placeholder="introduzca localidad..."
+						id="poblacion" value="" type="text" /></td>
+					<td><a  href="#" id="LeerGas" align="right" style="text-decoration: none;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<img style="opacity:0.5;"src="img/buscar.png" align="right" /></a></td>
+				</tr>
+			</table>
+			<p />
+			&nbsp
+			<p />
+			<div id="notationFavOR">
+				<ul style="opacity: 0.7;" data-role="listview" data-inset="true"
+					id="listaFav">
+					<li ><a href="#" id="bfav" style="background-color: red; color:white;font-size: 14px ">Favoritos</a></li>
+
+				</ul>
+			</div>
+			<div id="OrdResultados">
+				<ul style="opacity: 0.7;" data-role="listview" data-inset="true"
+					id="listaFav">
+					<li ><a href="javascript:irMenOrd();" id="Ores" style="background-color:orange;color:white;font-size: 14px ">Ordenar
+							Resultados</a></li>
+				</ul>
+			</div>
+			<div id="listaGasc">
+				<ul style="opacity: 0.7;" data-role="listview" data-inset="true"
+					id="listaFav">
+					<li ><a href="javascript:GasCerca();" id="Lres" style="background-color:green;color:white;font-size: 14px ">Gasolineras
+							Cercanas</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<div data-role="footer"></div>
+	</div>
+
+	<div data-role="page" data-theme="c" id="favoritosPage">
+		<div data-role="header" data-nobackbtn="false"></div>
+		<div data-role="content" data-theme="c">
+		<div align="center"><h3>Lista Favoritos</h3></div>
+		<div id="divFav">	
+			<ul style="opacity:0.7;" data-role="listview" data-inset="true" id="listaFav" >
+				<li style='background:#d2d2d2'><table><tr><td><a href="javascript:addFav(1);" data-role="button"	data-icon="plus" data-mini="true" data-inline="true"/></td><td><a href="javascript:minFav(1);" data-role="button" data-icon="delete" data-mini="true" data-inline="true"/></td><td><a  href="javascript:irFav(1);" style="text-decoration: none;"id="fav1">-----</a></td></tr></table></li>
+				<li> <table><tr><td><a href="javascript:addFav(2);" data-role="button"	data-icon="plus" data-mini="true" data-inline="true"/></td><td><a href="javascript:minFav(2);" data-role="button" data-icon="delete" data-mini="true" data-inline="true"/></td><td><a href="javascript:irFav(2);" style="text-decoration: none;" id="fav2">-----</a></td></tr></table></li>
+				<li style='background:#d2d2d2'> <table ><tr><td><a href="javascript:addFav(3);" data-role="button"	data-icon="plus" data-mini="true" data-inline="true"/></td><td><a href="javascript:minFav(3);" data-role="button" data-icon="delete" data-mini="true" data-inline="true"/></td><td><a href="javascript:irFav(3);" style="text-decoration: none;" id="fav3">-----</a></td></tr></table></li>
+				<li> <table><tr><td><a href="javascript:addFav(4);" data-role="button"	data-icon="plus" data-mini="true" data-inline="true"/></td><td><a href="javascript:minFav(4);" data-role="button" data-icon="delete" data-mini="true" data-inline="true"/></td><td><a href="javascript:irFav(4);" style="text-decoration: none;" id="fav4">-----</a></td></tr></table></li>
+				<li style='background:#d2d2d2'> <table ><tr><td><a href="javascript:addFav(5);" data-role="button"	data-icon="plus" data-mini="true" data-inline="true"/></td><td><a href="javascript:minFav(5);" data-role="button" data-icon="delete" data-mini="true" data-inline="true"/></td><td><a href="javascript:irFav(5);" style="text-decoration: none;" id="fav5">-----</a></td></tr></table></li>
+				
+			</ul>
+		</div>
+		</div>
+		<div data-role="footer" data-theme="c"></div>
+	</div>
+	
+	<div data-role="page" data-theme="c" id="ordenarPage">
+		<div data-role="header" data-nobackbtn="false"></div>
+		<div data-role="content" data-theme="c">
+			<div id="notationOrd">
+				<div align="center">
+					<h3>Ordenar Resultados por:</h3>
+				</div>
+				<ul style="opacity: 0.7;" data-role="listview" data-inset="true"
+					id="listaOrd">
+					<li><a href="javascript:irOrd('gasoleo');" id="order1" style="font-size: 14px">gasoleo</a></li>
+					<li style='background: #d2d2d2'><a
+						href="javascript:irOrd('gasolina95');" id="order2" style="font-size: 14px">gasolina 95</a></li>
+					<li><a href="javascript:irOrd('gasolina98');" id="order3" style="font-size: 14px">gasolina
+							98</a></li>
+					<li style='background: #d2d2d2'><a
+						href="javascript:irOrd('provincia');" id="order4" style="font-size: 14px">provincia</a></li>
+					<li><a href="javascript:irOrd('localidad');" id="order5" style="font-size: 14px">localidad</a></li>
+					<li style='background: #d2d2d2'><a
+						href="javascript:irOrd('distancia');" id="order1" style="font-size: 14px"> distancia</a></li>
+					
+				</ul>
+			</div>
+		</div>
+		<div data-role="footer" data-theme="c"></div>
+	</div>
+
+	<div data-role="page" data-theme="c"  id="pageResultados">
+		<div data-role="header" ></div>
+		<div data-role="content" >
+		
+			<div id="notation">
+			<ul style="opacity:0.7;" data-role="listview" data-inset="true" id="lista">
+			</ul>
+		</div>
+				
+		</div>
+		
+		<div data-role="footer" data-theme="c"></div>
+	</div>
+
+
+	<script>
+		$(document).ready(function() {
+
+			$("#prueba").click(
+					function(e) {
+						var valor= $('#poblacion').val();
+						valor=valor.toLowerCase().trim();
+						valor=replaceAll( valor, " ", "_" );
+						valor= buscarCiudad(valor)	;
+						$.mobile.changePage($('#pageResultados'),'slide');
+						androidSupport.loadToast("prueba");
+						
+															
+					});
+			
+			
+			$("#LeerGas").click(
+					function(e) {
+						$.mobile.changePage($('#pageResultados'),'slide');
+						var valor= $('#poblacion').val();
+						valor=valor.toLowerCase().trim();
+						valor=replaceAll( valor, " ", "_" );
+						valor= buscarCiudad(valor)	;
+							//$("#lista").html('');
+							//$('#lista').listview('refresh');
+							setRestList(androidSupport.leerGasolineras(valor,null));
+						
+						
+					});
+			
+			
+			$("#bfav").click(
+						function(e) {
+							$.mobile.changePage($('#favoritosPage'),'slide');
+							setResFav();	
+							
+																
+						});
+
+		});
+		
+		
+		
+		function irfavoritos() {			
+			$.mobile.changePage($('#favoritosPage'), 'slide');
+			setResFav();
+			$('#lFav').listview('refresh');
+			$('#listaFav').listview('refresh');
+		}
+		
+		function GasCerca() {
+			androidSupport.GasCercanas();
+		}
+
+		function showToast(valor) {
+			androidSupport.loadToast(valor);
+		}
+
+		function addFav(valor) {
+			androidSupport.writeBDFavoritos($("#poblacion").val(), valor);
+			setResFav();
+		}
+
+		function minFav(valor) {
+			androidSupport.writeBDFavoritos("-----", valor);
+			setResFav();
+		}
+
+		function irFav(varFavoritos) {			
+			$.mobile.changePage($('#containerPage2'),'pop'  );
+			if(varFavoritos==0){
+				$("#poblacion").val('');	
+			}else{
+			$("#poblacion").val($('#fav'+varFavoritos).html());
+			}
+			$('#listaOrd').listview('refresh');			
+			$('#listaFav').listview('refresh');
+		}
+		
+		
+		function irMenOrd() {
+			androidSupport.refrescar();
+			$.mobile.changePage($('#ordenarPage'), 'slide');
+			$('#listaOrd').listview('refresh');
+			$('#listaFav').listview('refresh');
+		}
+
+		function irOrd(varOrden) {
+			$.mobile.changePage($('#pageResultados'),'slide');
+			$('#listaFav').listview('refresh');
+			$('#listaOrd').listview('refresh');
+			setRestList(androidSupport.leerGasolineras($('#poblacion').val(),
+					varOrden));
+
+		}
+			
+		function setResFav() {
+			var favJson = androidSupport.loadFav();
+			var data = JSON.parse(favJson);
+
+			for ( var i in data.listaFavoritos) {
+				var idt = '#fav' + data.listaFavoritos[i].pos;
+				$(idt).html(data.listaFavoritos[i].nombre);
+				}
+			
+			$('#listaFav').listview('refresh');		
+			$('#listaOrd').listview('refresh');			
+
+		}
+
+		function buscarCiudad(valor) {
+			valor = quitaacentos(valor);
+			switch (valor) {
+			case 'albacete':
+				valor = 'albacete:34859';
+				break;
+			case 'alicante':
+				valor = 'alicante:35025';
+				break;
+			case 'almeria':
+				valor = 'almeria:35289';
+				break;
+			case 'avila':
+				valor = 'avila:36043';
+				break;
+			case 'barcelona':
+				valor = 'barcelona:36411';
+				break;
+			case 'burgos':
+				valor = 'burgos:36863';
+				break;
+			case 'badajoz':
+				valor = 'badajoz:36195';
+				break;
+			case 'caceres':
+				valor = 'caceres:37216';
+				break;
+			case 'cadiz':
+				valor = 'cadiz:37436';
+				break;
+			case 'ceuta':
+				valor = 'ceuta:38012';
+				break;
+			case 'ciudad real':
+				valor = 'ciudad_real:38055';
+				break;
+			case 'cordoba':
+				valor = 'cordoba:38165';
+				break;
+			case 'cuenca':
+				valor = 'cuenca:38380';
+				break;
+			case 'girona':
+				valor = 'girona:38627';
+				break;
+			case 'granada':
+				valor = 'granada:38940';
+				break;
+			case 'guadalajara':
+				valor = 'guadalajara:39174';
+				break;
+			case 'huelva':
+				valor = 'huelva:39491';
+				break;
+			case 'huesca':
+				valor = 'huesca:39696';
+				break;
+			case 'jaen':
+				valor = 'jaen:40061';
+				break;
+			case 'las palmas':
+				valor = 'las_palmas:40384';
+				break;
+			case 'leon':
+				valor = 'leon:40692';
+				break;
+			case 'lleida':
+				valor = 'lleida:41230';
+				break;
+			case 'lugo':
+				valor = 'lugo:41495';
+				break;
+			case 'madrid':
+				valor = 'madrid:41716';
+				break;
+			case 'malaga':
+				valor = 'malaga:41902';
+				break;
+			case 'melilla':
+				valor = 'melilla:41960';
+				break;
+			case 'murcia':
+				valor = 'murcia:42100';
+				break;
+			case 'orense':
+				valor = 'orense:42656';
+				break;
+			case 'palencia':
+				valor = 'palencia:42845';
+				break;
+			case 'pontevedra':
+				valor = 'pontevedra:43169';
+				break;
+			case 'san sebastian':
+				valor = 'san_sebastian:39393';
+				break;
+			case 'salamanca':
+				valor = 'salamanca:43481';
+				break;
+			case 'sevilla':
+				valor = 'sevilla:44049';
+				break;
+			case 'segovia':
+				valor = 'segovia:43898';
+				break;
+			case 'soria':
+				valor = 'soria:44185';
+				break;
+			case 'tarragona':
+				valor = 'tarragona:44421';
+				break;
+			case 'teruel':
+				valor = 'teruel:44590';
+				break;
+			case 'toledo':
+				valor = 'toledo:44801';
+				break;
+			case 'valencia':
+				valor = 'valencia:45079';
+				break;
+			case 'vigo':
+				valor = 'vigo:43246';
+				break;
+			case 'zamora':
+				valor = 'zamora:45762';
+				break;
+			case 'valladolid':
+				valor = 'valladolid:45269';
+				break;
+			case 'zaragoza':
+				valor = 'zaragoza:46030';
+				break;
+			default:
+				valor = valor;
+			}
+			return valor;
+		}
+		function replaceAll(text, busca, reemplaza) {
+			while (text.toString().indexOf(busca) != -1)
+				text = text.toString().replace(busca, reemplaza);
+			return text;
+		}
+		function quitaacentos(t) {
+			á = "a";
+			é = "e";
+			í = "i";
+			ó = "o";
+			ú = "u";
+			ñ = "n";
+			ä = "a";
+			ë = "e";
+			ï = "i";
+			ö = "o";
+			ü = "u";
+			acentos = /[áéíóúñäëïöü]/g;
+			return t.replace(acentos, function($1) {
+				return eval($1)
+			})
+		}
+		
+		function showRest(nombre,direccion) {
+			androidSupport.EscribirBD(nombre,direccion);
+		}
+		
+		function setRestList(jsonText) {
+			var data = JSON.parse(jsonText);
+			$("#lista").html('');
+			for ( var i in data.listagasolineras) {
+				if (i%2==0){
+					output = '<li id="ligas" ><a href="javascript:showRest('+"'"+data.listagasolineras[i].nombre+"','"+data.listagasolineras[i].direccion+" "+data.listagasolineras[i].localidad +"'"+');"><table width="100%" style="font-size: 10px;font-family:verdana"><tr><td width="50%">'
+					
+				}else{
+					output = '<li id="ligas" style="background:#d2d2d2"><a href="javascript:showRest('+"'"+data.listagasolineras[i].nombre+"','"+data.listagasolineras[i].direccion+" "+data.listagasolineras[i].localidad +"'"+');"><table width="100%" style="font-size: 10px;font-family:verdana"><tr><td width="50%">'
+					
+				}
+				output=output + data.listagasolineras[i].localidad + '</td><td width="50%">'
+				+ data.listagasolineras[i].provincia
+				+ '</td></tr><tr><td colspan="2" width="100%">'
+				+ data.listagasolineras[i].direccion
+				+ '</td></tr><tr><td width="50%">distancia:</td><td width="50%">'
+				+ data.listagasolineras[i].distancia
+				+ ' Km'+'</td></tr><tr><td width="50%">nombre:</td><td width="50%">'
+				+ data.listagasolineras[i].nombre
+				+ '</td></tr><tr><td width="50%">gasoleo:</td><td width="50%">'
+				+ data.listagasolineras[i].gasoleo
+				+ '</td></tr><tr><td width="50%">gasolina95:</td><td width="50%">'
+				+ data.listagasolineras[i].gasolina95
+				+ '</td></tr><tr><td width="50%">gasolina98:</td><td width="50%">'
+				+ data.listagasolineras[i].gasolina98
+				+ '</td></tr></table></a></li>';
+		$('#lista').append(output);
+			}
+
+			$('#lista').listview('refresh');
+			
+
+		}
+		
+	</script>
+</body>
+</html>
