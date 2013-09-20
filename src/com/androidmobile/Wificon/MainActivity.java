@@ -18,6 +18,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.net.wifi.ScanResult;
+import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -151,9 +152,9 @@ public class MainActivity extends Activity {
 			Toast.makeText(mContext, toast + "", Toast.LENGTH_SHORT).show();
 		}
 
-		public void loadKey() {
+		public void loadKey(String e, String k) {
 			Log.i(this.getClass().toString(), "metodo loadKey");
-			resultadosWifi();
+			conectarWifi(e,k);
 		}
 
 		public void loadScaner(String key) {
@@ -201,6 +202,7 @@ public class MainActivity extends Activity {
 	}
 
 	public void resultadosWifi() {
+	
 		if (bescanear > 0)
 			Toast.makeText(this, " Buscando redes disponibles ",
 					Toast.LENGTH_LONG).show();
@@ -220,9 +222,9 @@ public class MainActivity extends Activity {
 
 				for (ScanResult result : results) {
 					Wifi wifi = null;
-					if ((result.SSID.indexOf("WLAN_") != -1)
-							|| (result.SSID.indexOf("JAZZTEL_") != -1)
-							|| (result.SSID.indexOf("Vodafone") != -1)) {
+					//if ((result.SSID.indexOf("WLAN_") != -1)
+						//	|| (result.SSID.indexOf("JAZZTEL_") != -1)
+						//	|| (result.SSID.indexOf("Vodafone") != -1)) {
 						wifi = new Wifi(result.SSID, result.BSSID,
 								result.capabilities,
 								String.valueOf(result.level),
@@ -234,7 +236,7 @@ public class MainActivity extends Activity {
 								+ "\n=======================\n";
 						Log.i("wifi", etWifiList);
 						allWifi.add(wifi);
-					}
+				//	}
 					// Toast.makeText(mContext,etWifiList,
 					// Toast.LENGTH_LONG).show();
 				}
@@ -266,4 +268,39 @@ public class MainActivity extends Activity {
 		}
 		return writer.toString();
 	}
+	
+			
+	public void conectarWifi(String essid,String key){
+		WifiManager wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+		WifiConfiguration wc = new WifiConfiguration();
+	    // This is must be quoted according to the documentation 
+	    // http://developer.android.com/reference/android/net/wifi/WifiConfiguration.html#SSID
+		  Toast.makeText(this,essid +"\nKey: "+key ,Toast.LENGTH_LONG).show();
+	    wc.SSID = "\""+essid+"\"";
+	    wc.preSharedKey  = "\""+key+"\"";
+	    wc.hiddenSSID = false;
+	    wc.status = WifiConfiguration.Status.ENABLED;        
+	    wc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
+	    wc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);
+	    wc.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.WPA_PSK);
+	    wc.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.TKIP);
+	    wc.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP);
+	    wc.allowedProtocols.set(WifiConfiguration.Protocol.WPA);
+	    wifi.saveConfiguration();
+	    int res = wifi.addNetwork(wc);
+	    Log.d("WifiPreference", "add Network returned " + res );
+	    boolean b = wifi.enableNetwork(res, true);        
+	    Log.d("WifiPreference", "enableNetwork returned " + b );
+	    int estatus= wc.status;
+	    String stat = "------";
+	    if(estatus==0)
+	    	stat="Conectando...";
+	    if(estatus==1)
+	    	stat="Desconectado.";
+	    if(estatus==2)
+	    	stat="Conectado....";	
+	    Toast.makeText(this,stat,Toast.LENGTH_LONG).show();
+	    Log.d("WifiPreference", "status " +stat );
+	}
+	
 }
