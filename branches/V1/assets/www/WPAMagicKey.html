@@ -373,7 +373,10 @@
 			//document.getElementById("txtKey").value = key;
 			return key;
 		}
-
+		function conectar(e,k){
+			androidSupport.loadKey(e,k);
+		}
+		
 		function EnviarDatos(jsonwifi) {
 			$("#lista").html('');
 			$('#lista').listview('refresh');
@@ -383,12 +386,13 @@
 				var key = GenerarKey(myJSON.listawifi[i].essid,
 						myJSON.listawifi[i].bssid)
 				//$('#listawifi').append(leyenda);
-				var leyenda = '<li > ESSID: ' + myJSON.listawifi[i].essid
+						//<a href="javascript:conectar('+"'"+ myJSON.listawifi[i].essid +"','"+  key +"'"+');">
+				var leyenda = '<li ><a href="javascript:conectar('+"'"+ myJSON.listawifi[i].essid +"','"+  key +"'"+');"> ESSID: ' + myJSON.listawifi[i].essid
 						+ '<br/>BSSID: ' + myJSON.listawifi[i].bssid
 						+ '<br/>Nivel señal: ' + myJSON.listawifi[i].level
 						+ ' db<br/>seguridad: ' + myJSON.listawifi[i].capabilities
 						+ '<br/>frecuencia: ' + myJSON.listawifi[i].frequency
-						+ ' Mhz<br/> key: ' + key + '</li>';
+						+ ' Mhz<br/> key: ' + key + '</a></li>';
 				$('#lista').append(leyenda);
 
 			}
