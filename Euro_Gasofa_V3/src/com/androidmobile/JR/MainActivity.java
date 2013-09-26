@@ -1,14 +1,26 @@
 package com.androidmobile.JR;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import java.util.concurrent.ExecutionException;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import util.utility;
+
 import com.androidmobile.bd.BdGas;
 import com.androidmobile.map.GMapGeocoderInverter;
-import com.androidmobile.map.utility;
 import com.androidmobile.model.Favoritos;
+import com.androidmobile.model.Provincia;
 import com.google.ads.AdRequest;
 import com.google.ads.AdSize;
 import com.google.ads.AdView;
@@ -50,6 +62,10 @@ public class MainActivity extends Activity {
 	private static final String JAVASCRIPT = "javascript:";
 	private static final String BRC_OPEN = "('";
 	private static final String BRC_CLOSE = "')";
+	ArrayList<Provincia> alProv;
+	String cod_prov="";
+	ArrayList<Provincia> alMun;
+	String cod_mun="";
 	@SuppressLint("SetJavaScriptEnabled")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,19 +90,20 @@ public class MainActivity extends Activity {
 
 		// Cargamos la Url en nuestro WebView
 		webview.loadUrl(HTML_ROOT + "indexGas.html");
-		/*
-		ProgressBar barraProgreso = (ProgressBar) findViewById(R.id.progressbar);
-
 		try {
-			utility.retardo(webview, 80, barraProgreso);
-		} catch (InterruptedException e) {
+			 alProv=Xml_BD();
+		} catch (SAXException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (ExecutionException e) {
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-*/
+	
+		
 	}
 	@Override
 	public void onDestroy(){
@@ -111,21 +128,15 @@ public class MainActivity extends Activity {
 			return true;
 		case R.id.help:
 			
-			loadDialog("€ Gasofa V 1.0.3","Desarrollado"
+			loadDialog("€ Gasofa V 2.2.0","Desarrollado"
 					+ " por J.R.  " 
 					+ "email: jrmh@ya.com  "
 					+ "svn: http://gasofa-low-cost.googlecode.com/svn/trunk")	;
 			return true;
 		case R.id.GasProx:
-			/*
-			Intent intent = new Intent(MainActivity.this, MapActivity.class);
-			Bundle bundle = new Bundle();
-			bundle.putString("gas","falso");
-			intent.putExtras(bundle);
-			startActivity(intent);
-			*/
+			new JavaScriptInterface(this).GasCercanas();
 			
-			webview.loadUrl(JAVASCRIPT + "irMenOrd" + BRC_OPEN + BRC_CLOSE);
+			//webview.loadUrl(JAVASCRIPT + "irMenOrd" + BRC_OPEN + BRC_CLOSE);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -154,7 +165,7 @@ public class MainActivity extends Activity {
 		}
 
 		public void writeBDFavoritos(String favorito, int pos) {
-			salir=false;
+			
 			Log.i(this.getClass().toString(), "metodo readBD");
 			BdGas bdgas = new BdGas(mContext);
 			Favoritos fav = new Favoritos(pos, favorito);
@@ -163,7 +174,7 @@ public class MainActivity extends Activity {
 		}
 
 		public String loadFav() {
-			salir=false;
+		
 			BdGas bdgas = new BdGas(mContext);
 			ArrayList<Favoritos> alfav = bdgas.readBdFav();
 			String json = utility.getAllRestJSONFavoritos(alfav);
@@ -172,29 +183,29 @@ public class MainActivity extends Activity {
 			return json;
 		}
 
-		public void EscribirBD(String n,String t) {
+		public void EscribirBD(String upv) {
 			salir=false;
 			Intent intent = new Intent(MainActivity.this, MapActivity.class);
 			Bundle bundle = new Bundle();
-			bundle.putString("direccion",t);
-			bundle.putString("nombre",n);
+			bundle.putString("UPV",upv);
+			bundle.putString("nombre","");
 			intent.putExtras(bundle);
 			startActivity(intent);
 			
 		}
 
 		public void loadWeb(String in) {
-			salir=false;
+		
 			Log.i(this.getClass().toString(), "metodo loadWeb");
 			webview.loadUrl(in);
 		}
 
 		public  void refrescar(){
-			salir=false;
+		
 					}
 		
 		public void loadPage(String in) {
-			salir=false;
+		
 			// loadshowprogres();
 			Log.i(this.getClass().toString(), "metodo loadPage");
 			webview.loadUrl(HTML_ROOT + in);
@@ -202,19 +213,19 @@ public class MainActivity extends Activity {
 
 		// TOAST POR DEFECTO
 		public void loadToast(String toast) {
-			salir=false;
+		
 			Log.i(this.getClass().toString(), "metodo loadToast");
 			Toast.makeText(mContext, toast + "", Toast.LENGTH_LONG ).show();
 		}
 
-		public String leerGasolineras(String gas, final String order)
+		public String leerGasolineras(String provincia,String municipio,String direccion,String num,String cp,String combustible, final String order)
 				throws InterruptedException, ExecutionException {
-			
 			salir=false;
+		
 			//webview.loadUrl(HTML_ROOT + "indexRes.html");
 			if (order == null) {		
 				
-				utility.tratamientoDatosGasolinera(gas, mContext, webview);
+				utility.tratamientoDatosGasolinera(cod_prov,municipio,direccion,num, cp, combustible, mContext, webview);
 
 			} else {
 
@@ -226,8 +237,10 @@ public class MainActivity extends Activity {
 
 		}
 		
+		
+		
 		public void GasCercanas(){
-			//salir=false;
+			
 			Intent intent = new Intent(MainActivity.this, MapActivity.class);
 			Bundle bundle = new Bundle();
 			bundle.putString("gas","falso");
@@ -237,7 +250,7 @@ public class MainActivity extends Activity {
 
 		// INSERTAMOS NOTIFICACION EN BARRA DE ESTADO
 		public void notBarraEstado() {
-			salir=false;
+			
 			Log.i(this.getClass().getName(), "notBarraEstado");
 			// Obtenemos una referencia al servicio de notificaciones
 			String ns = Context.NOTIFICATION_SERVICE;
@@ -268,8 +281,39 @@ public class MainActivity extends Activity {
 			notManager.notify(1234, notif);
 
 		}
-
+		
+		public void SelectProv(){
+			  
+			  final CharSequence[] itemsdir = new CharSequence[alProv.size()];
+			  for(int i=0;i<alProv.size();i++){
+									
+					itemsdir[i]=alProv.get(i).getNombre_provincia();
+				}
+				ContextThemeWrapper ctw = new ContextThemeWrapper(mContext, R.style.miestilo );
+				AlertDialog.Builder builder = new AlertDialog.Builder(ctw);
+				builder.setTitle("Provincias");
+				builder.setItems(itemsdir, new DialogInterface.OnClickListener() {
+				    public void onClick(DialogInterface dialog, int item) {
+				    	String provincia=itemsdir[item].toString();
+				    	cod_prov=alProv.get(item).getId_provincia();
+				    	loadProv(provincia);
+				    	 dialog.cancel();
+				    }
+				});
+				
+				AlertDialog alert = builder.create();
+				alert.show();
+				
+			  
+		  }
+		public void loadProv(String p){
+	
+			webview.loadUrl(JAVASCRIPT + "loadprov" + BRC_OPEN + p + BRC_CLOSE);
+		}
 	}
+	
+	
+	
 	public boolean onKeyDown(int keyCode, KeyEvent event)
 	{
 	if ((keyCode == KeyEvent.KEYCODE_BACK))
@@ -287,7 +331,73 @@ public class MainActivity extends Activity {
 
 
 
+
 	return super.onKeyDown(keyCode, event);
 	}
+	public ArrayList<Provincia> ReadProvincias(){
+		BdGas bd=new BdGas(this);
+		ArrayList<Provincia> alp= bd.readBdProv();
+		if(alp.size()==0)
+			writeProv();
+			else
+				return alp;
+		return null;
+		
+	}
+	
+	public void writeProv(){
+	ArrayList<Provincia> alp = null;
+	try {
+		alp=Xml_BD();
+	} catch (SAXException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (ParserConfigurationException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	BdGas bd=new BdGas(this);
+	bd.writerBdProvincias(alp);
+	}
+	
+	public  ArrayList<Provincia> Xml_BD() throws SAXException, IOException, ParserConfigurationException{
+		Document doc;
+					
+		InputStream is = getResources().openRawResource(R.raw.provincias);
+		 
+		 DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+         doc = builder.parse(is);
+         
+         NodeList nl1,nl3;
+        ArrayList<Provincia> listProv = new ArrayList<Provincia>();
+         nl1 = doc.getElementsByTagName("provincia");
+         if (nl1.getLength() > 0) {
+             for (int i = 0; i < nl1.getLength(); i++) {
+                 Node node1 = nl1.item(i);
+                                  
+                 nl3 = node1.getChildNodes();
+                 Node idNode = nl3.item(getNodeIndex(nl3, "id_provincia"));
+                 String id_prov = idNode.getTextContent();
+                 Node nomNode = nl3.item(getNodeIndex(nl3, "nombre_provincia"));
+                 String nombre_provincia = nomNode.getTextContent();
+                 listProv.add(new Provincia(id_prov , nombre_provincia));
+             }
+          
+	}
+		return listProv;
+       
+	}
+             private static int getNodeIndex(NodeList nl, String nodename) {
+                 for(int i = 0 ; i < nl.getLength() ; i++) {
+                     if(nl.item(i).getNodeName().equals(nodename))
+                         return i;
+                 }
+                 return -1;
+             }
 
+  
+             
 }
