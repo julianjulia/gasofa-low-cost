@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.androidmobile.model.Favoritos;
 import com.androidmobile.model.Gasolinera;
+import com.androidmobile.model.Provincia;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -12,7 +13,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class BdGas {
 
-	public GasSQLiteHelper usdbh = null;
+	public static GasSQLiteHelper usdbh = null;
 
 	public BdGas(Context contexto) {
 
@@ -26,11 +27,15 @@ public class BdGas {
 			if (dbw != null) {
 				dbw.delete("Gas", null, null);
 				for (Gasolinera g : alGas) {
-					dbw.execSQL("INSERT INTO Gas (direccion, distancia,gasoleo,gasolina95,gasolina98,localidad,nombre,provincia) "
+					dbw.execSQL("INSERT INTO Gas (UPV,direccion, fecha,horario,gasoleo,gasolina95,gasolina98,localidad,nombre,provincia) "
 							+ "VALUES ('"
+							+ g.getUPV()
+							+ "', '"
 							+ g.getDireccion()
 							+ "', '"
-							+ g.getDistancia()
+							+ g.getFecha()
+							+ "', '"
+							+ g.getHorario()
 							+ "', '"
 							+ g.getGasoleo()
 							+ "', '"
@@ -42,7 +47,8 @@ public class BdGas {
 							+ "', '"
 							+ g.getNombre()
 							+ "', '"
-							+ g.getProvincia() + "')");
+							+ g.getProvincia() 
+							+ "')");
 
 				}
 
@@ -90,8 +96,8 @@ public class BdGas {
 		ArrayList<Gasolinera> algas = new ArrayList<Gasolinera>();
 		SQLiteDatabase dbr = usdbh.getReadableDatabase();
 		try {
-			String[] campos = new String[] { "distancia", "nombre",
-					"direccion", "localidad", "provincia", "gasolina95",
+			String[] campos = new String[] {"UPV", "fecha", "nombre",
+					"direccion", "localidad", "provincia", "horario","gasolina95",
 					"gasolina98", "gasoleo" };
 			Cursor c = dbr
 					.query("Gas", campos, null, null, null, null, OrderBy);
@@ -100,11 +106,11 @@ public class BdGas {
 					if (c.moveToFirst()) {
 						// Recorremos el cursor hasta que no haya más registros
 						do {
-							gas = new Gasolinera(c.getDouble(0),
+							gas = new Gasolinera(c.getString(0),
 									c.getString(1), c.getString(2),
 									c.getString(3), c.getString(4),
 									c.getString(5), c.getString(6),
-									c.getString(7));
+									c.getString(7),c.getString(8),c.getString(9));
 							algas.add(gas);
 						} while (c.moveToNext());
 					}
@@ -120,6 +126,48 @@ public class BdGas {
 
 	}
 
+	public Gasolinera obtenerGas(String valor) {
+		Gasolinera gas = null;
+
+		SQLiteDatabase dbr = usdbh.getReadableDatabase();
+		try {
+			String[] campos = new String[] {"UPV", "fecha", "nombre",
+					"direccion", "localidad", "provincia", "horario","gasolina95",
+					"gasolina98", "gasoleo" };
+			
+			String[] selArg = new String[] { valor };
+
+			Cursor c = dbr.query("Gas", campos, "UPV=?", selArg,
+					null, null, null);
+			
+										
+			try {
+				if (c != null) {
+					if (c.moveToFirst()) {
+						// Recorremos el cursor hasta que no haya más registros
+						do {
+							gas = new Gasolinera(c.getString(0),
+									c.getString(1), c.getString(2),
+									c.getString(3), c.getString(4),
+									c.getString(5), c.getString(6),
+									c.getString(7),c.getString(8),c.getString(9));
+							
+						} while (c.moveToNext());
+					}
+				}
+			} finally {
+				c.close();
+			}
+
+		} finally {
+			dbr.close();
+		}
+		return gas;
+
+	}
+
+	
+	
 	public ArrayList<Favoritos> readBdFav() {
 		Favoritos fav = null;
 		ArrayList<Favoritos> alfav = new ArrayList<Favoritos>();
@@ -144,6 +192,57 @@ public class BdGas {
 			}
 
 			return alfav;
+		} finally {
+			dbr.close();
+		}
+	}
+
+	public void writerBdProvincias(ArrayList<Provincia> alProv) {
+		SQLiteDatabase dbw = usdbh.getWritableDatabase();
+		// Si hemos abierto correctamente la base de datos
+		try {
+			if (dbw != null) {
+				dbw.delete("Provincias", null, null);
+				for (Provincia p : alProv) {
+					dbw.execSQL("INSERT INTO Provincias (id_provincia,nombre_provincia) "
+							+ "VALUES ('"
+							+ p.getId_provincia()
+							+ "', '"
+							+ p.getNombre_provincia()
+							+ "')");
+
+				}
+
+			}
+		} finally {
+			dbw.close();
+		}
+	}
+
+	public ArrayList<Provincia> readBdProv() {
+		Provincia provincia = null;
+		ArrayList<Provincia> alprov = new ArrayList<Provincia>();
+
+		SQLiteDatabase dbr = usdbh.getWritableDatabase();
+		try {
+			String[] campos = new String[] { "id_provincia", "nombre_provincia" };
+			// String[] args = new String[] { "%666%" };
+			Cursor c = dbr.query("Provincias", campos, null, null, null, null,
+					null);
+			try {
+				// Nos aseguramos de que existe al menos un registro
+				if (c.moveToFirst()) {
+					// Recorremos el cursor hasta que no haya más registros
+					do {
+						provincia = new Provincia(c.getString(0), c.getString(1));
+						alprov.add(provincia);
+					} while (c.moveToNext());
+				}
+			} finally {
+				c.close();
+			}
+
+			return alprov;
 		} finally {
 			dbr.close();
 		}
