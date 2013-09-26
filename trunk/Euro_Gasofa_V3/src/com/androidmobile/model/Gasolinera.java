@@ -2,7 +2,7 @@ package com.androidmobile.model;
 
 public class Gasolinera {
 
-	Double distancia = 0.00;
+	String fecha = "";
 	String nombre = "";
 	String direccion = "";
 	String localidad = "";
@@ -10,11 +10,13 @@ public class Gasolinera {
 	String gasolina95 = "";
 	String gasolina98 = "";
 	String gasoleo = "";
+	String horario = "";
+	String UPV="";
 
-	public Gasolinera(Double distancia, String nombre, String direccion,
-			String localidad, String provincia, String gasolina95,
+	public Gasolinera(String UPV,String fecha, String nombre, String direccion,
+			String localidad, String provincia,String horario, String gasolina95,
 			String gasolina98, String gasoleo) {
-		this.distancia = distancia;
+		this.fecha = fecha;
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.localidad = localidad;
@@ -22,14 +24,56 @@ public class Gasolinera {
 		this.gasolina95 = gasolina95;
 		this.gasolina98 = gasolina98;
 		this.gasoleo = gasoleo;
+		this.horario = horario;
+		this.UPV= UPV;
 	}
 
-	public Double getDistancia() {
-		return distancia;
+		
+	
+	/**
+	 * @return the uPV
+	 */
+	public String getUPV() {
+		return UPV;
 	}
 
-	public void setDistancia(Double distancia) {
-		this.distancia = distancia;
+
+
+	/**
+	 * @param uPV the uPV to set
+	 */
+	public void setUPV(String uPV) {
+		UPV = uPV;
+	}
+
+
+
+	/**
+	 * @return the fecha
+	 */
+	public String getFecha() {
+		return fecha;
+	}
+
+	/**
+	 * @param fecha the fecha to set
+	 */
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
+	}
+
+	/**
+	 * @return the horario
+	 */
+	public String getHorario() {
+		return horario;
+	}
+
+	/**
+	 * @param horario the horario to set
+	 */
+	public void setHorario(String horario) {
+		this.horario = horario;
 	}
 
 	public String getNombre() {
