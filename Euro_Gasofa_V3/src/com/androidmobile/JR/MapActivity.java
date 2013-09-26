@@ -2,8 +2,11 @@ package com.androidmobile.JR;
 
 import java.io.IOException;
 
+
 import java.util.List;
 
+import com.androidmobile.JR.MainActivity.JavaScriptInterface;
+import com.androidmobile.bd.BdGas;
 
 import java.util.Locale;
 
@@ -21,7 +24,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
+import android.util.Log;
 import android.view.ContextThemeWrapper;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
@@ -30,6 +37,7 @@ import android.widget.Toast;
 import com.androidmobile.map.GMapGeocoderInverter;
 import com.androidmobile.map.GMapV2Direction;
 import com.androidmobile.map.GMapV2GasProx;
+import com.androidmobile.model.Gasolinera;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -49,7 +57,7 @@ public class MapActivity extends FragmentActivity  implements
 	
 	private static  LatLng UPV = new LatLng(39.481106, -0.340987);
 	LatLng UPV2;
-	private String valor="madrid";
+	private String valor;
 	private static GoogleMap mapa;
 	List<Address> addresses ;
 	Bundle bundle;
@@ -275,28 +283,41 @@ public class MapActivity extends FragmentActivity  implements
 		}else{	
 		
 		bundle = getIntent().getExtras();
-		valor= bundle.getString("direccion");
+		valor= bundle.getString("UPV");
 		nombre= bundle.getString("nombre");
 		
 		}
-		Geocoder geoCoder = new Geocoder(getBaseContext(), Locale.getDefault());
+		
+		//Geocoder geoCoder = new Geocoder(getBaseContext(), Locale.getDefault());
 		try {
-			addresses = geoCoder.getFromLocationName(valor, 5);
-			if ( addresses!=null && addresses.size() > 0) {
-	        	 UPV2 = new LatLng(addresses.get(0).getLatitude() ,addresses.get(0).getLongitude() );
-	            
+			//addresses = geoCoder.getFromLocationName(valor, 5);
+			//if ( addresses!=null && addresses.size() > 0) {
+	        	// UPV2 = new LatLng(addresses.get(0).getLatitude() ,addresses.get(0).getLongitude() );
+			BdGas bdgas = new BdGas(mContext);  
+			Gasolinera g= bdgas.obtenerGas(valor);
+			int com= valor.indexOf(",");
+			Double lon=  Double.parseDouble(valor.substring(0,com));
+			Double lat=  Double.parseDouble(valor.substring(com+1));
+			String combustible="";
+			if(!g.getGasoleo().equals("-"))
+				combustible= "gasoleo: "+g.getGasoleo()+"\n\r";
+			if(!g.getGasolina95().equals("-"))
+				combustible= combustible+"gasolina95: "+g.getGasolina95()+"\n\r";
+			if(!g.getGasolina98().equals("-"))
+				combustible= combustible+"gasolina98: "+g.getGasolina98();
+	            UPV2= new LatLng(lat,lon);
 	        	 mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(UPV2,15));
 	         
-	        	 mapa.addMarker(new MarkerOptions().position(UPV2).title(nombre).snippet(valor)
+	        	 mapa.addMarker(new MarkerOptions().position(UPV2).title(g.getNombre()+ " "+combustible).snippet(g.getDireccion()+"\r\n"+g.getLocalidad())
 	        			 .icon(BitmapDescriptorFactory.fromResource(R.drawable.gazstation)));
 	            
-	         }else{
+	         //}else{
 	        	 if (valor.equals("")) {
 	        			 Toast.makeText(this,"No se ha encontrado Ubicacion ", Toast.LENGTH_LONG).show();
 	    	        	finalize();
-	        	 }else {
-	        	 irPosicion();
-	        	 }
+	        	// else {
+	        	// irPosicion();
+	        	// }
 	         	
 		}
 			} catch (Exception e) {
@@ -414,4 +435,30 @@ public class MapActivity extends FragmentActivity  implements
 			 Toast.makeText(mContext,"No se ha encontrado Ubicacion ", Toast.LENGTH_LONG).show();
 			
 		 }}
+		public boolean onCreateOptionsMenu(Menu menu) {
+
+			MenuInflater inflater = getMenuInflater();
+			inflater.inflate(R.menu.map, menu);
+
+			return true;
+		}
+
+		public boolean onOptionsItemSelected(MenuItem item) {
+			// Handle item selection
+			switch (item.getItemId()) {
+			case R.id.sat:
+				mapa.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+				return true;
+			case R.id.Normal:
+				mapa.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+				
+				return true;
+			case R.id.ter:
+				mapa.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+				return true;
+			
+			default:
+				return super.onOptionsItemSelected(item);
+			}
+		}
 }
