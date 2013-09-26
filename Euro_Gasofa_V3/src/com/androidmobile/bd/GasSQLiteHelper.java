@@ -1,17 +1,33 @@
 package com.androidmobile.bd;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
+import util.utility;
+
+import com.androidmobile.JR.MainActivity;
+import com.androidmobile.model.Provincia;
+
 import android.content.Context;
+
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class GasSQLiteHelper extends SQLiteOpenHelper {
+
 	// Sentencia SQL para crear la tabla de Usuarios
 	String sqlCreate = "CREATE TABLE Favoritos (pos INTEGER, nombre TEXT)";
-	String sqlCreateGas = "Create table Gas ( distancia REAL, nombre TEXT,direccion TEXT, localidad TEXT,provincia TEXT,gasolina95 TEXT,gasolina98 TEXT,gasoleo TEXT)";
+	String sqlCreateGas = "Create table Gas ( UPV TEXT,fecha TEXT, nombre TEXT,horario TEXT,direccion TEXT, localidad TEXT,provincia TEXT,gasolina95 TEXT,gasolina98 TEXT,gasoleo TEXT)";
 
+	String sqlCreateProv = "CREATE TABLE Provincias (id_provincia TEXT, nombre_provincia TEXT)";
 	public GasSQLiteHelper(Context contexto, String nombre,
 			CursorFactory factory, int version) {
+	
 		super(contexto, nombre, factory, version);
 	}
 
@@ -20,7 +36,11 @@ public class GasSQLiteHelper extends SQLiteOpenHelper {
 		// Se ejecuta la sentencia SQL de creación de la tabla
 		db.execSQL(sqlCreate);
 		db.execSQL(sqlCreateGas);
-
+		
+		db.execSQL(sqlCreateProv);		
+		
+		
+		
 	}
 
 	@Override
@@ -33,10 +53,19 @@ public class GasSQLiteHelper extends SQLiteOpenHelper {
 		// tabla antigua a la nueva, por lo que este método debería
 		// ser más elaborado.
 		// Se elimina la versión anterior de la tabla
+		
 		db.execSQL("DROP TABLE IF EXISTS Favoritos");
 		db.execSQL("DROP TABLE IF EXISTS Gas");
+		db.execSQL("DROP TABLE IF EXISTS Provincias");
 		// Se crea la nueva versión de la tabla
 		db.execSQL(sqlCreate);
 		db.execSQL(sqlCreateGas);
+		db.execSQL(sqlCreateProv);
+		
+		
+		
+		
+			
+		
 	}
 }
