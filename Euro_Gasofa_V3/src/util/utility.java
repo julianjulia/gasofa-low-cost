@@ -126,9 +126,12 @@ public class utility {
 
 			@Override
 			protected String doInBackground(Void... args) {
+				String provinciaF;
 				ArrayList<Gasolinera> alg = new ArrayList<Gasolinera>();
-			
-
+					if(provincia.equals("") && !cp.equals(""))
+							provinciaF=cp.substring(0, 2);
+					else
+							provinciaF=provincia;
 					  try {
 						  final String Newurl = "http://geoportal.mityc.es/hidrocarburos/eess/searchAddress.do";
 						  	 
@@ -146,7 +149,7 @@ public class utility {
 						  	          params.add(new BasicNameValuePair("codPostal",cp));
 						  	          params.add(new BasicNameValuePair("economicas","false"));
 						  	          params.add(new BasicNameValuePair("nomMunicipio",municipio));
-						  	          params.add(new BasicNameValuePair("nomProvincia",provincia));
+						  	          params.add(new BasicNameValuePair("nomProvincia",provinciaF));
 						  	          params.add(new BasicNameValuePair("nombreVia",direccion));
 						  	         params.add(new BasicNameValuePair("numVia",num));
 						  	         params.add(new BasicNameValuePair("ordenacion","P"));
