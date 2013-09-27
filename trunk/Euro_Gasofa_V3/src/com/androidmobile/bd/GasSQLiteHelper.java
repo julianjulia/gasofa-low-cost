@@ -25,6 +25,7 @@ public class GasSQLiteHelper extends SQLiteOpenHelper {
 	String sqlCreateGas = "Create table Gas ( UPV TEXT,fecha TEXT, nombre TEXT,horario TEXT,direccion TEXT, localidad TEXT,provincia TEXT,gasolina95 TEXT,gasolina98 TEXT,gasoleo TEXT)";
 
 	String sqlCreateProv = "CREATE TABLE Provincias (id_provincia TEXT, nombre_provincia TEXT)";
+	String sqlCreateMun = "CREATE TABLE Municipio (id_provincia TEXT, nombre_municipio TEXT)";
 	public GasSQLiteHelper(Context contexto, String nombre,
 			CursorFactory factory, int version) {
 	
@@ -38,7 +39,7 @@ public class GasSQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL(sqlCreateGas);
 		
 		db.execSQL(sqlCreateProv);		
-		
+		db.execSQL(sqlCreateMun);	
 		
 		
 	}
@@ -57,10 +58,12 @@ public class GasSQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS Favoritos");
 		db.execSQL("DROP TABLE IF EXISTS Gas");
 		db.execSQL("DROP TABLE IF EXISTS Provincias");
+		db.execSQL("DROP TABLE IF EXISTS Municipio");
 		// Se crea la nueva versión de la tabla
 		db.execSQL(sqlCreate);
 		db.execSQL(sqlCreateGas);
 		db.execSQL(sqlCreateProv);
+		db.execSQL(sqlCreateMun);
 		
 		
 		
