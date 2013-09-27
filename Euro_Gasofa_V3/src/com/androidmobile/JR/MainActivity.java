@@ -15,11 +15,13 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import util.utilMun;
 import util.utility;
 
 import com.androidmobile.bd.BdGas;
 import com.androidmobile.map.GMapGeocoderInverter;
 import com.androidmobile.model.Favoritos;
+import com.androidmobile.model.Municipio;
 import com.androidmobile.model.Provincia;
 import com.google.ads.AdRequest;
 import com.google.ads.AdSize;
@@ -64,6 +66,7 @@ public class MainActivity extends Activity {
 	private static final String BRC_CLOSE = "')";
 	ArrayList<Provincia> alProv;
 	String cod_prov="";
+	String des_prov;
 	ArrayList<Provincia> alMun;
 	String cod_mun="";
 	@SuppressLint("SetJavaScriptEnabled")
@@ -90,18 +93,22 @@ public class MainActivity extends Activity {
 
 		// Cargamos la Url en nuestro WebView
 		webview.loadUrl(HTML_ROOT + "indexGas.html");
-		try {
-			 alProv=Xml_BD();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
+			
+			
+				try {
+					alProv=Xml_BD();
+				} catch (SAXException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ParserConfigurationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
 	
 		
 	}
@@ -218,22 +225,23 @@ public class MainActivity extends Activity {
 			Toast.makeText(mContext, toast + "", Toast.LENGTH_LONG ).show();
 		}
 
-		public String leerGasolineras(String provincia,String municipio,String direccion,String num,String cp,String combustible, final String order)
+		public void leerGasolineras(String provincia,String municipio,String direccion,String num,String cp,String combustible, final String order)
 				throws InterruptedException, ExecutionException {
 			salir=false;
 		
-			//webview.loadUrl(HTML_ROOT + "indexRes.html");
-			if (order == null) {		
+			if (!provincia.equals("")){
 				
-				utility.tratamientoDatosGasolinera(cod_prov,municipio,direccion,num, cp, combustible, mContext, webview);
-
-			} else {
-
-				utility.ordenadoDatosGasolinera(order, mContext, webview);
-
+					utility.tratamientoDatosGasolinera(cod_prov,municipio,direccion,num, cp, combustible, mContext, webview);
+			
+			}else{
+				if(!cp.equals("")){
+					utility.tratamientoDatosGasolinera(cod_prov,municipio,direccion,num, cp, combustible, mContext, webview);
+				}	else{			
+				
+				Toast.makeText(mContext, "Debe seleccionar una Provincia", Toast.LENGTH_LONG ).show();
+			webview.loadUrl(HTML_ROOT + "indexGas.html");}
 			}
-
-			return null;
+			
 
 		}
 		
@@ -294,9 +302,9 @@ public class MainActivity extends Activity {
 				builder.setTitle("Provincias");
 				builder.setItems(itemsdir, new DialogInterface.OnClickListener() {
 				    public void onClick(DialogInterface dialog, int item) {
-				    	String provincia=itemsdir[item].toString();
+				    	des_prov =itemsdir[item].toString();
 				    	cod_prov=alProv.get(item).getId_provincia();
-				    	loadProv(provincia);
+				    	webview.loadUrl(JAVASCRIPT + "loadprov" + BRC_OPEN + des_prov+ BRC_CLOSE);
 				    	 dialog.cancel();
 				    }
 				});
@@ -306,14 +314,47 @@ public class MainActivity extends Activity {
 				
 			  
 		  }
-		public void loadProv(String p){
-	
-			webview.loadUrl(JAVASCRIPT + "loadprov" + BRC_OPEN + p + BRC_CLOSE);
+		
+		
+		public void SelectMun(){			
+			loadMuninipios();
+				}
+		
+		
+	}
+	public void loadMuninipios(){
+	BdGas bdgas = new BdGas(this);
+	ArrayList<Municipio> almun=bdgas.obtenerMunicipios(des_prov);
+	if (almun==null || almun.size()==0){
+		utilMun utilmun=new utilMun();
+		utilmun.loadWebMunicipios(this, cod_prov,des_prov);
+	}
+	/*
+	 final CharSequence[] itemsdir = new CharSequence[almun.size()];
+	  for(int i=0;i<almun.size();i++){
+							
+			itemsdir[i]=almun.get(i).getMunicipio();
 		}
+		ContextThemeWrapper ctw = new ContextThemeWrapper(this, R.style.miestilo );
+		AlertDialog.Builder builder = new AlertDialog.Builder(ctw);
+		builder.setTitle("Municipios " + des_prov);
+		builder.setItems(itemsdir, new DialogInterface.OnClickListener() {
+		    public void onClick(DialogInterface dialog, int item) {
+		    	String des_mun =itemsdir[item].toString();
+		       	webview.loadUrl(JAVASCRIPT + "loadmun" + BRC_OPEN + des_mun+ BRC_CLOSE);
+		    	 dialog.cancel();
+		    }
+		});
+		
+		AlertDialog alert = builder.create();
+		alert.show();
+		*/
 	}
 	
-	
-	
+	public void webMunicipios(BdGas bdgas, ArrayList<Municipio> almun){
+		
+		//almun=bdgas.obtenerMunicipios(des_prov);
+	}
 	public boolean onKeyDown(int keyCode, KeyEvent event)
 	{
 	if ((keyCode == KeyEvent.KEYCODE_BACK))
