@@ -125,8 +125,16 @@
 						
 															
 					});
-			
-			
+		/*
+			$("#municipio").click(
+					function(e) {
+						$('input').attr('disabled', true);
+						$("input").blur();
+						$('input').attr('disabled', false);
+						androidSupport.SelectMun();
+				
+					});
+			*/
 			$("#LeerGas").click(
 					function(e) {
 						$.mobile.changePage($('#pageResultados'),'slide');
@@ -162,6 +170,10 @@
 		
 		function loadprov(valor){
 			$("#provincia").val(valor);
+		}
+		
+		function loadmun(valor){
+			$("#municipio").val(valor);
 		}
 		
 		function irfavoritos() {			
