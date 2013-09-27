@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.androidmobile.model.Favoritos;
 import com.androidmobile.model.Gasolinera;
+import com.androidmobile.model.Municipio;
 import com.androidmobile.model.Provincia;
 
 import android.content.ContentValues;
@@ -17,7 +18,7 @@ public class BdGas {
 
 	public BdGas(Context contexto) {
 
-		usdbh = new GasSQLiteHelper(contexto, "BdGas", null, 1);
+		usdbh = new GasSQLiteHelper(contexto, "BdGas", null, 2);
 	}
 
 	public void writerBdGas(ArrayList<Gasolinera> alGas) {
@@ -58,6 +59,7 @@ public class BdGas {
 		}
 	}
 
+		
 	public void writerBdFavoritos(Favoritos fav) {
 		SQLiteDatabase dbw = usdbh.getWritableDatabase();
 		// Si hemos abierto correctamente la base de datos
@@ -248,4 +250,63 @@ public class BdGas {
 		}
 	}
 
+	
+	
+	public void writerBdMunicipio(ArrayList<Municipio> alMun) {
+		SQLiteDatabase dbw = usdbh.getWritableDatabase();
+		// Si hemos abierto correctamente la base de datos
+		try {
+			if (dbw != null) {
+				//dbw.delete("Municipio", null, null);
+				for (Municipio m : alMun) {
+					dbw.execSQL("INSERT INTO Municipio (id_provincia,nombre_municipio) "
+							+ "VALUES ('"
+							+ m.getCod()
+							+ "', '"
+							+ m.getMunicipio()
+							+ "')");
+
+				}
+
+			}
+		} finally {
+			dbw.close();
+		}
+	}
+	
+	
+	
+	public ArrayList<Municipio> obtenerMunicipios(String valor) {
+			Municipio mun = null;
+			ArrayList<Municipio> almun = new ArrayList<Municipio>();
+
+			SQLiteDatabase dbr = usdbh.getWritableDatabase();
+			try {
+				String[] campos = new String[] { "id_provincia", "nombre_municipio" };
+				 String[] args = new String[] { valor };
+				
+				Cursor c = dbr.query("Municipio", campos, "id_provincia=?", args,
+						null, null, null);
+				try {
+					if (c != null && c.getCount()!=0) {
+					// Nos aseguramos de que existe al menos un registro
+					if (c.moveToFirst()) {
+						// Recorremos el cursor hasta que no haya más registros
+						do {
+							mun = new Municipio(c.getString(0), c.getString(1));
+							almun.add(mun);
+						} while (c.moveToNext());
+					}
+					}else{
+					return null;	
+					}
+				} finally {
+					c.close();
+				}
+
+				return almun;
+			} finally {
+				dbr.close();
+			}
+		}
 }
