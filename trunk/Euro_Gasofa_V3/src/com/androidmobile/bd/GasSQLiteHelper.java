@@ -1,19 +1,6 @@
 package com.androidmobile.bd;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
-
-import util.utility;
-
-import com.androidmobile.JR.MainActivity;
-import com.androidmobile.model.Provincia;
-
 import android.content.Context;
-
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -26,6 +13,7 @@ public class GasSQLiteHelper extends SQLiteOpenHelper {
 
 	String sqlCreateProv = "CREATE TABLE Provincias (id_provincia TEXT, nombre_provincia TEXT)";
 	String sqlCreateMun = "CREATE TABLE Municipio (id_provincia TEXT, nombre_municipio TEXT)";
+	String sqlCreateInc = "CREATE TABLE Ini(combustible TEXT,provincia TEXT,municipio TEXT,direccion TEXT, num TEXT, cp TEXT)";
 	public GasSQLiteHelper(Context contexto, String nombre,
 			CursorFactory factory, int version) {
 	
@@ -40,7 +28,7 @@ public class GasSQLiteHelper extends SQLiteOpenHelper {
 		
 		db.execSQL(sqlCreateProv);		
 		db.execSQL(sqlCreateMun);	
-		
+		db.execSQL(sqlCreateInc);
 		
 	}
 
@@ -59,11 +47,13 @@ public class GasSQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS Gas");
 		db.execSQL("DROP TABLE IF EXISTS Provincias");
 		db.execSQL("DROP TABLE IF EXISTS Municipio");
+		db.execSQL("DROP TABLE IF EXISTS Ini");
 		// Se crea la nueva versión de la tabla
 		db.execSQL(sqlCreate);
 		db.execSQL(sqlCreateGas);
 		db.execSQL(sqlCreateProv);
 		db.execSQL(sqlCreateMun);
+		db.execSQL(sqlCreateInc);
 		
 		
 		

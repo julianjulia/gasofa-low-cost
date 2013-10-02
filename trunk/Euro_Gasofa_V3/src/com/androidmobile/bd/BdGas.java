@@ -2,6 +2,7 @@ package com.androidmobile.bd;
 
 import java.util.ArrayList;
 
+import com.androidmobile.model.DatosIni;
 import com.androidmobile.model.Favoritos;
 import com.androidmobile.model.Gasolinera;
 import com.androidmobile.model.Municipio;
@@ -18,7 +19,7 @@ public class BdGas {
 
 	public BdGas(Context contexto) {
 
-		usdbh = new GasSQLiteHelper(contexto, "BdGas", null, 2);
+		usdbh = new GasSQLiteHelper(contexto, "BdGas", null, 3);
 	}
 
 	public void writerBdGas(ArrayList<Gasolinera> alGas) {
@@ -309,4 +310,69 @@ public class BdGas {
 				dbr.close();
 			}
 		}
+	public void writerBdIni(DatosIni dato) {
+		SQLiteDatabase dbw = usdbh.getWritableDatabase();
+		// Si hemos abierto correctamente la base de datos
+		try {
+			if (dbw != null) {
+				dbw.delete("Ini", null, null);
+				
+					dbw.execSQL("INSERT INTO Ini (combustible, provincia, municipio, direccion, num , cp ) "
+							+ "VALUES ('"
+							+ dato.getCombustible()
+							+ "', '"
+							+ dato.getProvincia()
+							+ "', '"
+							+ dato.getMunicipio()
+							+ "', '"
+							+ dato.getDireccion()
+							+ "', '"
+							+ dato.getNum()
+							+ "', '"
+							+ dato.getCp()
+							+ "')");
+
+				}
+
+			
+		} finally {
+			dbw.close();
+		}
+	}
+	
+	public DatosIni obtenerIni() {
+		DatosIni datos = null;
+		
+
+		SQLiteDatabase dbr = usdbh.getWritableDatabase();
+		try {
+			String[] campos = new String[] { "combustible", "provincia", "municipio", "direccion", "num" , "cp" };
+			// String[] args = new String[] { valor };
+			
+			Cursor c = dbr.query("Ini", campos, null, null,
+					null, null, null);
+			try {
+				if (c != null && c.getCount()!=0) {
+				// Nos aseguramos de que existe al menos un registro
+				if (c.moveToFirst()) {
+					// Recorremos el cursor hasta que no haya más registros
+					do {
+						datos = new DatosIni(c.getString(0), c.getString(1),c.getString(2),c.getString(3), c.getString(4),c.getString(5));
+						
+					} while (c.moveToNext());
+				}
+				}else{
+				return null;	
+				}
+			} finally {
+				c.close();
+			}
+
+			return datos;
+		} finally {
+			dbr.close();
+		}
+	}
+	
+	
 }
