@@ -26,10 +26,14 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.androidmobile.JR.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolylineOptions;
 
@@ -38,6 +42,7 @@ public class GMapV2Direction {
     public final static String MODE_WALKING = "walking";
     Document doc;
     Context mContext;
+    GoogleMap mapa;
     public static ArrayList<String> al;
     
     public GMapV2Direction(){
@@ -48,7 +53,13 @@ public class GMapV2Direction {
     	this.mContext=mContext;
     }
    
-    public void getDocument(final GoogleMap mapa,LatLng start, LatLng end, String mode) {
+    public void getDocument(LatLng start, LatLng end, String mode) {
+    	
+    	 SupportMapFragment fm = (SupportMapFragment) ((FragmentActivity) mContext).getSupportFragmentManager().findFragmentById(R.id.map);
+		 
+         // Getting GoogleMap object from the fragment
+        mapa = fm.getMap();	
+    	
     	
      final String url = "http://maps.googleapis.com/maps/api/directions/xml?" 
                 + "origin=" + start.latitude + "," + start.longitude  
