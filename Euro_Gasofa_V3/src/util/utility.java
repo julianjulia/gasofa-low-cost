@@ -2,25 +2,12 @@ package util;
 
 import java.io.BufferedReader;
 
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -28,38 +15,29 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.HttpParams;
-import org.apache.http.protocol.BasicHttpContext;
-import org.apache.http.protocol.HttpContext;
-import org.apache.http.util.EntityUtils;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.preference.PreferenceActivity.Header;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 
+import com.androidmobile.JR.R;
 import com.androidmobile.bd.BdGas;
+import com.androidmobile.model.DatosIni;
 import com.androidmobile.model.Favoritos;
 import com.androidmobile.model.Gasolinera;
 import com.androidmobile.model.ListaFavoritos;
 import com.androidmobile.model.ListaGasolineras;
-import com.androidmobile.model.Provincia;
-import com.google.android.gms.maps.model.LatLng;
 
 public class utility {
 	private static final String HTML_ROOT = "file:///android_asset/www/";
-	private static final String XML_PROVINCIAS ="//android_asset/www/xml/provincias.xml";
 	private static final String JAVASCRIPT = "javascript:";
 	@SuppressWarnings("unused")
 	private static final String BRC = "()";
@@ -108,8 +86,10 @@ public class utility {
 		return writer.toString();
 	}
 
-	public static void tratamientoDatosGasolinera(final String provincia,final String municipio,final String direccion,final String num,final String cp,final String comb,final Context mContext,final WebView webview)
+	public static void tratamientoDatosGasolinera(final DatosIni datos,final Context mContext)
 			 {
+		
+	  final WebView webview = (WebView)  ((Activity) mContext).findViewById(R.id.mainWebView);
 		class taskgasNew extends AsyncTask<Void, Void, String> {
 			private ProgressDialog pd;
 			boolean excep = true;
@@ -126,21 +106,26 @@ public class utility {
 
 			@Override
 			protected String doInBackground(Void... args) {
-				String provinciaF;
+				 String prov=datos.getProvincia();
+			     String mun=datos.getMunicipio();
+				 String direc=datos.getDireccion();
+				 String num=datos.getNum();
+				 String cp=datos.getCp();
+			     String comb=datos.getCombustible();;
+			
 				ArrayList<Gasolinera> alg = new ArrayList<Gasolinera>();
-					if(provincia.equals("") && !cp.equals(""))
-							provinciaF=cp.substring(0, 2);
-					else
-							provinciaF=provincia;
+					if(prov.equals("") && !cp.equals(""))
+							prov=cp.substring(0, 2);
+												
 					  try {
 						  final String Newurl = "http://geoportal.mityc.es/hidrocarburos/eess/searchAddress.do";
 						  	 
 						  	          HttpClient httpclient = new DefaultHttpClient();
 						  	         	/*Creamos el objeto de HttpClient que nos permitira conectarnos mediante peticiones http*/
 						  	          HttpPost httppost = new HttpPost(Newurl);
-						  	        httppost.addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-						  	      httppost.addHeader( "X-Requested-With", "XMLHttpRequest");
-						  	
+						  	      //  httppost.addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+						  	    //httppost.addHeader( "X-Requested-With", "XMLHttpRequest");
+						  	   httppost.addHeader("Accept-Language", "es");
 						  	        
 						  	/*El objeto HttpPost permite que enviemos una peticion de tipo POST a una URL especificada*/
 						  	         // AÑADIR PARAMETROS
@@ -148,9 +133,9 @@ public class utility {
 						  	          List<NameValuePair> params = new ArrayList<NameValuePair>();
 						  	          params.add(new BasicNameValuePair("codPostal",cp));
 						  	          params.add(new BasicNameValuePair("economicas","false"));
-						  	          params.add(new BasicNameValuePair("nomMunicipio",municipio));
-						  	          params.add(new BasicNameValuePair("nomProvincia",provinciaF));
-						  	          params.add(new BasicNameValuePair("nombreVia",direccion));
+						  	          params.add(new BasicNameValuePair("nomMunicipio",mun));
+						  	          params.add(new BasicNameValuePair("nomProvincia",prov));
+						  	          params.add(new BasicNameValuePair("nombreVia",direc));
 						  	         params.add(new BasicNameValuePair("numVia",num));
 						  	         params.add(new BasicNameValuePair("ordenacion","P"));
 						  	         params.add(new BasicNameValuePair("rotulo",""));
@@ -182,9 +167,12 @@ public class utility {
 									String gasolina95 = "-";
 									String gasolina98 = "-";
 									String gasoleo = "-";
+									@SuppressWarnings("unused")
 									String margen="-";
 									String fecha="-";
+									@SuppressWarnings("unused")
 									String venta="-";
+									@SuppressWarnings("unused")
 									String rem="-";
 									String horario="-";
 									String UPV="-";
@@ -194,7 +182,6 @@ public class utility {
 									}
 									brNew.close();	
 									int pos = 0;
-									int lon = rdo.length();
 									pos = rdo.indexOf("<td class=\"tdMediumBorderLeftTable\">")+("<td class=\"tdMediumBorderLeftTable\">").length();
 									int pos2;
 									while (pos != -1) {//añadido 13/09/2013
