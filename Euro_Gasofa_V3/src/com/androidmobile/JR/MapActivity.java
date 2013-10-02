@@ -3,16 +3,12 @@ package com.androidmobile.JR;
 import java.io.IOException;
 
 
+
 import java.util.List;
-
-import com.androidmobile.JR.MainActivity.JavaScriptInterface;
 import com.androidmobile.bd.BdGas;
-
 import java.util.Locale;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,11 +16,9 @@ import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
-import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -63,6 +57,7 @@ public class MapActivity extends FragmentActivity  implements
 	Bundle bundle;
 	static Context mContext;
 	static String gasprox;
+	static String comb;
 	String nombre;
 	String dirElegida=null;
 	@Override
@@ -118,6 +113,7 @@ public class MapActivity extends FragmentActivity  implements
 		 
 		  bundle = getIntent().getExtras();
 			gasprox= bundle.getString("gas");
+			comb=bundle.getString("comb");
 			 if(gasprox != null && gasprox.equals("falso")){
 				 animateCamera_N(null);
 			 }else{
@@ -166,7 +162,7 @@ public class MapActivity extends FragmentActivity  implements
 		    			 try{
 		    				 dialog.cancel();
 		    			UPV= new LatLng(mapa.getMyLocation().getLatitude(),mapa.getMyLocation().getLongitude());
-		    			new GMapGeocoderInverter(mapa,UPV);
+		    			new GMapGeocoderInverter(mContext,UPV);
 		    			resulgascer("mi ubicacion");
 		    			 }catch(Exception e){
 		    				 e.printStackTrace();
@@ -199,7 +195,6 @@ public class MapActivity extends FragmentActivity  implements
 	}
 	
 	public  void consultaDireccion(){
-		Editable value = null;
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
 		alert.setTitle("Introduzca direccion");
@@ -339,11 +334,11 @@ public class MapActivity extends FragmentActivity  implements
 			
 			 UPV= new LatLng(mapa.getMyLocation().getLatitude(),mapa.getMyLocation().getLongitude());
 		
-			new GMapGeocoderInverter(mapa,UPV); 
+			new GMapGeocoderInverter(mContext,UPV); 
 			 
 		GMapV2Direction md = new GMapV2Direction(this);		
 		try{
-			md.getDocument(mapa,UPV, UPV2, GMapV2Direction.MODE_DRIVING);
+			md.getDocument(UPV, UPV2, GMapV2Direction.MODE_DRIVING);
 		}catch(Exception e){
 			Toast.makeText(getApplicationContext(),"No se ha seleccionado ningun marcador", Toast.LENGTH_LONG).show();
 		}
@@ -411,9 +406,9 @@ public class MapActivity extends FragmentActivity  implements
 				 
         	 GMapV2Direction md = new GMapV2Direction(this);		
      		try{
- 			md.getDocument(mapa,UPV, UPV2, GMapV2Direction.MODE_DRIVING);
+ 			md.getDocument(UPV, UPV2, GMapV2Direction.MODE_DRIVING);
  					
- 			new GMapGeocoderInverter(mapa,UPV);
+ 			new GMapGeocoderInverter(mContext,UPV);
  		 //mapa.addMarker(new MarkerOptions().position(UPV).title("Ubicacion").snippet(d)
   			//  .icon(BitmapDescriptorFactory.fromResource(R.drawable.start)));
      		}catch(Exception e){
@@ -430,7 +425,7 @@ public class MapActivity extends FragmentActivity  implements
 		  			 .icon(BitmapDescriptorFactory.fromResource(R.drawable.start)));}
 			// UPV= new LatLng(mapa.getMyLocation().getLatitude(),mapa.getMyLocation().getLongitude());
 		        		         Toast.makeText(mContext,"pulse marcador para informacion o calcular ruta", Toast.LENGTH_LONG).show();
-		  new GMapV2GasProx(mContext,mapa,UPV);
+		  new GMapV2GasProx(mContext,UPV, comb);
 		 }catch(Exception e){
 			 Toast.makeText(mContext,"No se ha encontrado Ubicacion ", Toast.LENGTH_LONG).show();
 			
