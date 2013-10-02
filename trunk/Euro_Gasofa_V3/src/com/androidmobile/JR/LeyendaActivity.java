@@ -1,6 +1,7 @@
 package com.androidmobile.JR;
 import java.util.ArrayList;
 
+
 import org.json.JSONArray;
 
 import com.androidmobile.map.GMapV2Direction;
@@ -49,6 +50,7 @@ public class LeyendaActivity extends Activity {
 		
 		
 		
+		@SuppressWarnings("static-access")
 		ArrayList<String> al=new GMapV2Direction().al;
 		
 		if (al==null){
