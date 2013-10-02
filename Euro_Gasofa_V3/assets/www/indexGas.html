@@ -4,6 +4,7 @@
 <script type="text/javascript" src="css-js/jquery-1.7.1.js"></script>
 <script type="text/javascript" src="css-js/jquery.mobile-1.0a4.1.js"></script>
 <link rel="stylesheet" href="css-js/Stile.css" />
+
 </head>
 <body>
 	<div data-role="page" data-theme="c" id="containerPage2">
@@ -42,7 +43,8 @@
 				</tr>
 				<tr>
 				
-				<td  align="left"><br/><br/><a  href="#" id="LeerGas"  style="text-decoration: none;"><img style="opacity:0.5;"src="img/buscar.jpg" align="left" /></a></td><td></td></tr>
+				<td  align="left"><br/><br/><a  href="#" id="LeerGas"  style="text-decoration: none;"><img style="opacity:0.5;"src="img/buscar.jpg" align="left" /></a>
+				</td><td><a  href="#" id="GasProx"  style="text-decoration: none;"><img style="opacity:0.8;"src="img/ver_mapa.jpg" align="left" /></a></td></tr>
 			</table>
 			<p />
 			&nbsp
@@ -54,49 +56,8 @@
 		<div data-role="footer"></div>
 	</div>
 
-	<div data-role="page" data-theme="c" id="favoritosPage">
-		<div data-role="header" data-nobackbtn="false"></div>
-		<div data-role="content" data-theme="c">
-		<div align="center"><h3>Lista Favoritos</h3></div>
-		<div id="divFav">	
-			<ul style="opacity:0.7;" data-role="listview" data-inset="true" id="listaFav" >
-				<li style='background:#d2d2d2'><table><tr><td><a href="javascript:addFav(1);" data-role="button"	data-icon="plus" data-mini="true" data-inline="true"/></td><td><a href="javascript:minFav(1);" data-role="button" data-icon="delete" data-mini="true" data-inline="true"/></td><td><a  href="javascript:irFav(1);" style="text-decoration: none;"id="fav1">-----</a></td></tr></table></li>
-				<li> <table><tr><td><a href="javascript:addFav(2);" data-role="button"	data-icon="plus" data-mini="true" data-inline="true"/></td><td><a href="javascript:minFav(2);" data-role="button" data-icon="delete" data-mini="true" data-inline="true"/></td><td><a href="javascript:irFav(2);" style="text-decoration: none;" id="fav2">-----</a></td></tr></table></li>
-				<li style='background:#d2d2d2'> <table ><tr><td><a href="javascript:addFav(3);" data-role="button"	data-icon="plus" data-mini="true" data-inline="true"/></td><td><a href="javascript:minFav(3);" data-role="button" data-icon="delete" data-mini="true" data-inline="true"/></td><td><a href="javascript:irFav(3);" style="text-decoration: none;" id="fav3">-----</a></td></tr></table></li>
-				<li> <table><tr><td ><a  href="javascript:addFav(4);" data-role="button"	data-icon="plus" data-mini="true" data-inline="true"/></td><td><a href="javascript:minFav(4);" data-role="button" data-icon="delete" data-mini="true" data-inline="true"/></td><td><a href="javascript:irFav(4);" style="text-decoration: none;" id="fav4">-----</a></td></tr></table></li>
-				<li style='background:#d2d2d2'> <table ><tr><td><a href="javascript:addFav(5);" data-role="button"	data-icon="plus" data-mini="true" data-inline="true"/></td><td><a href="javascript:minFav(5);" data-role="button" data-icon="delete" data-mini="true" data-inline="true"/></td><td><a href="javascript:irFav(5);" style="text-decoration: none;" id="fav5">-----</a></td></tr></table></li>
-				
-			</ul>
-		</div>
-		</div>
-		<div data-role="footer" data-theme="c"></div>
-	</div>
+		
 	
-	<div data-role="page" data-theme="c" id="ordenarPage">
-		<div data-role="header" data-nobackbtn="false"></div>
-		<div data-role="content" data-theme="c">
-			<div id="notationOrd">
-				<div align="center">
-					<h3>Ordenar Resultados por:</h3>
-				</div>
-				<ul style="opacity: 0.7;" data-role="listview" data-inset="true"
-					id="listaOrd">
-					<li><a href="javascript:irOrd('gasoleo');" id="order1" style="font-size: 14px">gasoleo</a></li>
-					<li style='background: #d2d2d2'><a
-						href="javascript:irOrd('gasolina95');" id="order2" style="font-size: 14px">gasolina 95</a></li>
-					<li><a href="javascript:irOrd('gasolina98');" id="order3" style="font-size: 14px">gasolina
-							98</a></li>
-					<li style='background: #d2d2d2'><a
-						href="javascript:irOrd('provincia');" id="order4" style="font-size: 14px">provincia</a></li>
-					<li><a href="javascript:irOrd('localidad');" id="order5" style="font-size: 14px">localidad</a></li>
-					<li style='background: #d2d2d2'><a
-						href="javascript:irOrd('fecha');" id="order1" style="font-size: 14px"> fecha</a></li>
-					
-				</ul>
-			</div>
-		</div>
-		<div data-role="footer" data-theme="c"></div>
-	</div>
 
 	<div data-role="page" data-theme="c"  id="pageResultados">
 		<div data-role="header" ></div>
@@ -111,9 +72,7 @@
 		
 		<div data-role="footer" data-theme="c"></div>
 	</div>
-
-
-	<script>
+<script>
 		$(document).ready(function() {
 
 			$("#provincia").click(
@@ -125,16 +84,16 @@
 						
 															
 					});
-		/*
+		
 			$("#municipio").click(
 					function(e) {
 						$('input').attr('disabled', true);
 						$("input").blur();
 						$('input').attr('disabled', false);
-						androidSupport.SelectMun();
+						androidSupport.SelectMun($('#provincia').val());
 				
 					});
-			*/
+			
 			$("#LeerGas").click(
 					function(e) {
 						$.mobile.changePage($('#pageResultados'),'slide');
@@ -158,12 +117,10 @@
 					});
 			
 			
-			$("#bfav").click(
+			$("#GasProx").click(
 						function(e) {
-							$.mobile.changePage($('#favoritosPage'),'slide');
-							setResFav();	
-							
-																
+							loadcomb();	
+																				
 						});
 
 		});
@@ -175,6 +132,12 @@
 		function loadmun(valor){
 			$("#municipio").val(valor);
 		}
+		
+		function loadcomb(){
+			var combustible = $("input[name='combustible']:checked").val(); 
+			androidSupport.GasCercanas2(combustible);
+		}
+		
 		
 		function irfavoritos() {			
 			$.mobile.changePage($('#favoritosPage'), 'slide');
@@ -326,6 +289,6 @@
 
 		}
 		
-	</script>
+</script>		
 </body>
 </html>
