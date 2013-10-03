@@ -47,8 +47,6 @@ import android.widget.Toast;
 //19/08/2013
 @SuppressLint("JavascriptInterface")
 public class MainActivity extends Activity {
-	private AdView adView;
-	private LinearLayout lytMain;
 	WebView webview;
 	boolean salir = true;
 	private static final String HTML_ROOT = "file:///android_asset/www/";
@@ -68,13 +66,7 @@ public class MainActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
 
-		// Creamos la variable webview
 		webview = (WebView) findViewById(R.id.mainWebView);
-		lytMain = (LinearLayout) findViewById(R.id.lytMain);
-		adView = new AdView(this, AdSize.BANNER, "a151b059515123b");
-		lytMain.addView(adView);
-		adView.bringToFront();
-		adView.loadAd(new AdRequest());
 		// Activamos JavaScript en nuestro WebView
 
 		WebSettings webSettings = webview.getSettings();
@@ -103,14 +95,7 @@ public class MainActivity extends Activity {
 		 
 	}
 
-	@Override
-	public void onDestroy() {
-		if (adView != null)
-			adView.destroy();
-		super.onDestroy();
-	}
 
-	
 
 	
 
