@@ -2,29 +2,27 @@ package com.androidmobile.JR;
 
 import java.util.ArrayList;
 
-
 import java.util.List;
-
 import com.androidmobile.menulateral.Section;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.ExpandableListView;
 
 
-public class SlidingMenuFragment extends Fragment implements ExpandableListView.OnChildClickListener {
 
-	private static final String JAVASCRIPT = "javascript:";
-	private static final String BRC_OPEN = "('";
-	private static final String BRC_CLOSE = "')";
+public class SlidingMenuFragmentMap extends Fragment implements ExpandableListView.OnChildClickListener {
+	   
     private ExpandableListView sectionListView;
    
     @Override
@@ -61,23 +59,23 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
         List<Section> sectionList = new ArrayList<Section>();
 
         Section oBusquedaSection = new Section("Busqueda");
-        //oBusquedaSection.addSectionItem(101,"Provincia/Municipio", "gazstation");
-        oBusquedaSection.addSectionItem(102, " Mapa(Ubicacion/Direcc)", "ic_action_map");
+        oBusquedaSection.addSectionItem(101," Provincia/Municipio", "ic_action_search");
+        //oBusquedaSection.addSectionItem(102, "Mapa(ubicacion/Direcc)", "gazstation");
        
-        /*
+        
         
         Section oGeneralSection = new Section("Vistas Mapa");
-        oGeneralSection.addSectionItem(201, "Normal", "gazstation");
-        oGeneralSection.addSectionItem(202, "Satelite", "gazstation");
-        oGeneralSection.addSectionItem(203, "Relieve", "gazstation");
+        oGeneralSection.addSectionItem(201, " Normal", "ic_action_location_searching");
+        oGeneralSection.addSectionItem(202, " Satelite", "ic_action_location_off");
+        oGeneralSection.addSectionItem(203, " Relieve", "ic_action_location_found");
         
-       */
+       
         Section oOtrosSection = new Section("Otros");
         oOtrosSection.addSectionItem(301," Acerca de Gasofa", "ic_action_person");
         oOtrosSection.addSectionItem(302, " Salir", "ic_action_undo");
         
         sectionList.add(oBusquedaSection);
-        //sectionList.add(oGeneralSection);
+        sectionList.add(oGeneralSection);
         sectionList.add(oOtrosSection);
         return sectionList;
     }
@@ -85,35 +83,45 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
     @Override
     public boolean onChildClick(ExpandableListView parent, View v,
             int groupPosition, int childPosition, long id) {
-    	  final WebView webview = (WebView)  ((Activity) getActivity()).findViewById(R.id.mainWebView);
-    	  MainActivity map=new MainActivity();
+ SupportMapFragment fm = (SupportMapFragment) ((FragmentActivity) getActivity()).getSupportFragmentManager().findFragmentById(R.id.map);
+		 MapActivity ma= new MapActivity();
+         // Getting GoogleMap object from the fragment
+        GoogleMap mapa = fm.getMap();	
         switch ((int)id) {
-       
-        case 102:        	
-        	getActivity().runOnUiThread(new Runnable() {
-    	        @Override
-    	        public void run() {
-    	        	webview.loadUrl(JAVASCRIPT + "loadcomb" + BRC_OPEN
-    						+ BRC_CLOSE); 
-    	        }
-    	    });
+        case 101:
+        	Intent intent = new Intent(getActivity(), MainActivity.class);
+			startActivity(intent);
             break;
-      
+       
+        case 201: 
+			mapa.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+			 ma.slidingMenu.toggle();
+		    break;
+        case 202:
+        	mapa.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        	ma.slidingMenu.toggle();
+            break;
+        case 203:
+        	mapa.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        	ma.slidingMenu.toggle();
+            break;
         case 301:
-        	AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-    		dialog.setTitle("€ Gasofa V 2.5");
-    		dialog.setMessage("Desarrollado" + " por J.R.  "
-  					+ "email: jrmh@ya.com  ");
-    		dialog.setPositiveButton("OK", new OnClickListener() {
-    			public void onClick(DialogInterface dialog, int which) {
-    				dialog.cancel();
-    			}
-    		});
-    		dialog.show();
-    		map.slidingMenu.toggle();
+        		AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+        		dialog.setTitle("€ Gasofa V 2.5");
+        		dialog.setMessage("Desarrollado" + " por J.R.  "
+      					+ "email: jrmh@ya.com  ");
+        		dialog.setPositiveButton("OK", new OnClickListener() {
+        			public void onClick(DialogInterface dialog, int which) {
+        				dialog.cancel();
+        			}
+        		});
+        		dialog.show();
+        		ma.slidingMenu.toggle();
             break;
         case 302:
-        	System.exit(0);
+        	MainActivity map=new MainActivity();
+        	map.actividad.finish();
+        	getActivity().finish();
             break;
         }
        

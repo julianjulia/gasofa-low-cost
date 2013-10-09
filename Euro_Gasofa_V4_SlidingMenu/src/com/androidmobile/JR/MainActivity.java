@@ -15,6 +15,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -66,14 +67,16 @@ public class MainActivity extends FragmentActivity {
 	ArrayList<Provincia> alMun;
 	String cod_mun = "";
 	BdGas bd;
-	protected SlidingMenu slidingMenu ;
+	public String comb;
+	public static SlidingMenu slidingMenu ;
+	public static FragmentActivity actividad;
 	@SuppressLint("SetJavaScriptEnabled")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
-		
+		actividad =this;
 		slidingMenu = new SlidingMenu(this);
 	    slidingMenu.setMode(SlidingMenu.LEFT);
 	    slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
@@ -132,14 +135,7 @@ public class MainActivity extends FragmentActivity {
 	            super.onBackPressed();
 	        }
 	}
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.main, menu);
-
-		return true;
-	}
+	
 	@Override
 	public void onDestroy() {
 		if (adView != null)
@@ -147,35 +143,19 @@ public class MainActivity extends FragmentActivity {
 		super.onDestroy();
 	}
 	
-
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case android.R.id.home:
+            this.slidingMenu.toggle();
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
 	
 
 	
-
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle item selection
-		switch (item.getItemId()) {
-		case R.id.exit:
-			System.exit(0);
-			return true;
-		case R.id.help:
-
-			loadDialog("€ Gasofa V 2.5", "Desarrollado" + " por J.R.  "
-					+ "email: jrmh@ya.com  ");
-					//+ "svn: http://gasofa-low-cost.googlecode.com/svn/trunk");
-			return true;
-		case R.id.GasProx:
-			new JavaScriptInterface(this).GasCercanas();
-
-			// webview.loadUrl(JAVASCRIPT + "irMenOrd" + BRC_OPEN + BRC_CLOSE);
-			return true;
-		 case android.R.id.home:
-	            this.slidingMenu.toggle();
-	            return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
 
 	public void loadDialog(String titulo, String valor) {
 		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
@@ -276,6 +256,8 @@ public class MainActivity extends FragmentActivity {
 
 		}
 
+	
+		
 		public void GasCercanas(){
 			runOnUiThread(new Runnable() {
 		        @Override
@@ -358,7 +340,6 @@ public class MainActivity extends FragmentActivity {
 		}
 		
 		
-
 		public void SelectMun(String prov) throws ParserConfigurationException, SAXException, IOException {
 			if (prov.equals("")){
 				Toast.makeText(mContext, "Debe seleccionar una Provincia",
@@ -536,4 +517,5 @@ public class MainActivity extends FragmentActivity {
 		}
 			return listMun;
 	   }
+	
 }

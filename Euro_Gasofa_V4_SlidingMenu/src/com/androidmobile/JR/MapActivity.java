@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.view.ContextThemeWrapper;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -47,6 +48,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 
 
@@ -64,18 +66,26 @@ public class MapActivity extends FragmentActivity  implements
 	static String comb;
 	String nombre;
 	String dirElegida=null;
-	
+	public static SlidingMenu slidingMenu ;
+	public static FragmentActivity fa;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_map);
-	
+		fa=this;
 		mContext=this;
 		
+		slidingMenu = new SlidingMenu(this);
+	    slidingMenu.setMode(SlidingMenu.LEFT);
+	    slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+	    slidingMenu.setShadowWidthRes(R.dimen.slidingmenu_shadow_width);
+	    slidingMenu.setShadowDrawable(R.drawable.slidingmenu_shadow);
+	    slidingMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+	    slidingMenu.setFadeDegree(0.35f);
+	    slidingMenu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
+	    slidingMenu.setMenu(R.layout.slidingmenumap);
 		
-			
 		 int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getBaseContext());
 		 
 	        // Showing status
@@ -435,31 +445,26 @@ public class MapActivity extends FragmentActivity  implements
 		 }catch(Exception e){
 			 Toast.makeText(mContext,"No se ha encontrado Ubicacion ", Toast.LENGTH_LONG).show();
 			
-		 }}
-		public boolean onCreateOptionsMenu(Menu menu) {
-
-			MenuInflater inflater = getMenuInflater();
-			inflater.inflate(R.menu.map, menu);
-
-			return true;
-		}
-
-		public boolean onOptionsItemSelected(MenuItem item) {
-			// Handle item selection
-			switch (item.getItemId()) {
-			case R.id.sat:
-				mapa.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-				return true;
-			case R.id.Normal:
-				mapa.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-				
-				return true;
-			case R.id.ter:
-				mapa.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-				return true;
-			
-			default:
-				return super.onOptionsItemSelected(item);
-			}
+		 }}		
+		
+		@Override
+	    public boolean onOptionsItemSelected(MenuItem item) {
+	        switch (item.getItemId()) {
+	        case android.R.id.home:
+	            this.slidingMenu.toggle();
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	        }
+	    }
+		
+		
+		public boolean onKeyDown(int keyCode, KeyEvent event) {
+		
+			   if ( keyCode == KeyEvent.KEYCODE_MENU ) {
+		            this.slidingMenu.toggle();
+		            return true;
+		        }
+			return super.onKeyDown(keyCode, event);
 		}
 }
