@@ -86,7 +86,8 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
     public boolean onChildClick(ExpandableListView parent, View v,
             int groupPosition, int childPosition, long id) {
     	  final WebView webview = (WebView)  ((Activity) getActivity()).findViewById(R.id.mainWebView);
-    	  MainActivity map=new MainActivity();
+    	  MainActivity ma=new MainActivity();
+    	  MapActivity map= new MapActivity();
         switch ((int)id) {
        
         case 102:        	
@@ -110,10 +111,14 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
     			}
     		});
     		dialog.show();
-    		map.slidingMenu.toggle();
+    		ma.slidingMenu.toggle();
             break;
         case 302:
-        	System.exit(0);
+        	if(map.actividad!=null)
+        		map.actividad.finish();
+        	if(ma.actividad!=null)
+        		ma.actividad.finish();
+        	getActivity().finish();
             break;
         }
        

@@ -67,13 +67,13 @@ public class MapActivity extends FragmentActivity  implements
 	String nombre;
 	String dirElegida=null;
 	public static SlidingMenu slidingMenu ;
-	public static FragmentActivity fa;
+	public static FragmentActivity actividad;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_map);
-		fa=this;
+		actividad=this;
 		mContext=this;
 		
 		slidingMenu = new SlidingMenu(this);

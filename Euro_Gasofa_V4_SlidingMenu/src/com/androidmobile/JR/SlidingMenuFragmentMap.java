@@ -84,26 +84,30 @@ public class SlidingMenuFragmentMap extends Fragment implements ExpandableListVi
     public boolean onChildClick(ExpandableListView parent, View v,
             int groupPosition, int childPosition, long id) {
  SupportMapFragment fm = (SupportMapFragment) ((FragmentActivity) getActivity()).getSupportFragmentManager().findFragmentById(R.id.map);
-		 MapActivity ma= new MapActivity();
+		 MapActivity map= new MapActivity();
+		 MainActivity ma=new MainActivity();
          // Getting GoogleMap object from the fragment
         GoogleMap mapa = fm.getMap();	
         switch ((int)id) {
         case 101:
+        	if (ma.actividad!=null)
+        		ma.actividad.finish();
+        	getActivity().finish();
         	Intent intent = new Intent(getActivity(), MainActivity.class);
 			startActivity(intent);
             break;
        
         case 201: 
 			mapa.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-			 ma.slidingMenu.toggle();
+			 map.slidingMenu.toggle();
 		    break;
         case 202:
         	mapa.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-        	ma.slidingMenu.toggle();
+        	map.slidingMenu.toggle();
             break;
         case 203:
         	mapa.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-        	ma.slidingMenu.toggle();
+        	map.slidingMenu.toggle();
             break;
         case 301:
         		AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
@@ -116,11 +120,13 @@ public class SlidingMenuFragmentMap extends Fragment implements ExpandableListVi
         			}
         		});
         		dialog.show();
-        		ma.slidingMenu.toggle();
+        		map.slidingMenu.toggle();
             break;
         case 302:
-        	MainActivity map=new MainActivity();
-        	map.actividad.finish();
+        	if (ma.actividad!=null)
+        		ma.actividad.finish();
+        	if (map.actividad!=null)
+        		map.actividad.finish();
         	getActivity().finish();
             break;
         }
