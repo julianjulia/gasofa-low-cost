@@ -1,0 +1,290 @@
+
+ 
+
+<municipios>
+	   	<m>AJOFRIN</m>
+	
+	   	<m>ALAMEDA DE LA SAGRA</m>
+	
+	   	<m>ALBARREAL DE TAJO</m>
+	
+	   	<m>ALBERCHE DEL CAUDILLO</m>
+	
+	   	<m>ALCABON</m>
+	
+	   	<m>ALCAUDETE DE LA JARA</m>
+	
+	   	<m>ALCOLEA DE TAJO</m>
+	
+	   	<m>ALDEANUEVA DE BARBARROYA</m>
+	
+	   	<m>ALDEANUEVA DE SAN BARTOLOME</m>
+	
+	   	<m>ALMONACID DE TOLEDO</m>
+	
+	   	<m>ALMOROX</m>
+	
+	   	<m>AÑOVER DE TAJO</m>
+	
+	   	<m>ARGES</m>
+	
+	   	<m>AZUCAICA</m>
+	
+	   	<m>BARGAS</m>
+	
+	   	<m>BELVIS DE LA JARA</m>
+	
+	   	<m>BERCIAL (EL)</m>
+	
+	   	<m>BERNUY</m>
+	
+	   	<m>BURGUILLOS DE TOLEDO</m>
+	
+	   	<m>CABAÑAS DE LA SAGRA</m>
+	
+	   	<m>CABEZAMESADA</m>
+	
+	   	<m>CALERA Y CHOZAS</m>
+	
+	   	<m>CALZADA DE OROPESA (LA)</m>
+	
+	   	<m>CAMARENA</m>
+	
+	   	<m>CAMPILLO DE LA JARA (EL)</m>
+	
+	   	<m>CAMUÑAS</m>
+	
+	   	<m>CARMENA</m>
+	
+	   	<m>CARPIO DE TAJO (EL)</m>
+	
+	   	<m>CARRANQUE</m>
+	
+	   	<m>CASAR DE ESCALONA (EL)</m>
+	
+	   	<m>CASAR DE TALAVERA (EL)</m>
+	
+	   	<m>CASARRUBIOS DEL MONTE</m>
+	
+	   	<m>CASTILLO DE BAYUELA</m>
+	
+	   	<m>CAZALEGAS</m>
+	
+	   	<m>CEBOLLA</m>
+	
+	   	<m>CEDILLO DEL CONDADO</m>
+	
+	   	<m>CERRALBOS (LOS)</m>
+	
+	   	<m>CHOZAS DE CANALES</m>
+	
+	   	<m>COBISA</m>
+	
+	   	<m>CONSUEGRA</m>
+	
+	   	<m>CORRAL DE ALMAGUER</m>
+	
+	   	<m>CUERVA</m>
+	
+	   	<m>DOSBARRIOS</m>
+	
+	   	<m>ESCALONA</m>
+	
+	   	<m>ESCALONILLA</m>
+	
+	   	<m>ESPINOSO DEL REY</m>
+	
+	   	<m>ESQUIVIAS</m>
+	
+	   	<m>FUENSALIDA</m>
+	
+	   	<m>GALVEZ</m>
+	
+	   	<m>GERINDOTE</m>
+	
+	   	<m>GUADAMUR</m>
+	
+	   	<m>GUARDIA (LA)</m>
+	
+	   	<m>HERRERUELA DE OROPESA</m>
+	
+	   	<m>ILLESCAS</m>
+	
+	   	<m>LILLO</m>
+	
+	   	<m>MADRIDEJOS</m>
+	
+	   	<m>MALPICA DE TAJO</m>
+	
+	   	<m>MAQUEDA</m>
+	
+	   	<m>MASCARAQUE</m>
+	
+	   	<m>MENASALBAS</m>
+	
+	   	<m>MENTRIDA</m>
+	
+	   	<m>MIGUEL ESTEBAN</m>
+	
+	   	<m>MOCEJON</m>
+	
+	   	<m>MONTEARAGON</m>
+	
+	   	<m>MORA</m>
+	
+	   	<m>NAMBROCA</m>
+	
+	   	<m>NAVA DE RICOMALILLO (LA)</m>
+	
+	   	<m>NAVAHERMOSA</m>
+	
+	   	<m>NAVALCAN</m>
+	
+	   	<m>NAVALMORALES (LOS)</m>
+	
+	   	<m>NAVALUCILLOS (LOS)</m>
+	
+	   	<m>NAVAMORCUENDE</m>
+	
+	   	<m>NOBLEJAS</m>
+	
+	   	<m>NOMBELA</m>
+	
+	   	<m>NUMANCIA DE LA SAGRA</m>
+	
+	   	<m>OCAÑA</m>
+	
+	   	<m>OLIAS DEL REY</m>
+	
+	   	<m>ONTIGOLA</m>
+	
+	   	<m>ORGAZ</m>
+	
+	   	<m>OROPESA</m>
+	
+	   	<m>OTERO</m>
+	
+	   	<m>PANTOJA</m>
+	
+	   	<m>PARRILLAS</m>
+	
+	   	<m>PEPINO</m>
+	
+	   	<m>POLAN</m>
+	
+	   	<m>PORTILLO DE TOLEDO</m>
+	
+	   	<m>PUEBLA DE ALMORADIEL (LA)</m>
+	
+	   	<m>PUEBLA DE MONTALBAN (LA)</m>
+	
+	   	<m>PUEBLANUEVA (LA)</m>
+	
+	   	<m>PUERTO REY</m>
+	
+	   	<m>PULGAR</m>
+	
+	   	<m>QUERO</m>
+	
+	   	<m>QUINTANAR DE LA ORDEN</m>
+	
+	   	<m>REAL DE SAN VICENTE (EL)</m>
+	
+	   	<m>RECAS</m>
+	
+	   	<m>RIELVES</m>
+	
+	   	<m>ROMERAL (EL)</m>
+	
+	   	<m>SAN BARTOLOME DE LAS ABIERTAS</m>
+	
+	   	<m>SAN MARTIN DE MONTALBAN</m>
+	
+	   	<m>SAN MARTIN DE PUSA</m>
+	
+	   	<m>SAN PABLO DE LOS MONTES</m>
+	
+	   	<m>SANTA ANA DE PUSA</m>
+	
+	   	<m>SANTA CRUZ DE LA ZARZA</m>
+	
+	   	<m>SANTA CRUZ DEL RETAMAR</m>
+	
+	   	<m>SANTA OLALLA</m>
+	
+	   	<m>SANTO DOMINGO-CAUDILLA</m>
+	
+	   	<m>SESEÑA</m>
+	
+	   	<m>SESEÑA NUEVO</m>
+	
+	   	<m>SEVILLEJA DE LA JARA</m>
+	
+	   	<m>SONSECA</m>
+	
+	   	<m>TALAVERA DE LA REINA</m>
+	
+	   	<m>TALAVERA LA NUEVA</m>
+	
+	   	<m>TEMBLEQUE</m>
+	
+	   	<m>TOBOSO (EL)</m>
+	
+	   	<m>TOLEDO</m>
+	
+	   	<m>TORRE ESTEBAN HAMBRAN</m>
+	
+	   	<m>TORRICO</m>
+	
+	   	<m>TORRIJOS</m>
+	
+	   	<m>TOTANES</m>
+	
+	   	<m>TURLEQUE</m>
+	
+	   	<m>URDA</m>
+	
+	   	<m>VALMOJADO</m>
+	
+	   	<m>VEGAS Y SAN ANTONIO (LAS)</m>
+	
+	   	<m>VENTAS DE RETAMOSA (LAS)</m>
+	
+	   	<m>VILLA DE DON FADRIQUE (LA)</m>
+	
+	   	<m>VILLACAÑAS</m>
+	
+	   	<m>VILLAFRANCA CABALLEROS</m>
+	
+	   	<m>VILLALUENGA DE LA SAGRA</m>
+	
+	   	<m>VILLAMIEL DE TOLEDO</m>
+	
+	   	<m>VILLAMUELAS</m>
+	
+	   	<m>VILLANUEVA DE ALCARDETE</m>
+	
+	   	<m>VILLANUEVA DE BOGAS</m>
+	
+	   	<m>VILLARRUBIA DE SANTIAGO</m>
+	
+	   	<m>VILLASECA DE LA SAGRA</m>
+	
+	   	<m>VILLASEQUILLA</m>
+	
+	   	<m>VILLATOBAS</m>
+	
+	   	<m>VISO DE SAN JUAN (EL)</m>
+	
+	   	<m>YEBENES (LOS)</m>
+	
+	   	<m>YELES</m>
+	
+	   	<m>YEPES</m>
+	
+	   	<m>YUNCLER</m>
+	
+	   	<m>YUNCOS</m>
+	</municipios>
+
+  
