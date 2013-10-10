@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"  >
+	<item android:id="@+id/ter"
+	      android:title="Mapa Relieve" />
+	<item android:id="@+id/sat"
+	      android:title="Mapa Satelite" />
+	<item android:id="@+id/Normal"
+	      android:title="Mapa Normal" />
+</menu>

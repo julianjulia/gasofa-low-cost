@@ -1,0 +1,410 @@
+
+ 
+
+<municipios>
+	   	<m>ABRERA</m>
+	
+	   	<m>AIRESOL</m>
+	
+	   	<m>ALELLA</m>
+	
+	   	<m>AREA INDUSTRIAL DEL LLOBREGAT</m>
+	
+	   	<m>ARENYS DE MAR</m>
+	
+	   	<m>ARENYS DE MUNT</m>
+	
+	   	<m>ARGENTONA</m>
+	
+	   	<m>ARTES</m>
+	
+	   	<m>AVINYO</m>
+	
+	   	<m>BADALONA</m>
+	
+	   	<m>BADIA DEL VALLES</m>
+	
+	   	<m>BALENYA</m>
+	
+	   	<m>BALSARENY</m>
+	
+	   	<m>BARBERA DEL VALLES</m>
+	
+	   	<m>BARCELONA</m>
+	
+	   	<m>BATLLORIA (LA)</m>
+	
+	   	<m>BEGUES</m>
+	
+	   	<m>BERGA</m>
+	
+	   	<m>BRUC (EL)</m>
+	
+	   	<m>CA L'ANTON</m>
+	
+	   	<m>CA N'AMAT</m>
+	
+	   	<m>CABRERA DE MAR</m>
+	
+	   	<m>CABRILS</m>
+	
+	   	<m>CALAF</m>
+	
+	   	<m>CALDERS</m>
+	
+	   	<m>CALDES DE MONTBUI</m>
+	
+	   	<m>CALELLA</m>
+	
+	   	<m>CALLDETENES</m>
+	
+	   	<m>CAN CUIAS</m>
+	
+	   	<m>CAN TRIAS INDUSTRIAL</m>
+	
+	   	<m>CANET DE MAR</m>
+	
+	   	<m>CANOVELLES</m>
+	
+	   	<m>CANYELLES</m>
+	
+	   	<m>CARDEDEU</m>
+	
+	   	<m>CARDONA</m>
+	
+	   	<m>CASTELLAR DEL VALLES</m>
+	
+	   	<m>CASTELLBELL I EL VILAR</m>
+	
+	   	<m>CASTELLBISBAL</m>
+	
+	   	<m>CASTELLDEFELS</m>
+	
+	   	<m>CASTELLET I LA GORNAL</m>
+	
+	   	<m>CASTELLTERÇOL</m>
+	
+	   	<m>CENTELLES</m>
+	
+	   	<m>CERCS</m>
+	
+	   	<m>CERDANYOLA DEL VALLES</m>
+	
+	   	<m>CERVELLO</m>
+	
+	   	<m>COLLBATO</m>
+	
+	   	<m>COLONIA VIDAL</m>
+	
+	   	<m>CORNELLA DE LLOBREGAT</m>
+	
+	   	<m>CUBELLES</m>
+	
+	   	<m>ENTITAT EST D'ABRERA</m>
+	
+	   	<m>ESPARREGUERA</m>
+	
+	   	<m>ESPLUGUES DE LLOBREGAT</m>
+	
+	   	<m>ESPUNYOLA (L')</m>
+	
+	   	<m>FOGARS DE LA SELVA</m>
+	
+	   	<m>FRANQUESES DEL VALLES (LES)</m>
+	
+	   	<m>GARRIGA (LA)</m>
+	
+	   	<m>GAVA</m>
+	
+	   	<m>GELIDA</m>
+	
+	   	<m>GIRONELLA</m>
+	
+	   	<m>GRANADA (LA)</m>
+	
+	   	<m>GRANOLLERS</m>
+	
+	   	<m>GUARDIOLA DE BERGUEDA</m>
+	
+	   	<m>GURB</m>
+	
+	   	<m>HOSPITALET DE LLOBREGAT (L')</m>
+	
+	   	<m>IGUALADA</m>
+	
+	   	<m>JORBA</m>
+	
+	   	<m>LLEDONER (EL)</m>
+	
+	   	<m>LLIÇA D'AMUNT</m>
+	
+	   	<m>LLIÇA DE VALL</m>
+	
+	   	<m>LLINARS DEL VALLES</m>
+	
+	   	<m>MALGRAT DE MAR</m>
+	
+	   	<m>MALLA</m>
+	
+	   	<m>MANLLEU</m>
+	
+	   	<m>MANRESA</m>
+	
+	   	<m>MARTORELL</m>
+	
+	   	<m>MASIES DE VOLTREGA (LES)</m>
+	
+	   	<m>MASNOU (EL)</m>
+	
+	   	<m>MASQUEFA</m>
+	
+	   	<m>MATARO</m>
+	
+	   	<m>MOGODA</m>
+	
+	   	<m>MOIA</m>
+	
+	   	<m>MOLINS DE REI</m>
+	
+	   	<m>MOLLET DEL VALLES</m>
+	
+	   	<m>MONISTROL DE MONTSERRAT</m>
+	
+	   	<m>MONJOS (ELS)</m>
+	
+	   	<m>MONTCADA CENTRE</m>
+	
+	   	<m>MONTGAT</m>
+	
+	   	<m>MONTMANEU</m>
+	
+	   	<m>MONTMELO</m>
+	
+	   	<m>MONTORNES CENTRE</m>
+	
+	   	<m>MONTORNES NORD</m>
+	
+	   	<m>MONTSENY</m>
+	
+	   	<m>NAVARCLES</m>
+	
+	   	<m>NAVAS</m>
+	
+	   	<m>ODENA</m>
+	
+	   	<m>OLÈRDOLA</m>
+	
+	   	<m>OLESA DE MONTSERRAT</m>
+	
+	   	<m>OLOST</m>
+	
+	   	<m>OLVAN</m>
+	
+	   	<m>PACS DEL PENEDES</m>
+	
+	   	<m>PALAFOLLS</m>
+	
+	   	<m>PALAU-SOLITA I PLEGAMANS</m>
+	
+	   	<m>PALLEJA</m>
+	
+	   	<m>PALMA DE CERVELLO</m>
+	
+	   	<m>PAPIOL (EL)</m>
+	
+	   	<m>PARETS DEL VALLES</m>
+	
+	   	<m>PIERA</m>
+	
+	   	<m>PINEDA DE MAR</m>
+	
+	   	<m>PLA DEL PENEDES (EL)</m>
+	
+	   	<m>POBLA DE CLARAMUNT (LA)</m>
+	
+	   	<m>POBLA DE LILLET (LA)</m>
+	
+	   	<m>POBLE SEC</m>
+	
+	   	<m>PONT VILOMARA I ROCAFORT</m>
+	
+	   	<m>PRAT DE LLOBREGAT (EL)</m>
+	
+	   	<m>PRATS DE LLUÇANES</m>
+	
+	   	<m>PUIG-REIG</m>
+	
+	   	<m>RIERAL DE BIGUES</m>
+	
+	   	<m>RIPOLLET</m>
+	
+	   	<m>ROCA DEL VALLES (LA)</m>
+	
+	   	<m>RODA DE TER</m>
+	
+	   	<m>RUBI</m>
+	
+	   	<m>SABADELL</m>
+	
+	   	<m>SALDES</m>
+	
+	   	<m>SALLENT</m>
+	
+	   	<m>SANT ADRIA DE BESOS</m>
+	
+	   	<m>SANT ANDREU DE LA BARCA</m>
+	
+	   	<m>SANT ANDREU DE LLAVANERES</m>
+	
+	   	<m>SANT BARTOMEU DEL GRAU</m>
+	
+	   	<m>SANT BOI DE LLOBREGAT</m>
+	
+	   	<m>SANT CELONI</m>
+	
+	   	<m>SANT CUGAT DEL VALLES</m>
+	
+	   	<m>SANT CUGAT SESGARRIGUES</m>
+	
+	   	<m>SANT ESTEVE SESROVIRES</m>
+	
+	   	<m>SANT FELIU DE LLOBREGAT</m>
+	
+	   	<m>SANT FOST CAMPSENTELLES</m>
+	
+	   	<m>SANT FRUITOS DE BAGES</m>
+	
+	   	<m>SANT GENIS DE PALAFOLLS</m>
+	
+	   	<m>SANT HIPOLIT DE VOLTREGA</m>
+	
+	   	<m>SANT ISCLE DE VALLALTA</m>
+	
+	   	<m>SANT JOAN DE VILATORRADA</m>
+	
+	   	<m>SANT JOAN DESPI</m>
+	
+	   	<m>SANT JUST DESVERN</m>
+	
+	   	<m>SANT LLORENÇ SAVALL</m>
+	
+	   	<m>SANT MARTI DE TOUS</m>
+	
+	   	<m>SANT MARTI SARROCA</m>
+	
+	   	<m>SANT MARTI SESGUEIOLES</m>
+	
+	   	<m>SANT MIQUEL D'OLERDOLA</m>
+	
+	   	<m>SANT PERE DE RIBES</m>
+	
+	   	<m>SANT PERE DE RIUDEBITLLES</m>
+	
+	   	<m>SANT PERE DE TORELLO</m>
+	
+	   	<m>SANT PERE MOLANTA</m>
+	
+	   	<m>SANT PERE SALLAVINERA</m>
+	
+	   	<m>SANT POL DE MAR</m>
+	
+	   	<m>SANT QUINTI DE MEDIONA</m>
+	
+	   	<m>SANT QUIRZE DE BESORA</m>
+	
+	   	<m>SANT QUIRZE DEL VALLES</m>
+	
+	   	<m>SANT QUIRZE SAFAJA</m>
+	
+	   	<m>SANT SADURNI D'ANOIA</m>
+	
+	   	<m>SANT SALVADOR GUARDIOLA</m>
+	
+	   	<m>SANT VICENÇ DE CASTELLET</m>
+	
+	   	<m>SANT VICENÇ DE MONTALT</m>
+	
+	   	<m>SANT VICENÇ DE TORELLO</m>
+	
+	   	<m>SANT VICENÇ DELS HORTS</m>
+	
+	   	<m>SANTA AGNES DE MALANYANES</m>
+	
+	   	<m>SANTA COLOMA DE GRAMENET</m>
+	
+	   	<m>SANTA EULALIA DE RIUPRIMER</m>
+	
+	   	<m>SANTA EULALIA DE RONÇANA</m>
+	
+	   	<m>SANTA MARIA DE CORCO</m>
+	
+	   	<m>SANTA MARIA DE MIRALLES</m>
+	
+	   	<m>SANTA MARIA DE PALAUTORDERA</m>
+	
+	   	<m>SANTA PERPETUA DE MOGODA</m>
+	
+	   	<m>SANTA SUSANNA</m>
+	
+	   	<m>SANTIGA</m>
+	
+	   	<m>SANTPEDOR</m>
+	
+	   	<m>SENTMENAT</m>
+	
+	   	<m>SERRAT DE L'OCATA</m>
+	
+	   	<m>SEVA</m>
+	
+	   	<m>SITGES</m>
+	
+	   	<m>SURIA</m>
+	
+	   	<m>TAGAMANENT</m>
+	
+	   	<m>TARADELL</m>
+	
+	   	<m>TEIA CENTRE</m>
+	
+	   	<m>TERRASSA</m>
+	
+	   	<m>TONA</m>
+	
+	   	<m>TORDERA</m>
+	
+	   	<m>TORELLO</m>
+	
+	   	<m>TORRELLES DE LLOBREGAT</m>
+	
+	   	<m>URB. VINYA DEL POLLASTRE</m>
+	
+	   	<m>VACARISSES</m>
+	
+	   	<m>VALLES PARC</m>
+	
+	   	<m>VALLGORGUINA</m>
+	
+	   	<m>VALLIRANA PARC</m>
+	
+	   	<m>VALLROMANES</m>
+	
+	   	<m>VIC</m>
+	
+	   	<m>VICTOR FONT GUAL</m>
+	
+	   	<m>VILADECANS</m>
+	
+	   	<m>VILADECAVALLS</m>
+	
+	   	<m>VILAFRANCA DEL PENEDES</m>
+	
+	   	<m>VILANOVA DEL VALLES</m>
+	
+	   	<m>VILANOVA I LA GELTRU</m>
+	
+	   	<m>VILASSAR DE DALT</m>
+	
+	   	<m>VILASSAR DE MAR</m>
+	</municipios>
+
+  
