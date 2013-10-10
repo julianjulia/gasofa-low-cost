@@ -1,0 +1,234 @@
+
+ 
+
+<municipios>
+	   	<m>AGER</m>
+	
+	   	<m>AGRAMUNT</m>
+	
+	   	<m>AITONA</m>
+	
+	   	<m>ALAMUS (ELS)</m>
+	
+	   	<m>ALBATARREC</m>
+	
+	   	<m>ALBESA</m>
+	
+	   	<m>ALCARRAS</m>
+	
+	   	<m>ALCOLETGE</m>
+	
+	   	<m>ALFARRAS</m>
+	
+	   	<m>ALFES</m>
+	
+	   	<m>ALGERRI</m>
+	
+	   	<m>ALGUAIRE</m>
+	
+	   	<m>ALMACELLES</m>
+	
+	   	<m>ALMENAR</m>
+	
+	   	<m>ALPICAT</m>
+	
+	   	<m>ANGLESOLA</m>
+	
+	   	<m>ARBECA</m>
+	
+	   	<m>ARDEVOL</m>
+	
+	   	<m>ARTESA DE LLEIDA</m>
+	
+	   	<m>ARTESA DE SEGRE</m>
+	
+	   	<m>ARTIES</m>
+	
+	   	<m>BALAGUER</m>
+	
+	   	<m>BARBENS</m>
+	
+	   	<m>BARRUERA</m>
+	
+	   	<m>BASSELLA</m>
+	
+	   	<m>BASSES D'ALPICAT (LES)</m>
+	
+	   	<m>BAUSEN</m>
+	
+	   	<m>BELLCAIRE D'URGELL</m>
+	
+	   	<m>BELL-LLOC D'URGELL</m>
+	
+	   	<m>BELLPUIG</m>
+	
+	   	<m>BELLVER DE CERDANYA</m>
+	
+	   	<m>BELLVIS</m>
+	
+	   	<m>BENAVENT DE SEGRIA</m>
+	
+	   	<m>BETREN</m>
+	
+	   	<m>BORGES BLANQUES (LES)</m>
+	
+	   	<m>CAMARASA</m>
+	
+	   	<m>CASTELLDANS</m>
+	
+	   	<m>CASTELLNOU DE SEANA</m>
+	
+	   	<m>CERVERA</m>
+	
+	   	<m>CIUTADILLA</m>
+	
+	   	<m>CLARIANA DE CARDENER</m>
+	
+	   	<m>COLL DE NARGO</m>
+	
+	   	<m>CORBINS</m>
+	
+	   	<m>CUBELLS</m>
+	
+	   	<m>ESPLUGA CALBA (L')</m>
+	
+	   	<m>ESPOT</m>
+	
+	   	<m>ESTERRI D'ANEU</m>
+	
+	   	<m>FIGUEROLA D'ORCAU</m>
+	
+	   	<m>FLORESTA (LA)</m>
+	
+	   	<m>FONDARELLA</m>
+	
+	   	<m>FONOLLERES</m>
+	
+	   	<m>FULIOLA (LA)</m>
+	
+	   	<m>GIMENELLS</m>
+	
+	   	<m>GOLMES</m>
+	
+	   	<m>GRANADELLA (LA)</m>
+	
+	   	<m>GUISSONA</m>
+	
+	   	<m>IVARS D'URGELL</m>
+	
+	   	<m>JUNCOSA</m>
+	
+	   	<m>JUNEDA</m>
+	
+	   	<m>LES</m>
+	
+	   	<m>LINYOLA</m>
+	
+	   	<m>LLARDECANS</m>
+	
+	   	<m>LLEIDA</m>
+	
+	   	<m>LLES DE CERDANYA</m>
+	
+	   	<m>MAIALS</m>
+	
+	   	<m>MOLLERUSSA</m>
+	
+	   	<m>MONTFERRER</m>
+	
+	   	<m>MONTGAI</m>
+	
+	   	<m>MONTOLIU DE LLEIDA</m>
+	
+	   	<m>OLIANA</m>
+	
+	   	<m>OLIUS</m>
+	
+	   	<m>ORGANYA</m>
+	
+	   	<m>PALAU D'ANGLESOLA (EL)</m>
+	
+	   	<m>PALAU DE NOGUERA</m>
+	
+	   	<m>PLANS DE SIO (ELS)</m>
+	
+	   	<m>POBLA DE SEGUR (LA)</m>
+	
+	   	<m>PONT DE SUERT (EL)</m>
+	
+	   	<m>PONTS</m>
+	
+	   	<m>PRATS</m>
+	
+	   	<m>RIALP</m>
+	
+	   	<m>ROSSELLO</m>
+	
+	   	<m>SANT GUIM DE FREIXENET</m>
+	
+	   	<m>SANT LLORENÇ DE MORUNYS</m>
+	
+	   	<m>SANT RAMON</m>
+	
+	   	<m>SARROCA DE LLEIDA</m>
+	
+	   	<m>SEANA</m>
+	
+	   	<m>SEROS</m>
+	
+	   	<m>SEU D'URGELL (LA)</m>
+	
+	   	<m>SIDAMON</m>
+	
+	   	<m>SOLERAS (EL)</m>
+	
+	   	<m>SOLSONA</m>
+	
+	   	<m>SORIGUERA</m>
+	
+	   	<m>SORT</m>
+	
+	   	<m>SOSES</m>
+	
+	   	<m>SUDANELL</m>
+	
+	   	<m>SUNYER</m>
+	
+	   	<m>TALARN</m>
+	
+	   	<m>TARREGA</m>
+	
+	   	<m>TERMENS</m>
+	
+	   	<m>TORA</m>
+	
+	   	<m>TORREFARRERA</m>
+	
+	   	<m>TORREGROSSA</m>
+	
+	   	<m>TORRELAMEU</m>
+	
+	   	<m>TORRES DE SEGRE</m>
+	
+	   	<m>TREMP</m>
+	
+	   	<m>VALLFOGONA DE BALAGUER</m>
+	
+	   	<m>VERDU</m>
+	
+	   	<m>VIELHA</m>
+	
+	   	<m>VILAGRASSA</m>
+	
+	   	<m>VILALLER</m>
+	
+	   	<m>VILAMITJANA</m>
+	
+	   	<m>VILAMOS</m>
+	
+	   	<m>VILANOVA DE LA BARCA</m>
+	
+	   	<m>VILA-SANA</m>
+	</municipios>
+
+  

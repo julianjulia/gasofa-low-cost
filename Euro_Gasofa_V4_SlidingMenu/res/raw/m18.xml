@@ -1,0 +1,232 @@
+
+ 
+
+<municipios>
+	   	<m>ALBOLOTE</m>
+	
+	   	<m>ALBUÑAN</m>
+	
+	   	<m>ALBUÑOL</m>
+	
+	   	<m>ALFACAR</m>
+	
+	   	<m>ALGARINEJO</m>
+	
+	   	<m>ALHAMA DE GRANADA</m>
+	
+	   	<m>ALHENDIN</m>
+	
+	   	<m>ALMACILES</m>
+	
+	   	<m>ALMUÑECAR</m>
+	
+	   	<m>ALOMARTES</m>
+	
+	   	<m>ARMILLA</m>
+	
+	   	<m>ATARFE</m>
+	
+	   	<m>BARRICHUELO (EL)</m>
+	
+	   	<m>BAUL</m>
+	
+	   	<m>BAZA</m>
+	
+	   	<m>BENALUA DE GUADIX</m>
+	
+	   	<m>BENALUA DE LAS VILLAS</m>
+	
+	   	<m>BENAMAUREL</m>
+	
+	   	<m>CADIAR</m>
+	
+	   	<m>CALAHORRA (LA)</m>
+	
+	   	<m>CALICASAS</m>
+	
+	   	<m>CAMPOTEJAR</m>
+	
+	   	<m>CANILES</m>
+	
+	   	<m>CARCHUNA</m>
+	
+	   	<m>CASANUEVA</m>
+	
+	   	<m>CASTELL DE FERRO</m>
+	
+	   	<m>CASTILLEJAR</m>
+	
+	   	<m>CASTRIL</m>
+	
+	   	<m>CENES DE LA VEGA</m>
+	
+	   	<m>CHAUCHINA</m>
+	
+	   	<m>CHURRIANA DE LA VEGA</m>
+	
+	   	<m>CIJUELA</m>
+	
+	   	<m>COGOLLOS VEGA</m>
+	
+	   	<m>CONCHAR</m>
+	
+	   	<m>CORTES DE BAZA</m>
+	
+	   	<m>CUEVAS DEL CAMPO</m>
+	
+	   	<m>CULLAR</m>
+	
+	   	<m>CULLAR VEGA</m>
+	
+	   	<m>DARRO</m>
+	
+	   	<m>DEIFONTES</m>
+	
+	   	<m>DIEZMA</m>
+	
+	   	<m>DOLAR</m>
+	
+	   	<m>DOMINGO PEREZ</m>
+	
+	   	<m>DURCAL</m>
+	
+	   	<m>FORNES</m>
+	
+	   	<m>FREILA</m>
+	
+	   	<m>FUENTE VAQUEROS</m>
+	
+	   	<m>GABIA GRANDE</m>
+	
+	   	<m>GALERA</m>
+	
+	   	<m>GOJAR</m>
+	
+	   	<m>GOR</m>
+	
+	   	<m>GRANADA</m>
+	
+	   	<m>GUADAHORTUNA</m>
+	
+	   	<m>GUADIX</m>
+	
+	   	<m>GUALCHOS</m>
+	
+	   	<m>GUEJAR-SIERRA</m>
+	
+	   	<m>GUEVEJAR</m>
+	
+	   	<m>HERRADURA (LA)</m>
+	
+	   	<m>HUENEJA</m>
+	
+	   	<m>HUESCAR</m>
+	
+	   	<m>HUETOR-SANTILLAN</m>
+	
+	   	<m>HUETOR-TAJAR</m>
+	
+	   	<m>HUETOR-VEGA</m>
+	
+	   	<m>ILLORA</m>
+	
+	   	<m>IZNALLOZ</m>
+	
+	   	<m>JAYENA</m>
+	
+	   	<m>JETE</m>
+	
+	   	<m>JUN</m>
+	
+	   	<m>LACHAR</m>
+	
+	   	<m>LANJARON</m>
+	
+	   	<m>LAROLES</m>
+	
+	   	<m>LOJA</m>
+	
+	   	<m>MARACENA</m>
+	
+	   	<m>MOCLIN</m>
+	
+	   	<m>MOLVIZAR</m>
+	
+	   	<m>MONTEFRIO</m>
+	
+	   	<m>MONTELUZ</m>
+	
+	   	<m>MONTILLANA</m>
+	
+	   	<m>MORALEDA DE ZAFAYONA</m>
+	
+	   	<m>MOREDA</m>
+	
+	   	<m>MOTRIL</m>
+	
+	   	<m>OGIJARES</m>
+	
+	   	<m>ORCE</m>
+	
+	   	<m>ORGIVA</m>
+	
+	   	<m>OTURA</m>
+	
+	   	<m>PADUL</m>
+	
+	   	<m>PAMPANEIRA</m>
+	
+	   	<m>PELIGROS</m>
+	
+	   	<m>PEZA (LA)</m>
+	
+	   	<m>PINOS-PUENTE</m>
+	
+	   	<m>PIÑAR</m>
+	
+	   	<m>PUEBLA DE DON FADRIQUE</m>
+	
+	   	<m>PUERTO LOPE</m>
+	
+	   	<m>PULIANAS</m>
+	
+	   	<m>PURCHIL</m>
+	
+	   	<m>PURULLENA</m>
+	
+	   	<m>RABITA (LA)</m>
+	
+	   	<m>SALAR</m>
+	
+	   	<m>SALOBREÑA</m>
+	
+	   	<m>SANTA FE</m>
+	
+	   	<m>TALARA</m>
+	
+	   	<m>UGIJAR</m>
+	
+	   	<m>VALDERRUBIO</m>
+	
+	   	<m>VELEZ DE BENAUDALLA</m>
+	
+	   	<m>VENTA NUEVA</m>
+	
+	   	<m>VENTAS DE HUELMA</m>
+	
+	   	<m>VENTAS DE ZAFARRAYA</m>
+	
+	   	<m>VENTORROS DE SAN JOSE</m>
+	
+	   	<m>VERTIENTES (LAS)</m>
+	
+	   	<m>VILLANUEVA DE LAS TORRES</m>
+	
+	   	<m>ZAFARRAYA</m>
+	
+	   	<m>ZAGRA</m>
+	
+	   	<m>ZUBIA (LA)</m>
+	</municipios>
+
+  
