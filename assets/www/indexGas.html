@@ -1,0 +1,295 @@
+<html title="gasofa">
+<head>
+<link rel="stylesheet" href="css-js/jquery.mobile-1.0a4.1.css" />
+<script type="text/javascript" src="css-js/jquery-1.7.1.js"></script>
+<script type="text/javascript" src="css-js/jquery.mobile-1.0a4.1.js"></script>
+<link rel="stylesheet" href="css-js/Stile.css" />
+
+</head>
+<body>
+	<div data-role="page" data-theme="c" id="containerPage2">
+		<div data-role="header"></div>
+		<div data-role="content">
+
+					
+			<br/>
+			<table>
+				<tr>
+				<td colspan="2" align="center">
+				<fieldset  data-role="controlgroup" data-type="horizontal" data-mini="true">
+					<input type="radio" name="combustible" id="gasoleo" value="4" checked="checked" />
+    					<label for="gasoleo"><a style="opacity: 0.7;font-size: 13px;font-family:verdana">Gasoleo</a></label>
+					<input type="radio" name="combustible" id="gasolina95" value="1"  />
+    					<label for="gasolina95"><a style="opacity: 0.7;font-size: 13px;font-family:verdana">G_95</a></label>
+    		    	<input type="radio" name="combustible" id="gasolina98" value="3"  />
+    					<label for="gasolina98"><a style="opacity: 0.7;font-size: 13px;font-family:verdana">G_98</a></label>
+				</fieldset>
+				</td></tr>
+				<tr><td colspan="2"><input style="opacity: 0.7;" data-clear-btn="true"
+						name="provincia" placeholder=" Provincia "
+						id="provincia" value="" type="text" readonly="readonly" /></td>
+					
+				</tr><tr><td><input style="opacity: 0.7;" data-clear-btn="true"
+						name="municipio" placeholder=" Municipio "
+						id="municipio" value="" type="text"  /></td><td><input style="opacity: 0.7;" data-clear-btn="true"
+						name="cp" placeholder=" C.P."
+						id="cp" value="" type="text" size="5" maxlength="5" /></td>
+				</tr>
+				<tr><td><input style="opacity: 0.7;" data-clear-btn="true"
+						name="direccion" placeholder=" calle, plaza.... "
+						id="direccion" value="" type="text"  /></td><td><input style="opacity: 0.7;" data-clear-btn="true"
+						name="num" placeholder=" num"
+						id="num" value="" type="text" size="5" maxlength="5" /></td>
+				</tr>
+				<tr>
+				
+				<td  align="left"><br/><a  href="#" id="LeerGas"  style="text-decoration: none;"><img style="opacity:0.5;"src="img/buscar.jpg" align="left" /></a>
+				</td><td></td></tr>
+				<tr><td colspan="2" align="center" ><br/><br/><br/><a  href="#" id="GasProx"  style="text-decoration: none;"><img style="opacity:0.8;"src="img/indice.jpg"  /></a></td></tr>
+			</table>
+			<p />
+			&nbsp
+			<p />
+		
+			
+		</div>
+
+		<div data-role="footer"></div>
+	</div>
+
+		
+	
+
+	<div data-role="page" data-theme="c"  id="pageResultados">
+		<div data-role="header" ></div>
+		<div data-role="content" >
+		
+			<div id="notation">
+			<ul style="opacity:0.7;" data-role="listview" data-inset="true" id="lista">
+			</ul>
+		</div>
+				
+		</div>
+		
+		<div data-role="footer" data-theme="c"></div>
+	</div>
+<script>
+		$(document).ready(function() {
+
+			$("#provincia").click(
+					function(e) {
+						$('input').attr('disabled', true);
+						$("input").blur();
+						$('input').attr('disabled', false);
+						androidSupport.SelectProv();
+						
+															
+					});
+		
+			$("#municipio").click(
+					function(e) {
+						$('input').attr('disabled', true);
+						$("input").blur();
+						$('input').attr('disabled', false);
+						androidSupport.SelectMun($('#provincia').val());
+				
+					});
+			
+			$("#LeerGas").click(
+					function(e) {
+						$.mobile.changePage($('#pageResultados'),'slide');
+						var provincia= $('#provincia').val();
+						//provincia=provincia.toLowerCase().trim();
+						//provincia=quitaacentos(valor);
+						var municipio= $('#municipio').val();
+						municipio=quitaacentos(municipio);
+						municipio = municipio.toUpperCase().trim();
+						$('#municipio').val(municipio);
+						var direccion= $('#direccion').val();
+						var num= $('#num').val();
+						var cp= $('#cp').val();
+						var combustible = $("input[name='combustible']:checked").val(); 
+						$('input').attr('disabled', true);
+						$("input").blur();
+						$('input').attr('disabled', false);
+							setRestList(androidSupport.leerGasolineras(provincia, municipio, direccion, num, cp, combustible, null));
+							quitaacentos
+						
+					});
+			
+			
+			$("#GasProx").click(
+						function(e) {
+							loadcomb();	
+																				
+						});
+
+		});
+		
+		function loadprov(valor){
+			$("#provincia").val(valor);
+		}
+		
+		function loadmun(valor){
+			$("#municipio").val(valor);
+		}
+		
+		function loadcomb(){
+			var combustible = $("input[name='combustible']:checked").val(); 
+			androidSupport.GasCercanas2(combustible);
+		}
+		
+		
+		function irfavoritos() {			
+			$.mobile.changePage($('#favoritosPage'), 'slide');
+			setResFav();
+			$('#lFav').listview('refresh');
+			$('#listaFav').listview('refresh');
+		}
+		
+		function GasCerca() {
+			androidSupport.GasCercanas();
+		}
+
+		function showToast(valor) {
+			androidSupport.loadToast(valor);
+		}
+
+		function addFav(valor) {
+			androidSupport.writeBDFavoritos($("#provincia").val(), valor);
+			setResFav();
+		}
+
+		function minFav(valor) {
+			androidSupport.writeBDFavoritos("-----", valor);
+			setResFav();
+		}
+
+		function irFav(varFavoritos) {			
+			$.mobile.changePage($('#containerPage2'),'pop'  );
+			if(varFavoritos==0){
+				$("#provincia").val('');	
+			}else{
+			$("#provincia").val($('#fav'+varFavoritos).html());
+			}
+			$('#listaOrd').listview('refresh');			
+			$('#listaFav').listview('refresh');
+		}
+		
+		
+		function irMenOrd() {
+			androidSupport.refrescar();
+			$.mobile.changePage($('#ordenarPage'), 'slide');
+			$('#listaOrd').listview('refresh');
+			$('#listaFav').listview('refresh');
+		}
+
+		function irOrd(varOrden) {
+			$.mobile.changePage($('#pageResultados'),'slide');
+			$('#listaFav').listview('refresh');
+			$('#listaOrd').listview('refresh');
+			var provincia= $('#provincia').val();
+			provincia=provincia.toLowerCase().trim();
+			provincia=quitaacentos(valor);
+			var municipio= $('#municipio').val();
+			var direccion= $('#direccion').val();
+			var num= $('#num').val();
+			var cp= $('#dp').val();
+			var combustible = $("input[name='combustible']:checked").val(); 
+			setRestList(androidSupport.leerGasolineras(provincia, municipio, direccion, num, cp, combustible, varOrden));
+			
+					
+			
+		}
+			
+		function setResFav() {
+			var favJson = androidSupport.loadFav();
+			var data = JSON.parse(favJson);
+
+			for ( var i in data.listaFavoritos) {
+				var idt = '#fav' + data.listaFavoritos[i].pos;
+				$(idt).html(data.listaFavoritos[i].nombre);
+				}
+			
+			$('#listaFav').listview('refresh');		
+			$('#listaOrd').listview('refresh');			
+
+		}
+
+		
+		function replaceAll(text, busca, reemplaza) {
+			while (text.toString().indexOf(busca) != -1)
+				text = text.toString().replace(busca, reemplaza);
+			return text;
+		}
+		function quitaacentos(t) {
+			α = "a";
+			ι = "e";
+			ν = "i";
+			σ = "o";
+			ϊ = "u";
+			ρ = "n";
+			δ = "a";
+			λ = "e";
+			ο = "i";
+			φ = "o";
+			ό = "u";
+			acentos = /[αινσϊρδλοφό]/g;
+			return t.replace(acentos, function($1) {
+				return eval($1)
+			})
+		}
+		
+		function showRest(UPV) {
+			androidSupport.EscribirBD(UPV);
+		}
+		
+		function setRestList(jsonText) {
+			var data = JSON.parse(jsonText);
+			$("#lista").html('');
+			for ( var i in data.listagasolineras) {
+				var combustible;
+				var precio;
+				if(data.listagasolineras[i].gasoleo!="-"){
+					combustible="gasoleo:";
+					precio=data.listagasolineras[i].gasoleo;
+				}
+				if(data.listagasolineras[i].gasolina95!="-"){
+					combustible="gasolina95:";
+					precio=data.listagasolineras[i].gasolina95;
+				}
+				if(data.listagasolineras[i].gasolina98!="-"){
+					combustible="gasolina98:";
+					precio=data.listagasolineras[i].gasolina98;
+				}
+				if (i%2==0){
+					output = '<li id="ligas" ><a href="javascript:showRest('+"'"+data.listagasolineras[i].upv+"'"+');"><table width="100%" style="font-size: 10px;font-family:verdana"><tr><td width="50%">'
+					
+				}else{
+					output = '<li id="ligas" style="background:#d2d2d2"><a href="javascript:showRest('+"'"+data.listagasolineras[i].upv+"'"+');"><table width="100%" style="font-size: 10px;font-family:verdana"><tr><td width="50%">'
+					
+				}
+				output=output + data.listagasolineras[i].localidad + '</td><td width="50%">'
+				+ data.listagasolineras[i].provincia
+				+ '</td></tr><tr><td colspan="2" width="100%">'
+				+ data.listagasolineras[i].direccion
+				+ '</td></tr><tr><td width="50%">horario:</td><td width="50%">'
+				+ data.listagasolineras[i].horario
+				+ '</td></tr><tr><td width="50%">rotulo:</td><td width="50%">'
+				+ data.listagasolineras[i].nombre
+				+ '</td></tr><tr><td width="50%">'+combustible+'</td><td width="50%">'
+				+ precio
+				+ '</td></tr><tr><td colspan="2"  width="100%"  align="right">'
+				+ data.listagasolineras[i].fecha
+				+ '</td></tr></table></a></li>';
+		$('#lista').append(output);
+			}
+
+			$('#lista').listview('refresh');
+			
+
+		}
+		
+</script>		
+</body>
+</html>
