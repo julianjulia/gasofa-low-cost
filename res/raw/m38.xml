@@ -1,0 +1,212 @@
+
+ 
+
+<municipios>
+	   	<m>ADEJE</m>
+	
+	   	<m>AEROPUERTO REINA SOFIA (SANTA CRUZ DE TENERIFE)</m>
+	
+	   	<m>ALAJERO</m>
+	
+	   	<m>ALCALA</m>
+	
+	   	<m>ANDENES, LOS</m>
+	
+	   	<m>AÑAZA</m>
+	
+	   	<m>ARAFO</m>
+	
+	   	<m>ARICO</m>
+	
+	   	<m>ARICO NUEVO</m>
+	
+	   	<m>ARMEÑIME</m>
+	
+	   	<m>ARONA</m>
+	
+	   	<m>BAJAMAR</m>
+	
+	   	<m>BALDIOS, LOS</m>
+	
+	   	<m>BARLOVENTO</m>
+	
+	   	<m>BARRANCO HONDO</m>
+	
+	   	<m>BENIJOS</m>
+	
+	   	<m>BREÑA</m>
+	
+	   	<m>BREÑA ALTA</m>
+	
+	   	<m>BUENAVISTA DEL NORTE</m>
+	
+	   	<m>CABO BLANCO</m>
+	
+	   	<m>CALERA (LA)</m>
+	
+	   	<m>CALETILLAS (LAS)</m>
+	
+	   	<m>CAMELLA(LA)</m>
+	
+	   	<m>CANDELARIA</m>
+	
+	   	<m>CHAFIRAS (LAS)</m>
+	
+	   	<m>CHIO</m>
+	
+	   	<m>CHIPUDE</m>
+	
+	   	<m>CISNERA</m>
+	
+	   	<m>COSTA DEL SILENCIO</m>
+	
+	   	<m>CRISTIANOS(LOS)</m>
+	
+	   	<m>CRUZ SANTA</m>
+	
+	   	<m>CUESTA, LA</m>
+	
+	   	<m>EL ROSARIO</m>
+	
+	   	<m>EL SAUZAL</m>
+	
+	   	<m>EL TANQUE</m>
+	
+	   	<m>ESCOBONAL (EL)</m>
+	
+	   	<m>ESPERANZA (LA)</m>
+	
+	   	<m>FAÑABE</m>
+	
+	   	<m>FASNIA</m>
+	
+	   	<m>FRONTERA</m>
+	
+	   	<m>FUENCALIENTE</m>
+	
+	   	<m>GARACHICO</m>
+	
+	   	<m>GARAFIA</m>
+	
+	   	<m>GENETO</m>
+	
+	   	<m>GRANADILLA DE ABONA</m>
+	
+	   	<m>GUAMASA</m>
+	
+	   	<m>GUANCHA (LA)</m>
+	
+	   	<m>GUIA</m>
+	
+	   	<m>GUIA DE ISORA</m>
+	
+	   	<m>GÜIMAR</m>
+	
+	   	<m>HERMIGUA</m>
+	
+	   	<m>ICOD DE LOS VINOS</m>
+	
+	   	<m>ICOD EL ALTO</m>
+	
+	   	<m>LA LAGUNA</m>
+	
+	   	<m>LLANOS DE ARIDANE (LOS)</m>
+	
+	   	<m>LODERO</m>
+	
+	   	<m>MATANZA DE ACENTEJO (LA)</m>
+	
+	   	<m>MEDANO (EL)</m>
+	
+	   	<m>OROTAVA (LA)</m>
+	
+	   	<m>PALO BLANCO-LLANADAS</m>
+	
+	   	<m>PASO (EL)</m>
+	
+	   	<m>PERDOMA (LA)</m>
+	
+	   	<m>PINAR (EL)</m>
+	
+	   	<m>PLAYA DE LAS AMERICAS (ARONA)</m>
+	
+	   	<m>PLAYA DE SAN JUAN</m>
+	
+	   	<m>PLAYA DE SANTIAGO</m>
+	
+	   	<m>PORIS DE ABONA</m>
+	
+	   	<m>PUERTO DE LA CRUZ</m>
+	
+	   	<m>PUNTAGORDA</m>
+	
+	   	<m>PUNTALLANA</m>
+	
+	   	<m>RAVELO</m>
+	
+	   	<m>REALEJOS (LOS)</m>
+	
+	   	<m>ROSARIO (EL)</m>
+	
+	   	<m>SAN CRISTOBAL</m>
+	
+	   	<m>SAN ISIDRO</m>
+	
+	   	<m>SAN JERONIMO</m>
+	
+	   	<m>SAN JUAN DE LA RAMBLA</m>
+	
+	   	<m>SAN MIGUEL</m>
+	
+	   	<m>SAN PEDRO DE BREÑA ALTA</m>
+	
+	   	<m>SAN SEBASTIAN DE LA GOMERA</m>
+	
+	   	<m>SANTA CRUZ DE LA PALMA</m>
+	
+	   	<m>SANTA CRUZ DE TENERIFE</m>
+	
+	   	<m>SANTA URSULA</m>
+	
+	   	<m>SANTIAGO DEL TEIDE</m>
+	
+	   	<m>SANTO DOMINGO</m>
+	
+	   	<m>SAUCES (LOS)</m>
+	
+	   	<m>SILOS, LOS</m>
+	
+	   	<m>SOCORRO (EL)</m>
+	
+	   	<m>TACO</m>
+	
+	   	<m>TACORONTE</m>
+	
+	   	<m>TAMAIMO</m>
+	
+	   	<m>TAZACORTE</m>
+	
+	   	<m>TEGUESTE CENTRO</m>
+	
+	   	<m>TEJINA</m>
+	
+	   	<m>TIJARAFE</m>
+	
+	   	<m>TIJOCO BAJO</m>
+	
+	   	<m>VALLE DE GUERRA</m>
+	
+	   	<m>VALLE DE SAN LORENZO</m>
+	
+	   	<m>VALLEHERMOSO</m>
+	
+	   	<m>VALVERDE DEL HIERRO</m>
+	
+	   	<m>VICTORIA DE ACENTEJO (LA)</m>
+	
+	   	<m>VILAFLOR</m>
+	
+	   	<m>ZOCAS (LAS)</m>
+	</municipios>
+
+  
