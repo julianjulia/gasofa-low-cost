@@ -1,8 +1,6 @@
 package com.androidmobile.util;
 
 import java.io.BufferedReader;
-
-
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
@@ -17,9 +15,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.codehaus.jackson.map.ObjectMapper;
-
-
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -31,13 +26,10 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import com.androidmobile.JR.R;
 import com.androidmobile.bd.BdGas;
 import com.androidmobile.model.DatosIni;
-import com.androidmobile.model.Favoritos;
 import com.androidmobile.model.Gasolinera;
-import com.androidmobile.model.ListaFavoritos;
 import com.androidmobile.model.ListaGasolineras;
 
 public class utility {
@@ -57,19 +49,6 @@ public class utility {
 	static BufferedReader brNew;
 
 	
-	public static String getAllRestJSONFavoritos(
-			ArrayList<Favoritos> alfavoritos) {
-		StringWriter writer = new StringWriter();
-		ListaFavoritos listafavoritos = new ListaFavoritos();
-		listafavoritos.setListaFavoritos(alfavoritos);
-		try {
-			ObjectMapper mapper = new ObjectMapper();
-			mapper.writeValue(writer, listafavoritos);			
-		} catch (Exception e) {
-			return EMPTY_FAVORI_LIST;
-		}
-		return writer.toString();
-	}
 
 
 	
