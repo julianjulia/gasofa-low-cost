@@ -75,7 +75,9 @@ public class GMapV2GasProx {
 	        mapa = fm.getMap();
 		  new taskgasP().execute();
 	   }
-	
+	   public GMapV2GasProx(Context mContext){
+		   this.mContext=mContext;
+	   }
 	   class taskgasP extends AsyncTask<Void, Void, Void> implements OnCancelListener{
 			private ProgressDialog pd;
 			Document doc;
@@ -239,7 +241,7 @@ public class GMapV2GasProx {
 					}	
 				
 			}
-			private static int buscarIcono(String valor) {
+			public static int buscarIcono(String valor) {
 				if(valor.indexOf("alcampo")!=-1)
 					return getDrawableByName("alcampo");
 				if(valor.indexOf("ballenoil")!=-1)
