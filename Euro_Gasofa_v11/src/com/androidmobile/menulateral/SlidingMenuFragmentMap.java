@@ -104,23 +104,38 @@ public class SlidingMenuFragmentMap extends Fragment implements ExpandableListVi
             break;
        
         case 201: 
-        	if (map.gasprox!=null && (map.gasprox.equals("verdadero")||map.gasprox.equals("falso") ))
-			GMapV2GasProx.LoadColorGas();
-			map.mapa.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        	if (map.gasprox!=null && (map.gasprox.equals("verdadero")||map.gasprox.equals("falso") )){
+        		map.mapa.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        		try{
+        		GMapV2GasProx.LoadColorGas();
+        		}catch(Exception e){}
+        	}else{
+        		MapActivity.GasolineraNormal();
+        	}			
 			 map.slidingMenu.toggle();
 		    break;
 		    
         case 202:
-        	if (map.gasprox!=null && (map.gasprox.equals("verdadero")||map.gasprox.equals("falso") ))
-        	GMapV2GasProx.LoadColorGas();
-        	map.mapa.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        	if (map.gasprox!=null && (map.gasprox.equals("verdadero")||map.gasprox.equals("falso") )){
+        		map.mapa.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        		try{
+        		GMapV2GasProx.LoadColorGas();
+        		}catch(Exception e){}
+        	}else{
+        		MapActivity.GasolineraNormal();
+        	}
            	map.slidingMenu.toggle();
             break;
             
         case 203:
-        	if (map.gasprox!=null && (map.gasprox.equals("verdadero")||map.gasprox.equals("falso") ))
-        	GMapV2GasProx.LoadLogosGas();
-        	map.mapa.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        	if (map.gasprox!=null && (map.gasprox.equals("verdadero")||map.gasprox.equals("falso") )){
+        		map.mapa.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        		try{
+        		GMapV2GasProx.LoadLogosGas();
+        		}catch(Exception e){}
+        	}else{
+        		MapActivity.GasolineraLogo();
+        	}
         	map.slidingMenu.toggle();
             break;
      
