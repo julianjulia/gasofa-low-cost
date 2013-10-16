@@ -1,6 +1,7 @@
 package com.androidmobile.JR;
 
 import java.io.IOException;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -34,7 +35,6 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.androidmobile.bd.BdGas;
 import com.androidmobile.model.DatosIni;
-import com.androidmobile.model.Favoritos;
 import com.androidmobile.model.Municipio;
 import com.androidmobile.model.Provincia;
 import com.androidmobile.util.utilMun;
