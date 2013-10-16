@@ -19,7 +19,7 @@ public class BdGas {
 
 	public BdGas(Context contexto) {
 
-		usdbh = new GasSQLiteHelper(contexto, "BdGas", null, 3);
+		usdbh = new GasSQLiteHelper(contexto, "BdGas", null, 4);
 	}
 
 	public void writerBdGas(ArrayList<Gasolinera> alGas) {
@@ -61,38 +61,6 @@ public class BdGas {
 	}
 
 		
-	public void writerBdFavoritos(Favoritos fav) {
-		SQLiteDatabase dbw = usdbh.getWritableDatabase();
-		// Si hemos abierto correctamente la base de datos
-		try {
-			if (dbw != null) {
-				String[] campos = new String[] { "pos", "nombre" };
-				String[] selArg = new String[] { fav.getPos() + "" };
-
-				Cursor c = dbw.query("Favoritos", campos, "pos=?", selArg,
-						null, null, null);
-				try {
-					if (c.getCount() == 0) {
-						dbw.execSQL("INSERT INTO Favoritos (pos, nombre) "
-								+ "VALUES (" + fav.getPos() + ", '"
-								+ fav.getNombre() + "')");
-					} else {
-						// Establecemos los campos-valores a actualizar
-						ContentValues valores = new ContentValues();
-						valores.put("nombre", fav.getNombre());
-						String[] selArgs = new String[] { fav.getPos() + "" };
-						dbw.update("Favoritos", valores, "pos=?", selArgs);
-
-					}
-				} finally {
-					c.close();
-				}
-			}
-		} finally {
-			dbw.close();
-		}
-	}
-
 	public ArrayList<Gasolinera> readBdGas(String OrderBy) {
 		Gasolinera gas = null;
 
@@ -169,15 +137,47 @@ public class BdGas {
 
 	}
 
+	public void writerBdFavoritos(DatosIni fav) {
+		SQLiteDatabase dbw = usdbh.getWritableDatabase();
+		// Si hemos abierto correctamente la base de datos
+		try {
+			if (dbw != null) {
+				
+				try {					
+					dbw.execSQL("INSERT INTO Favoritos (ref, combustible ,id_provincia ,municipio ,direccion, num, cp) "
+							+ "VALUES ('"
+							+ fav.getRef()
+							+ "', '"
+							+ fav.getCombustible()
+							+ "', '"
+							+ fav.getProvincia()
+							+ "', '"
+							+ fav.getMunicipio()
+							+ "', '"
+							+ fav.getDireccion()
+							+ "', '"
+							+ fav.getNum()
+							+ "', '"
+							+ fav.getCp()
+							+ "')");
+							
+					
+				} catch(Exception e) {
+					
+				}
+			}
+		} finally {
+			dbw.close();
+		}
+	}
 	
-	
-	public ArrayList<Favoritos> readBdFav() {
-		Favoritos fav = null;
-		ArrayList<Favoritos> alfav = new ArrayList<Favoritos>();
+	public ArrayList<DatosIni> readBdFav() {
+		DatosIni fav = null;
+		ArrayList<DatosIni> alfav = new ArrayList<DatosIni>();
 
 		SQLiteDatabase dbr = usdbh.getWritableDatabase();
 		try {
-			String[] campos = new String[] { "pos", "nombre" };
+			String[] campos = new String[] { "ref", "combustible" ,"id_provincia" ,"municipio" ,"direccion", "num", "cp" };
 			// String[] args = new String[] { "%666%" };
 			Cursor c = dbr.query("Favoritos", campos, null, null, null, null,
 					null);
@@ -186,7 +186,7 @@ public class BdGas {
 				if (c.moveToFirst()) {
 					// Recorremos el cursor hasta que no haya más registros
 					do {
-						fav = new Favoritos(c.getInt(0), c.getString(1));
+						fav = new DatosIni(c.getString(0), c.getString(1),c.getString(2),c.getString(3),c.getString(4),c.getString(5),c.getString(6));
 						alfav.add(fav);
 					} while (c.moveToNext());
 				}
