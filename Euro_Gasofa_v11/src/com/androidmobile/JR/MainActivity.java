@@ -8,14 +8,11 @@ import java.util.concurrent.ExecutionException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -29,15 +26,12 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.Window;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import com.androidmobile.bd.BdGas;
 import com.androidmobile.model.DatosIni;
 import com.androidmobile.model.Favoritos;
@@ -79,14 +73,14 @@ public class MainActivity extends FragmentActivity {
 		actividad =this;
 		slidingMenu = new SlidingMenu(this);
 	    slidingMenu.setMode(SlidingMenu.LEFT);
-	    slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+	    slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
 	    slidingMenu.setShadowWidthRes(R.dimen.slidingmenu_shadow_width);
 	    slidingMenu.setShadowDrawable(R.drawable.slidingmenu_shadow);
 	    slidingMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
 	    slidingMenu.setFadeDegree(0.35f);
 	    slidingMenu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
 	    slidingMenu.setMenu(R.layout.slidingmenu);
-        
+
         
 		// Creamos la variable webview
 		webview = (WebView) findViewById(R.id.mainWebView);
@@ -99,11 +93,6 @@ public class MainActivity extends FragmentActivity {
 
 		WebSettings webSettings = webview.getSettings();
 		webSettings.setJavaScriptEnabled(true);
-		//webSettings.setLoadWithOverviewMode(true);
-		//webSettings.setUseWideViewPort(true);
-		
-		//webview.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-		//webview.setScrollbarFadingEnabled(false);
 		webview.addJavascriptInterface(new JavaScriptInterface(this),
 				"androidSupport");
 
@@ -153,7 +142,7 @@ public class MainActivity extends FragmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case android.R.id.home:
-            this.slidingMenu.toggle();
+           slidingMenu.toggle();
             return true;
         default:
             return super.onOptionsItemSelected(item);
@@ -183,24 +172,16 @@ public class MainActivity extends FragmentActivity {
 			mContext = c;
 		}
 
-		public void writeBDFavoritos(String favorito, int pos) {
+		public void writeBDFavoritos() {
 
 			Log.i(this.getClass().toString(), "metodo readBD");
 			
-			Favoritos fav = new Favoritos(pos, favorito);
+			DatosIni fav = new DatosIni();
 			bd.writerBdFavoritos(fav);
 
 		}
 
-		public String loadFav() {
-
-			
-			ArrayList<Favoritos> alfav = bd.readBdFav();
-			String json = utility.getAllRestJSONFavoritos(alfav);
-			Log.i("jsonFavoritos", json);
-
-			return json;
-		}
+	
 
 		public void EscribirBD(String upv) {
 			salir = false;
@@ -249,6 +230,17 @@ public class MainActivity extends FragmentActivity {
 			Toast.makeText(mContext, toast + "", Toast.LENGTH_LONG).show();
 		}
 
+		public void menu() {
+			runOnUiThread(new Runnable() {
+		        @Override
+		        public void run() {
+		        	slidingMenu.toggle();
+		        }
+		    });
+		
+		        
+		}
+		
 		public void leerGasolineras(String provincia, String municipio,
 				String direccion, String num, String cp, String combustible,
 				final String order) throws InterruptedException,
@@ -387,7 +379,9 @@ public class MainActivity extends FragmentActivity {
 		
 	}
 
-
+	public void  llamadaMenu(){
+	
+	}
 
 	public void dialMun(String cod_prov) throws ParserConfigurationException, SAXException, IOException {
 		ArrayList <Municipio> almun=getMunicipio(cod_prov);
@@ -453,7 +447,7 @@ public class MainActivity extends FragmentActivity {
 			return true;
 		}
 		   if ( keyCode == KeyEvent.KEYCODE_MENU ) {
-	            this.slidingMenu.toggle();
+	           slidingMenu.toggle();
 	            return true;
 	        }
 		return super.onKeyDown(keyCode, event);
