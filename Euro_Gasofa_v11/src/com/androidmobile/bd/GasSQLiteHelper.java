@@ -8,12 +8,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class GasSQLiteHelper extends SQLiteOpenHelper {
 
 	// Sentencia SQL para crear la tabla de Usuarios
-	String sqlCreate = "CREATE TABLE Favoritos (pos INTEGER, nombre TEXT)";
 	String sqlCreateGas = "Create table Gas ( UPV TEXT,fecha TEXT, nombre TEXT,horario TEXT,direccion TEXT, localidad TEXT,provincia TEXT,gasolina95 TEXT,gasolina98 TEXT,gasoleo TEXT)";
-
+	String sqlCreateFav = "CREATE TABLE Favoritos (ref TEXT, combustible TEXT,id_provincia TEXT,id_municipio TEXT,direccion TEXT, num TEXT, cp TEXT)";
+	
 	String sqlCreateProv = "CREATE TABLE Provincias (id_provincia TEXT, nombre_provincia TEXT)";
 	String sqlCreateMun = "CREATE TABLE Municipio (id_provincia TEXT, nombre_municipio TEXT)";
-	String sqlCreateInc = "CREATE TABLE Ini(combustible TEXT,provincia TEXT,municipio TEXT,direccion TEXT, num TEXT, cp TEXT)";
+	
 	public GasSQLiteHelper(Context contexto, String nombre,
 			CursorFactory factory, int version) {
 	
@@ -23,12 +23,12 @@ public class GasSQLiteHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// Se ejecuta la sentencia SQL de creación de la tabla
-		db.execSQL(sqlCreate);
 		db.execSQL(sqlCreateGas);
+		db.execSQL(sqlCreateFav);
 		
 		db.execSQL(sqlCreateProv);		
 		db.execSQL(sqlCreateMun);	
-		db.execSQL(sqlCreateInc);
+		
 		
 	}
 
@@ -43,17 +43,19 @@ public class GasSQLiteHelper extends SQLiteOpenHelper {
 		// ser más elaborado.
 		// Se elimina la versión anterior de la tabla
 		
-		db.execSQL("DROP TABLE IF EXISTS Favoritos");
 		db.execSQL("DROP TABLE IF EXISTS Gas");
+		db.execSQL("DROP TABLE IF EXISTS Favoritos");
+		
 		db.execSQL("DROP TABLE IF EXISTS Provincias");
 		db.execSQL("DROP TABLE IF EXISTS Municipio");
-		db.execSQL("DROP TABLE IF EXISTS Ini");
+		
 		// Se crea la nueva versión de la tabla
-		db.execSQL(sqlCreate);
 		db.execSQL(sqlCreateGas);
+		db.execSQL(sqlCreateFav);
+		
 		db.execSQL(sqlCreateProv);
 		db.execSQL(sqlCreateMun);
-		db.execSQL(sqlCreateInc);
+		
 		
 		
 		
