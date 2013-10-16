@@ -6,6 +6,7 @@ import java.io.IOException;
 
 
 
+
 import java.util.List;
 import com.androidmobile.bd.BdGas;
 import java.util.Locale;
@@ -24,8 +25,6 @@ import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.view.ContextThemeWrapper;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -56,7 +55,7 @@ public class MapActivity extends FragmentActivity  implements
 		OnMapClickListener {
 	
 	private static  LatLng UPV = new LatLng(39.481106, -0.340987);
-	LatLng UPV2;
+	public static LatLng UPV2;
 	private String valor;
 	public static GoogleMap mapa;
 	List<Address> addresses ;
@@ -66,6 +65,8 @@ public class MapActivity extends FragmentActivity  implements
 	static String comb;
 	String nombre;
 	String dirElegida=null;
+	public static String combustible="";
+	public static Gasolinera g;
 	public static SlidingMenu slidingMenu ;
 	public static FragmentActivity actividad;
 	@Override
@@ -78,7 +79,7 @@ public class MapActivity extends FragmentActivity  implements
 		
 		slidingMenu = new SlidingMenu(this);
 	    slidingMenu.setMode(SlidingMenu.LEFT);
-	    slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+	    slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
 	    slidingMenu.setShadowWidthRes(R.dimen.slidingmenu_shadow_width);
 	    slidingMenu.setShadowDrawable(R.drawable.slidingmenu_shadow);
 	    slidingMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
@@ -152,6 +153,11 @@ public class MapActivity extends FragmentActivity  implements
 		startActivity(intent);
 	}
 
+	public void menu(View view) {
+
+		slidingMenu.toggle();
+		
+	}
 	
 	public void moveCamera(View view) {
 
@@ -305,11 +311,10 @@ public class MapActivity extends FragmentActivity  implements
 			//if ( addresses!=null && addresses.size() > 0) {
 	        	// UPV2 = new LatLng(addresses.get(0).getLatitude() ,addresses.get(0).getLongitude() );
 			BdGas bdgas = new BdGas(mContext);  
-			Gasolinera g= bdgas.obtenerGas(valor);
+			g= bdgas.obtenerGas(valor);
 			int com= valor.indexOf(",");
 			Double lon=  Double.parseDouble(valor.substring(0,com));
 			Double lat=  Double.parseDouble(valor.substring(com+1));
-			String combustible="";
 			if(!g.getGasoleo().equals("-"))
 				combustible= "gasoleo: "+g.getGasoleo()+"\n\r";
 			if(!g.getGasolina95().equals("-"))
@@ -339,7 +344,23 @@ public class MapActivity extends FragmentActivity  implements
 		}         
 }
 
+	public static void GasolineraNormal(){
+		 mapa.clear();
+		 mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(UPV2,15));
+		 mapa.addMarker(new MarkerOptions().position(UPV2).title(g.getNombre()+ " "+combustible).snippet(g.getDireccion()+"\r\n"+g.getLocalidad())
+   			 .icon(BitmapDescriptorFactory.fromResource(R.drawable.gazstation)));
+		
+	}
 	
+	public static void GasolineraLogo(){
+		 mapa.clear();
+		  new GMapV2GasProx(mContext);
+		int icon= GMapV2GasProx.buscarIcono(g.getNombre().toLowerCase());
+		 mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(UPV2,15));
+		 mapa.addMarker(new MarkerOptions().position(UPV2).title(g.getNombre()+ " "+combustible).snippet(g.getDireccion()+"\r\n"+g.getLocalidad())
+    			 .icon(BitmapDescriptorFactory.fromResource(icon)));
+		
+	}
 	public void visualizar(String dir) throws IOException{
 		
 		if(dir != null && dir!=""){
@@ -451,7 +472,7 @@ public class MapActivity extends FragmentActivity  implements
 	    public boolean onOptionsItemSelected(MenuItem item) {
 	        switch (item.getItemId()) {
 	        case android.R.id.home:
-	            this.slidingMenu.toggle();
+	           slidingMenu.toggle();
 	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
@@ -462,7 +483,7 @@ public class MapActivity extends FragmentActivity  implements
 		public boolean onKeyDown(int keyCode, KeyEvent event) {
 		
 			   if ( keyCode == KeyEvent.KEYCODE_MENU ) {
-		            this.slidingMenu.toggle();
+		            slidingMenu.toggle();
 		            return true;
 		        }
 			return super.onKeyDown(keyCode, event);
