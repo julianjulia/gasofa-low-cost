@@ -1,7 +1,7 @@
 package com.androidmobile.model;
 
 public class DatosIni {
-
+	String ref;
 	String combustible;
 	String provincia;
 	String municipio;
@@ -16,6 +16,32 @@ public class DatosIni {
 		this.direccion = direccion;
 		this.num = num;
 		this.cp = cp;
+	}
+	public DatosIni(String ref, String combustible, String provincia, String municipio,
+			String direccion, String num, String cp) {
+		this.ref=ref;
+		this.combustible = combustible;
+		this.provincia = provincia;
+		this.municipio = municipio;
+		this.direccion = direccion;
+		this.num = num;
+		this.cp = cp;
+	}
+	
+	public DatosIni() {
+		// TODO Auto-generated constructor stub
+	}
+	/**
+	 * @return the ref
+	 */
+	public String getRef() {
+		return ref;
+	}
+	/**
+	 * @param ref the ref to set
+	 */
+	public void setRef(String ref) {
+		this.ref = ref;
 	}
 	/**
 	 * @return the combustible
