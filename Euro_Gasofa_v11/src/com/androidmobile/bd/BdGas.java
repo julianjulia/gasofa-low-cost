@@ -1,14 +1,10 @@
 package com.androidmobile.bd;
 
 import java.util.ArrayList;
-
 import com.androidmobile.model.DatosIni;
-import com.androidmobile.model.Favoritos;
 import com.androidmobile.model.Gasolinera;
 import com.androidmobile.model.Municipio;
 import com.androidmobile.model.Provincia;
-
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
