@@ -304,6 +304,7 @@ public class utility {
 			@Override
 			protected void onPostExecute(final String json) {
 				try{
+					if (!json.equals(EMPTY_GSOLIN_LIST)){ 	
 				Log.i("onpostexecute", json);
 				((Activity) mContext).runOnUiThread(new Runnable() {
 			        @Override
@@ -312,7 +313,7 @@ public class utility {
 								+ BRC_CLOSE);
 			        }
 			    });
-			
+					}
 				}catch(Exception e){
 					Log.i("err", e.getMessage());
 				}	

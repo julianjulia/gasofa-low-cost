@@ -9,7 +9,7 @@ public class GasSQLiteHelper extends SQLiteOpenHelper {
 
 	// Sentencia SQL para crear la tabla de Usuarios
 	String sqlCreateGas = "Create table Gas ( UPV TEXT,fecha TEXT, nombre TEXT,horario TEXT,direccion TEXT, localidad TEXT,provincia TEXT,gasolina95 TEXT,gasolina98 TEXT,gasoleo TEXT)";
-	String sqlCreateFav = "CREATE TABLE Favoritos (ref TEXT, combustible TEXT,id_provincia TEXT,id_municipio TEXT,direccion TEXT, num TEXT, cp TEXT)";
+	String sqlCreateFav = "CREATE TABLE Favoritos (id TEXT,icon TEXT,ref TEXT, combustible TEXT,id_provincia TEXT,des_provincia TEXT,municipio TEXT,direccion TEXT, num TEXT, cp TEXT,fecha REAL)";
 	
 	String sqlCreateProv = "CREATE TABLE Provincias (id_provincia TEXT, nombre_provincia TEXT)";
 	String sqlCreateMun = "CREATE TABLE Municipio (id_provincia TEXT, nombre_municipio TEXT)";
@@ -29,8 +29,13 @@ public class GasSQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL(sqlCreateProv);		
 		db.execSQL(sqlCreateMun);	
 		
+	
 		
 	}
+
+
+		
+
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int versionAnterior,
@@ -55,8 +60,6 @@ public class GasSQLiteHelper extends SQLiteOpenHelper {
 		
 		db.execSQL(sqlCreateProv);
 		db.execSQL(sqlCreateMun);
-		
-		
 		
 		
 		

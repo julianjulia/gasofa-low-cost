@@ -17,6 +17,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,11 +71,13 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
        
         /*
         
-        Section oGeneralSection = new Section("Vistas Mapa");
-        oGeneralSection.addSectionItem(201, "Normal", "gazstation");
-        oGeneralSection.addSectionItem(202, "Satelite", "gazstation");
-        oGeneralSection.addSectionItem(203, "Relieve", "gazstation");
-        
+        Section oGeneralSection = new Section("Favoritos");
+        int i=200;
+        for (DatosIni fav :datos<arraylist>){
+        i++
+        oGeneralSection.addSectionItem(i, fav.getRef(), "favorito");
+        } 
+       
        */
         Section oOtrosSection = new Section("Otros");
         oOtrosSection.addSectionItem(301," Acerca de Gasofa", "ic_action_person");
@@ -91,7 +94,7 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
             int groupPosition, int childPosition, long id) {
     	  final WebView webview = (WebView)  ((Activity) getActivity()).findViewById(R.id.mainWebView);
     	  final MainActivity ma=new MainActivity();
-    	  MapActivity map= new MapActivity();
+    	  final MapActivity map= new MapActivity();
         switch ((int)id) {
        
         case 102:        	
@@ -119,11 +122,26 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
     		ma.slidingMenu.toggle();
             break;
         case 302:
-        	if(map.actividad!=null)
-        		map.actividad.finish();
-        	if(ma.actividad!=null)
-        		ma.actividad.finish();
-        	getActivity().finish();
+        	ContextThemeWrapper ctw = new ContextThemeWrapper( getActivity(), R.style.miestilo);
+        	AlertDialog.Builder alert = new AlertDialog.Builder(ctw);
+			alert.setMessage("Salir de Gasofa");
+			alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int whichButton) {
+					if(map.actividad!=null)
+		        		map.actividad.finish();
+		        	if(ma.actividad!=null)
+		        		ma.actividad.finish();
+		        	getActivity().finish();
+				}
+				});
+			alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+				  public void onClick(DialogInterface dialog, int whichButton) {
+					  ma.slidingMenu.toggle();
+				  }
+				});
+
+				alert.show();	
+        	
             break;
         }
        
