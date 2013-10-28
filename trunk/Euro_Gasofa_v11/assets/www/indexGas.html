@@ -10,9 +10,13 @@
 	<div data-role="page" data-theme="c" id="containerPage2">
 		<div data-role="header"></div>
 		<div data-role="content">
-
-					
-			<br/>
+			<table width="100%"><tr><td width="50%">
+		<a  href="#" id="menu"  style="text-decoration: none;"><img style="opacity:0.8;"src="img/ic_action_storage.png" align="left" /></a>
+		</td>
+		<td width="50%">
+		<a  href="#" id="fav"  style="text-decoration: none;"><img style="opacity:0.8;"src="img/ic_action_view_as_list.png" align="right" /></a>
+		</td>
+		</tr></table>
 			<table>
 				<tr>
 				<td colspan="2" align="center">
@@ -74,7 +78,8 @@
 	</div>
 <script>
 		$(document).ready(function() {
-
+			
+		
 			$("#provincia").click(
 					function(e) {
 						$('input').attr('disabled', true);
@@ -92,6 +97,21 @@
 						$('input').attr('disabled', false);
 						androidSupport.SelectMun($('#provincia').val());
 				
+					});
+			
+			$("#menu").click(
+					function(e) {
+						
+						androidSupport.menu();
+						
+															
+					});
+			$("#fav").click(
+					function(e) {
+						androidSupport.LoadDatos( $('#direccion').val(), $('#num').val(),$('#cp').val(),$("input[name='combustible']:checked").val())
+						androidSupport.fav();
+						
+															
 					});
 			
 			$("#LeerGas").click(
@@ -124,6 +144,16 @@
 						});
 
 		});
+		
+		function loadFavoritos(comb,prov,mun,dir,num,cp){
+			//var idt = '#' + comb;
+			$('#'+comb).click();
+			$('#provincia').val(prov);
+			$('#municipio').val(mun);
+			$('#direccion').val(dir);
+			$('#num').val(num);
+			$('#cp').val(cp);
+		}
 		
 		function loadprov(valor){
 			$("#provincia").focus();
@@ -276,6 +306,7 @@
 		} 
 		
 		function setRestList(jsonText) {
+			
 			var data = JSON.parse(jsonText);
 			$("#lista").html('');
 			for ( var i in data.listagasolineras) {
