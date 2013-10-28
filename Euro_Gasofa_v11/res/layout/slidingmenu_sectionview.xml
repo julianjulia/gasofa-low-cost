@@ -6,15 +6,15 @@
    android:background="#6a3ab2">
    
     <TextView
-       android:id="@+id/slidingmenu_section_title"
-       style="?android:attr/listSeparatorTextViewStyle"
-       android:layout_width="fill_parent"
-       android:layout_height="wrap_content"
-       android:text="Section"
-       android:textSize="18sp"
-       android:paddingTop="7dp"
-       android:paddingBottom="7dp"
-       android:background="#6a3ab2"
-       android:textColor="#FFFFFF"/>
+        android:id="@+id/slidingmenu_section_title"
+        style="?android:attr/listSeparatorTextViewStyle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#7a6ab9"
+        android:paddingBottom="7dp"
+        android:paddingTop="7dp"
+        android:text="Section"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp" />
     
     </LinearLayout>

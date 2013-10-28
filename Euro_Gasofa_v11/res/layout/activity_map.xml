@@ -17,6 +17,17 @@
         class="com.google.android.gms.maps.SupportMapFragment"/>
 
 	
+        <Button android:id="@+id/menu"
+
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentTop="true"
+
+            android:onClick="menu"
+
+           android:drawableRight="@drawable/ic_drawer"/>
     
     <Button android:id="@+id/button2"
 
