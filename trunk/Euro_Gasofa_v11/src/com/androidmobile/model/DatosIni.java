@@ -1,35 +1,96 @@
 package com.androidmobile.model;
 
 public class DatosIni {
+	String id;
 	String ref;
 	String combustible;
 	String provincia;
+	String des_provincia;
 	String municipio;
 	String direccion;
 	String num;
 	String cp;
-	public DatosIni(String combustible, String provincia, String municipio,
-			String direccion, String num, String cp) {
+	String icon;
+	long fecha;
+	public DatosIni(String combustible, String provincia,String des_provincia, String municipio,
+			String direccion, String num, String cp,long fecha) {
 		this.combustible = combustible;
 		this.provincia = provincia;
+		this.des_provincia=des_provincia;
 		this.municipio = municipio;
 		this.direccion = direccion;
 		this.num = num;
 		this.cp = cp;
+		this.fecha=fecha;
 	}
-	public DatosIni(String ref, String combustible, String provincia, String municipio,
-			String direccion, String num, String cp) {
+	public DatosIni(String id,String icon,String ref, String combustible, String provincia,String des_provincia, String municipio,
+			String direccion, String num, String cp,long fecha) {
+		this.icon=icon;
+		this.id=id;
 		this.ref=ref;
 		this.combustible = combustible;
+		this.des_provincia=des_provincia;
 		this.provincia = provincia;
 		this.municipio = municipio;
 		this.direccion = direccion;
 		this.num = num;
 		this.cp = cp;
+		this.fecha=fecha;
 	}
 	
 	public DatosIni() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	
+	
+	/**
+	 * @return the des_provincia
+	 */
+	public String getDes_provincia() {
+		return des_provincia;
+	}
+	/**
+	 * @param des_provincia the des_provincia to set
+	 */
+	public void setDes_provincia(String des_provincia) {
+		this.des_provincia = des_provincia;
+	}
+	/**
+	 * @return the fecha
+	 */
+	public long getFecha() {
+		return fecha;
+	}
+	/**
+	 * @param fecha the fecha to set
+	 */
+	public void setFecha(long fecha) {
+		this.fecha = fecha;
+	}
+	/**
+	 * @return the icon
+	 */
+	public String getIcon() {
+		return icon;
+	}
+	/**
+	 * @param icon the icon to set
+	 */
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
 	}
 	/**
 	 * @return the ref

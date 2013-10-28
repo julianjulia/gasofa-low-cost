@@ -20,6 +20,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,8 +91,8 @@ public class SlidingMenuFragmentMap extends Fragment implements ExpandableListVi
     public boolean onChildClick(ExpandableListView parent, View v,
             int groupPosition, int childPosition, long id) {
  SupportMapFragment fm = (SupportMapFragment) ((FragmentActivity) getActivity()).getSupportFragmentManager().findFragmentById(R.id.map);
-		 MapActivity map= new MapActivity();
-		 MainActivity ma=new MainActivity();
+		 final MapActivity map= new MapActivity();
+		 final MainActivity ma=new MainActivity();
          // Getting GoogleMap object from the fragment
         GoogleMap mapa = fm.getMap();	
         switch ((int)id) {
@@ -154,11 +155,25 @@ public class SlidingMenuFragmentMap extends Fragment implements ExpandableListVi
         		map.slidingMenu.toggle();
             break;
         case 302:
-        	if (ma.actividad!=null)
-        		ma.actividad.finish();
-        	if (map.actividad!=null)
-        		map.actividad.finish();
-        	getActivity().finish();
+        	ContextThemeWrapper ctw = new ContextThemeWrapper( getActivity(), R.style.miestilo);
+        	AlertDialog.Builder alert = new AlertDialog.Builder(ctw);
+			alert.setMessage("Salir de Gasofa");
+			alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int whichButton) {
+					if(map.actividad!=null)
+		        		map.actividad.finish();
+		        	if(ma.actividad!=null)
+		        		ma.actividad.finish();
+		        	getActivity().finish();
+				}
+				});
+			alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+				  public void onClick(DialogInterface dialog, int whichButton) {
+					  map.slidingMenu.toggle();
+				  }
+				});
+
+				alert.show();	
             break;
         }
        

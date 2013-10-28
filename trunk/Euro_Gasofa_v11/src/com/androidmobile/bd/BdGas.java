@@ -1,10 +1,13 @@
 package com.androidmobile.bd;
 
 import java.util.ArrayList;
+
 import com.androidmobile.model.DatosIni;
 import com.androidmobile.model.Gasolinera;
 import com.androidmobile.model.Municipio;
 import com.androidmobile.model.Provincia;
+
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -134,19 +137,26 @@ public class BdGas {
 	}
 
 	public void writerBdFavoritos(DatosIni fav) {
+	
 		SQLiteDatabase dbw = usdbh.getWritableDatabase();
 		// Si hemos abierto correctamente la base de datos
 		try {
 			if (dbw != null) {
 				
 				try {					
-					dbw.execSQL("INSERT INTO Favoritos (ref, combustible ,id_provincia ,municipio ,direccion, num, cp) "
+					dbw.execSQL("INSERT INTO Favoritos (id,icon,ref, combustible ,id_provincia ,des_provincia, municipio ,direccion, num, cp, fecha) "
 							+ "VALUES ('"
+							+ fav.getId()
+							+ "', '"
+							+ fav.getIcon()
+							+ "', '"
 							+ fav.getRef()
 							+ "', '"
 							+ fav.getCombustible()
 							+ "', '"
 							+ fav.getProvincia()
+							+ "', '"
+							+ fav.getDes_provincia()
 							+ "', '"
 							+ fav.getMunicipio()
 							+ "', '"
@@ -155,6 +165,8 @@ public class BdGas {
 							+ fav.getNum()
 							+ "', '"
 							+ fav.getCp()
+							+ "', '"
+							+ fav.getFecha()
 							+ "')");
 							
 					
@@ -167,22 +179,24 @@ public class BdGas {
 		}
 	}
 	
+	
+	
 	public ArrayList<DatosIni> readBdFav() {
 		DatosIni fav = null;
 		ArrayList<DatosIni> alfav = new ArrayList<DatosIni>();
 
 		SQLiteDatabase dbr = usdbh.getWritableDatabase();
 		try {
-			String[] campos = new String[] { "ref", "combustible" ,"id_provincia" ,"municipio" ,"direccion", "num", "cp" };
+			String[] campos = new String[] { "id","icon","ref", "combustible" ,"id_provincia","des_provincia" ,"municipio" ,"direccion", "num", "cp","fecha" };
 			// String[] args = new String[] { "%666%" };
 			Cursor c = dbr.query("Favoritos", campos, null, null, null, null,
-					null);
+					"fecha desc");
 			try {
 				// Nos aseguramos de que existe al menos un registro
 				if (c.moveToFirst()) {
 					// Recorremos el cursor hasta que no haya más registros
 					do {
-						fav = new DatosIni(c.getString(0), c.getString(1),c.getString(2),c.getString(3),c.getString(4),c.getString(5),c.getString(6));
+						fav = new DatosIni(c.getString(0), c.getString(1),c.getString(2),c.getString(3),c.getString(4),c.getString(5),c.getString(6),c.getString(7),c.getString(8),c.getString(9),c.getLong(10));
 						alfav.add(fav);
 					} while (c.moveToNext());
 				}
@@ -195,7 +209,97 @@ public class BdGas {
 			dbr.close();
 		}
 	}
+	
+	
+	public void updateBdFavoritos(DatosIni fav) {
+		SQLiteDatabase dbw = usdbh.getWritableDatabase();
+		ContentValues valores= new ContentValues();
+		String id=null;
+		try {
+			if (dbw != null) {
+				Cursor c = null;
+				try {
+					String[] campos = new String[] { "id","icon","ref", "combustible" ,"id_provincia","des_provincia" ,"municipio" ,"direccion", "num", "cp","fecha" };
+					// String[] args = new String[] { "%666%" };
+					String[] selArg = new String[] { fav.getCombustible(),fav.getDireccion(),fav.getNum(),fav.getMunicipio(),fav.getCp(),fav.getDes_provincia() };
 
+					 c= dbw.query("Favoritos", campos, "combustible=? and direccion=? and num=? and municipio=? and cp=? and des_provincia=?", selArg,
+							null, null, null);
+				
+						// Nos aseguramos de que existe al menos un registro
+						if (c.moveToFirst()) {
+							id=c.getString(0);
+						}else{
+							id=null;
+						}
+					} finally {
+						c.close();
+					}
+			}
+		} finally {
+			dbw.close();
+		}
+		
+		if(id!=null){
+			 dbw = usdbh.getWritableDatabase();
+			try {
+				if (dbw != null) {
+			String[] selArgs = new String[] {id};
+			valores.put("fecha", fav.getFecha());
+			dbw.update("Favoritos", valores, "id=?", selArgs);
+				}
+				} finally {
+					dbw.close();
+				}	
+			
+		}else{	
+			updateFav(fav);
+				}
+	}
+
+	public void updateFav(DatosIni fav){
+		ArrayList<DatosIni> aldatos=readBdFav();
+		ContentValues valores= new ContentValues();
+		SQLiteDatabase dbw = usdbh.getWritableDatabase();
+			try {
+				if (dbw != null) {
+					
+		String[] selArg = new String[] { aldatos.get(aldatos.size()-1).getId()  };
+	// Si hemos abierto correctamente la base de datos
+					String icono;
+					switch (Integer.parseInt(fav.getCombustible())) {
+					case 1:
+						icono="gasolina95";
+						break;
+					case 3:
+						icono="gasolina98";
+						break;
+					case 4:
+						icono="gasoil";
+						break;
+					default:
+						icono="gasoil";
+						break;
+					}
+		            valores.put("icon",icono);
+					//valores.put("ref", fav.getRef());
+					valores.put("combustible", fav.getCombustible());
+					valores.put("id_provincia",fav.getProvincia());
+					valores.put("des_provincia", fav.getDes_provincia());
+					valores.put("municipio",fav.getMunicipio());
+					valores.put("direccion",fav.getDireccion());
+					valores.put("num",fav.getNum());
+					valores.put("cp",fav.getCp());
+					valores.put("fecha", fav.getFecha());
+					
+					dbw.update("Favoritos", valores, "id=?", selArg);
+
+				}
+			} finally {
+				dbw.close();
+			}
+	}
+	
 	public void writerBdProvincias(ArrayList<Provincia> alProv) {
 		SQLiteDatabase dbw = usdbh.getWritableDatabase();
 		// Si hemos abierto correctamente la base de datos
@@ -273,102 +377,8 @@ public class BdGas {
 	
 	
 	
-	public ArrayList<Municipio> obtenerMunicipios(String valor) {
-			Municipio mun = null;
-			ArrayList<Municipio> almun = new ArrayList<Municipio>();
-
-			SQLiteDatabase dbr = usdbh.getWritableDatabase();
-			try {
-				String[] campos = new String[] { "id_provincia", "nombre_municipio" };
-				 String[] args = new String[] { valor };
-				
-				Cursor c = dbr.query("Municipio", campos, "id_provincia=?", args,
-						null, null, null);
-				try {
-					if (c != null && c.getCount()!=0) {
-					// Nos aseguramos de que existe al menos un registro
-					if (c.moveToFirst()) {
-						// Recorremos el cursor hasta que no haya más registros
-						do {
-							mun = new Municipio(c.getString(0), c.getString(1));
-							almun.add(mun);
-						} while (c.moveToNext());
-					}
-					}else{
-					return null;	
-					}
-				} finally {
-					c.close();
-				}
-
-				return almun;
-			} finally {
-				dbr.close();
-			}
-		}
-	public void writerBdIni(DatosIni dato) {
-		SQLiteDatabase dbw = usdbh.getWritableDatabase();
-		// Si hemos abierto correctamente la base de datos
-		try {
-			if (dbw != null) {
-				dbw.delete("Ini", null, null);
-				
-					dbw.execSQL("INSERT INTO Ini (combustible, provincia, municipio, direccion, num , cp ) "
-							+ "VALUES ('"
-							+ dato.getCombustible()
-							+ "', '"
-							+ dato.getProvincia()
-							+ "', '"
-							+ dato.getMunicipio()
-							+ "', '"
-							+ dato.getDireccion()
-							+ "', '"
-							+ dato.getNum()
-							+ "', '"
-							+ dato.getCp()
-							+ "')");
-
-				}
-
-			
-		} finally {
-			dbw.close();
-		}
-	}
 	
-	public DatosIni obtenerIni() {
-		DatosIni datos = null;
-		
 
-		SQLiteDatabase dbr = usdbh.getWritableDatabase();
-		try {
-			String[] campos = new String[] { "combustible", "provincia", "municipio", "direccion", "num" , "cp" };
-			// String[] args = new String[] { valor };
-			
-			Cursor c = dbr.query("Ini", campos, null, null,
-					null, null, null);
-			try {
-				if (c != null && c.getCount()!=0) {
-				// Nos aseguramos de que existe al menos un registro
-				if (c.moveToFirst()) {
-					// Recorremos el cursor hasta que no haya más registros
-					do {
-						datos = new DatosIni(c.getString(0), c.getString(1),c.getString(2),c.getString(3), c.getString(4),c.getString(5));
-						
-					} while (c.moveToNext());
-				}
-				}else{
-				return null;	
-				}
-			} finally {
-				c.close();
-			}
-
-			return datos;
-		} finally {
-			dbr.close();
-		}
-	}
 	
 	
 }

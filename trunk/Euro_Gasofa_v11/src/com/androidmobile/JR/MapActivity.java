@@ -217,7 +217,8 @@ public class MapActivity extends FragmentActivity  implements
 	}
 	
 	public  void consultaDireccion(){
-		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.miestilo);
+		AlertDialog.Builder alert = new AlertDialog.Builder(ctw);
 
 		alert.setTitle("Introduzca direccion");
 		alert.setMessage("Direccion-Poblacion");

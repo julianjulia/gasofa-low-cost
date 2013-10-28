@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -56,13 +57,18 @@ public class MainActivity extends FragmentActivity {
 	private static final String BRC_OPEN = "('";
 	private static final String BRC_CLOSE = "')";
 	ArrayList<Provincia> alProv;
-	String cod_prov = "";
-	String des_prov;
+	public static String cod_prov = "";
+	public static String des_prov;
+	public static String des_mun = "";
 	ArrayList<Provincia> alMun;
-	String cod_mun = "";
+	public static String direccion = "";
+	public static String num="";
+	public static String cp="";
+	public static String comb="";
 	BdGas bd;
-	public String comb;
+	
 	public static SlidingMenu slidingMenu ;
+	public static SlidingMenu slidingFavoritos ;
 	public static FragmentActivity actividad;
 	@SuppressLint("SetJavaScriptEnabled")
 	@Override
@@ -81,6 +87,16 @@ public class MainActivity extends FragmentActivity {
 	    slidingMenu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
 	    slidingMenu.setMenu(R.layout.slidingmenu);
 
+	    // FAVORITOS
+	    slidingFavoritos = new SlidingMenu(this);
+	    slidingFavoritos.setMode(SlidingMenu.RIGHT);
+	    slidingFavoritos.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
+	    slidingFavoritos.setShadowWidthRes(R.dimen.slidingmenu_shadow_width);
+	    slidingFavoritos.setShadowDrawable(R.drawable.slidingmenu_shadow);
+	    slidingFavoritos.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+	    slidingFavoritos.setFadeDegree(0.35f);
+	    slidingFavoritos.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
+	    slidingFavoritos.setMenu(R.layout.slidingfavoritos);
         
 		// Creamos la variable webview
 		webview = (WebView) findViewById(R.id.mainWebView);
@@ -119,7 +135,7 @@ public class MainActivity extends FragmentActivity {
 		}
 		 bd= new BdGas(this);
 		 //DatosIni datos= bd.obtenerIni();
-		 
+		
 	}
 	@Override
 	public void onBackPressed() {
@@ -142,7 +158,14 @@ public class MainActivity extends FragmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case android.R.id.home:
-           slidingMenu.toggle();
+        	if ( slidingMenu.isMenuShowing()) {
+	            slidingMenu.toggle();
+	        }else if(slidingFavoritos.isMenuShowing()){
+	        	slidingFavoritos.toggle();
+	        }else{
+	        	slidingMenu.toggle();
+	        }
+           
             return true;
         default:
             return super.onOptionsItemSelected(item);
@@ -172,15 +195,24 @@ public class MainActivity extends FragmentActivity {
 			mContext = c;
 		}
 
-		public void writeBDFavoritos() {
+		public void fav() {
 
-			Log.i(this.getClass().toString(), "metodo readBD");
-			
-			DatosIni fav = new DatosIni();
-			bd.writerBdFavoritos(fav);
+			Log.i(this.getClass().toString(), "metodo fav");
+			runOnUiThread(new Runnable() {
+		        @Override
+		        public void run() {
+		        	slidingFavoritos.toggle();
+		        }
+		    });
 
 		}
 
+		public void LoadDatos(String Direccion,String Num,String Cp,String Comb){
+			direccion=Direccion;
+			num=Num;
+			cp=Cp;
+			comb=Comb;
+			}
 	
 
 		public void EscribirBD(String upv) {
@@ -234,6 +266,7 @@ public class MainActivity extends FragmentActivity {
 			runOnUiThread(new Runnable() {
 		        @Override
 		        public void run() {
+		        
 		        	slidingMenu.toggle();
 		        }
 		    });
@@ -246,15 +279,16 @@ public class MainActivity extends FragmentActivity {
 				final String order) throws InterruptedException,
 				ExecutionException {
 				salir = false;
-				DatosIni datos=new DatosIni(combustible, cod_prov, municipio, direccion, num, cp);
+				long fecha=new Date().getTime();
+				DatosIni datos=new DatosIni(combustible, cod_prov,des_prov, municipio, direccion, num, cp,fecha);
 			if (!provincia.equals("")) {
-				
+				bd.updateBdFavoritos(datos);
 				//bd.writerBdIni(datos);
 				utility.tratamientoDatosGasolinera(datos, mContext);
 
 			} else {
 				if (!cp.equals("")) {
-					//bd.writerBdIni(datos);
+					bd.updateBdFavoritos(datos);
 					utility.tratamientoDatosGasolinera(datos, mContext);
 				} else {
 
@@ -269,7 +303,13 @@ public class MainActivity extends FragmentActivity {
 					
 				}
 			}
-
+			runOnUiThread(new Runnable() {
+		        @Override
+		        public void run() {
+		        	slidingFavoritos.setMenu(R.layout.slidingfavoritos);
+		        }
+		    });
+			
 		}
 
 	
@@ -379,11 +419,7 @@ public class MainActivity extends FragmentActivity {
 		
 	}
 
-	public void  llamadaMenu(){
-	
-	}
-
-	public void dialMun(String cod_prov) throws ParserConfigurationException, SAXException, IOException {
+public void dialMun(String cod_prov) throws ParserConfigurationException, SAXException, IOException {
 		ArrayList <Municipio> almun=getMunicipio(cod_prov);
 		final CharSequence[] itemsdir = new CharSequence[almun.size()];
 		for (int i = 0; i < almun.size(); i++) {
@@ -417,11 +453,12 @@ public class MainActivity extends FragmentActivity {
 	  
 		
 	}
-	public void EnvMun(final String des_mun){
+	public void EnvMun(final String Des_mun){
+		des_mun=Des_mun;
 		runOnUiThread(new Runnable() {
 	        @Override
 	        public void run() {
-	        	webview.loadUrl(JAVASCRIPT + "loadmun" + BRC_OPEN + des_mun
+	        	webview.loadUrl(JAVASCRIPT + "loadmun" + BRC_OPEN + Des_mun
 	    				+ BRC_CLOSE); 
 	        }
 	    });
@@ -430,10 +467,24 @@ public class MainActivity extends FragmentActivity {
 	
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-			if (salir)
-				System.exit(0);
+			if (salir){
+				ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.miestilo);
+				AlertDialog.Builder alert = new AlertDialog.Builder(ctw);
+				alert.setMessage("Salir de Gasofa");
+				alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+						System.exit(0);
+					}
+					});
+				alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+					  public void onClick(DialogInterface dialog, int whichButton) {
+					    // Canceled.
+					  }
+					});
 
-			else {
+					alert.show();	
+						 
+				}else {
 				runOnUiThread(new Runnable() {
 			        @Override
 			        public void run() {
@@ -447,7 +498,13 @@ public class MainActivity extends FragmentActivity {
 			return true;
 		}
 		   if ( keyCode == KeyEvent.KEYCODE_MENU ) {
-	           slidingMenu.toggle();
+				if ( slidingMenu.isMenuShowing()) {
+		            slidingMenu.toggle();
+		        }else if(slidingFavoritos.isMenuShowing()){
+		        	slidingFavoritos.toggle();
+		        }else{
+		        	slidingMenu.toggle();
+		        }
 	            return true;
 	        }
 		return super.onKeyDown(keyCode, event);
