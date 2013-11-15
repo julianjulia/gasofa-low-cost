@@ -65,18 +65,20 @@ public class MapActivity extends FragmentActivity  implements
 	static String comb;
 	String nombre;
 	String dirElegida=null;
+	public static Double radio;
 	public static String combustible="";
 	public static Gasolinera g;
 	public static SlidingMenu slidingMenu ;
 	public static FragmentActivity actividad;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_map);
 		actividad=this;
 		mContext=this;
-		
+		radio=null;
 		slidingMenu = new SlidingMenu(this);
 	    slidingMenu.setMode(SlidingMenu.LEFT);
 	    slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
@@ -136,6 +138,7 @@ public class MapActivity extends FragmentActivity  implements
 			 }else{
 		// mapa.moveCamera(CameraUpdateFactory.zoomTo(12));
 		try {
+			radio=0.08;
 			irPosicion();
 		} catch (Throwable e) {
 			// TODO Auto-generated catch block
@@ -164,8 +167,34 @@ public class MapActivity extends FragmentActivity  implements
 		mapa.moveCamera(CameraUpdateFactory.newLatLng(UPV));
 		
 	}
-
 	public void animateCamera_N(View view) {
+		 if(radio==null){
+			 final CharSequence[] items =new CharSequence[17]; 
+				ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.miestilo);
+				AlertDialog.Builder builder = new AlertDialog.Builder(ctw);
+				for(int i=4;i<21;i++){			
+				items[i-4] = String.valueOf(i);
+				}
+					
+				
+				builder.setTitle("Radio de Busqueda en Km");
+				builder.setItems(items, new DialogInterface.OnClickListener() {
+				    public void onClick(DialogInterface dialog, int item) {
+				    		String s=items[item].toString();	    	
+				     radio=Double.valueOf(s)*.01;
+				     continuar();
+				      dialog.cancel();
+				    }
+				});
+				
+				AlertDialog alert = builder.create();
+				alert.show();	
+		}else{ continuar();
+		}
+		
+	}
+	public void continuar() {
+		
 		final CharSequence[] items;
 		ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.miestilo);
 		if(dirElegida==null || (gasprox == null )){
@@ -186,6 +215,7 @@ public class MapActivity extends FragmentActivity  implements
 		    			UPV= new LatLng(mapa.getMyLocation().getLatitude(),mapa.getMyLocation().getLongitude());
 		    			new GMapGeocoderInverter(mContext,UPV);
 		    			resulgascer("mi ubicacion");
+		    		
 		    			 }catch(Exception e){
 		    				 e.printStackTrace();
 		    				 Toast.makeText(getApplicationContext(),"No se ha encontrado Ubicacion ", Toast.LENGTH_LONG).show();
@@ -439,6 +469,7 @@ public class MapActivity extends FragmentActivity  implements
 				String d=call+" "+addresses.get(item).getFeatureName()+" " +addresses.get(item).getLocality()+" "+addresses.get(item).getSubAdminArea();
 						
 			 if(gasprox != null && gasprox.equals("falso")){
+				
 				 resulgascer(d);
 			 }else{
 				 
@@ -454,7 +485,11 @@ public class MapActivity extends FragmentActivity  implements
      		}
 			 }
 			 }
-		public static void resulgascer(String d){
+		
+		
+		public  void resulgascer(String d){
+			
+			
 			gasprox="verdadero";
 			
 		 try{  		
@@ -463,7 +498,9 @@ public class MapActivity extends FragmentActivity  implements
 		  			 .icon(BitmapDescriptorFactory.fromResource(R.drawable.start)));}
 			// UPV= new LatLng(mapa.getMyLocation().getLatitude(),mapa.getMyLocation().getLongitude());
 		        		         Toast.makeText(mContext,"pulse marcador para informacion o calcular ruta", Toast.LENGTH_LONG).show();
-		  new GMapV2GasProx(mContext,UPV, comb);
+		        		         if (radio==null)
+		        		        	 radio=0.08 ;		         
+		  new GMapV2GasProx(mContext,UPV, comb,radio);
 		 }catch(Exception e){
 			 Toast.makeText(mContext,"No se ha encontrado Ubicacion ", Toast.LENGTH_LONG).show();
 			
