@@ -18,7 +18,7 @@ public class BdGas {
 
 	public BdGas(Context contexto) {
 
-		usdbh = new GasSQLiteHelper(contexto, "BdGas", null, 4);
+		usdbh = new GasSQLiteHelper(contexto, "BdGas", null, 5);
 	}
 
 	public void writerBdGas(ArrayList<Gasolinera> alGas) {

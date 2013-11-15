@@ -38,7 +38,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class GMapV2GasProx {
 	static GoogleMap mapa;
-	final Double variable=0.08;  // recordar 0.01 aprox 1km   es decir 16km
+	Double variable=0.08;  // recordar 0.01 aprox 1km   es decir 16km
 	private static Context mContext;	
 	private double lat;
 	private double lon;
@@ -47,13 +47,19 @@ public class GMapV2GasProx {
 	static String dcomb;
 	static ArrayList<String> alname;
 	static ArrayList<Double> alprec;
-	static Double pMax=(double) 0;
-	static Double pMin=(double) 0;
-	Double pm=(double) 0;
-	static Double V1=(double) 0;
-	static Double V2=(double) 0;
+	static double pMax;
+	static double pMin;
+	static double pm;
+	static double V1;
+	static double V2;
 	static ArrayList<LatLng> lt;
-	   public GMapV2GasProx(Context mContext,LatLng UPV , String comb){
+	   public GMapV2GasProx(Context mContext,LatLng UPV , String comb,Double variable){
+		   pMax= 0;
+		   pMin= 0;
+		   pm= 0;
+		   V1= 0;
+		   V2= 0;
+		   this.variable=variable;
 		   this.mContext=mContext;
 		    this.UPV=UPV;
 		    lat=UPV.latitude;
