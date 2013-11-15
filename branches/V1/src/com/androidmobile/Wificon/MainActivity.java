@@ -18,7 +18,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.net.wifi.ScanResult;
+import android.net.wifi.SupplicantState;
 import android.net.wifi.WifiConfiguration;
+import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -291,16 +293,14 @@ public class MainActivity extends Activity {
 	    Log.d("WifiPreference", "add Network returned " + res );
 	    boolean b = wifi.enableNetwork(res, true);        
 	    Log.d("WifiPreference", "enableNetwork returned " + b );
-	    int estatus= wc.status;
-	    String stat = "------";
-	    if(estatus==0)
-	    	stat="Conectando...";
-	    if(estatus==1)
-	    	stat="Desconectado.";
-	    if(estatus==2)
-	    	stat="Conectado....";	
-	    Toast.makeText(this,stat,Toast.LENGTH_LONG).show();
-	    Log.d("WifiPreference", "status " +stat );
+	    WifiInfo wi=wifi.getConnectionInfo();
+	    SupplicantState ss=wi.getSupplicantState();
+	    String estado=ss.toString();
+	    Toast.makeText(this,estado,Toast.LENGTH_LONG).show();
+	    Log.d("WifiPreference", "status " + estado );
+	    
+	    
+	    
 	}
 	
 }
