@@ -105,8 +105,9 @@ public class SlidingMenuFragmentMap extends Fragment implements ExpandableListVi
             break;
        
         case 201: 
+        	map.mapa.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         	if (map.gasprox!=null && (map.gasprox.equals("verdadero")||map.gasprox.equals("falso") )){
-        		map.mapa.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        		
         		try{
         		GMapV2GasProx.LoadColorGas();
         		}catch(Exception e){}
@@ -117,8 +118,9 @@ public class SlidingMenuFragmentMap extends Fragment implements ExpandableListVi
 		    break;
 		    
         case 202:
+        	map.mapa.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
         	if (map.gasprox!=null && (map.gasprox.equals("verdadero")||map.gasprox.equals("falso") )){
-        		map.mapa.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        		
         		try{
         		GMapV2GasProx.LoadColorGas();
         		}catch(Exception e){}
@@ -129,8 +131,9 @@ public class SlidingMenuFragmentMap extends Fragment implements ExpandableListVi
             break;
             
         case 203:
+        	map.mapa.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
         	if (map.gasprox!=null && (map.gasprox.equals("verdadero")||map.gasprox.equals("falso") )){
-        		map.mapa.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        		
         		try{
         		GMapV2GasProx.LoadLogosGas();
         		}catch(Exception e){}
@@ -142,7 +145,7 @@ public class SlidingMenuFragmentMap extends Fragment implements ExpandableListVi
         
         case 301:
         		AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-        		dialog.setTitle("€ Gasofa V 2.8");
+        		dialog.setTitle("€ Gasofa V 2.9");
         		dialog.setMessage("Desarrollado" + " por J.R.  "
       					+ "email: jrmh@ya.com  ");
         		dialog.setPositiveButton("OK", new OnClickListener() {
