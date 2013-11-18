@@ -4,6 +4,7 @@ import java.io.StringWriter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -42,6 +43,7 @@ public class MainActivity extends Activity {
 	@SuppressWarnings("unused")
 	private static final String BRC = "()";
 	private static final String BRC_OPEN = "('";
+	private static final String C="','";
 	private static final String BRC_CLOSE = "')";
 	public static final String EMPTY_WIFI_LIST = "{\"listawifi\":[]}";
 	Utility uti;
@@ -142,10 +144,16 @@ public class MainActivity extends Activity {
 			webview.loadUrl(in);
 		}
 
-		public void loadPage(String in) {
-			// loadshowprogres();
-			Log.i(this.getClass().toString(), "metodo loadPage");
-			webview.loadUrl(HTML_ROOT + in);
+		public void refrescar() {
+			try {
+				new Utility().retardo(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		// TOAST POR DEFECTO
@@ -161,7 +169,7 @@ public class MainActivity extends Activity {
 
 		public void loadScaner(String key) {
 			Log.i(this.getClass().toString(), "metodo loadScaner");
-
+			
 		}
 
 	}
@@ -272,7 +280,7 @@ public class MainActivity extends Activity {
 	}
 	
 			
-	public void conectarWifi(String essid,String key){
+	public void conectarWifi(final String essid,String key){
 		WifiManager wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
 		WifiConfiguration wc = new WifiConfiguration();
 	    // This is must be quoted according to the documentation 
@@ -295,12 +303,16 @@ public class MainActivity extends Activity {
 	    Log.d("WifiPreference", "enableNetwork returned " + b );
 	    WifiInfo wi=wifi.getConnectionInfo();
 	    SupplicantState ss=wi.getSupplicantState();
-	    String estado=ss.toString();
-	    Toast.makeText(this,estado,Toast.LENGTH_LONG).show();
-	    Log.d("WifiPreference", "status " + estado );
-	    
-	    
-	    
+   	    final String estado=ss.toString();
+   	    new Utility(wi, webview, this, essid);
+   	    runOnUiThread(new Runnable() {
+	        @Override
+	        public void run() {
+	        	 webview.loadUrl(JAVASCRIPT + "ActualizarDatos" + BRC_OPEN +essid+ C + estado+ BRC_CLOSE);
+	        }
+	    });
+   	  
 	}
+	
 	
 }

@@ -387,18 +387,22 @@
 						myJSON.listawifi[i].bssid)
 				//$('#listawifi').append(leyenda);
 						//<a href="javascript:conectar('+"'"+ myJSON.listawifi[i].essid +"','"+  key +"'"+');">
-				var leyenda = '<li ><a href="javascript:conectar('+"'"+ myJSON.listawifi[i].essid +"','"+  key +"'"+');"> ESSID: ' + myJSON.listawifi[i].essid
+				var leyenda = '<li><a  href="javascript:conectar('+"'"+ myJSON.listawifi[i].essid +"','"+  key +"'"+');"> ESSID: ' + myJSON.listawifi[i].essid
 						+ '<br/>BSSID: ' + myJSON.listawifi[i].bssid
 						+ '<br/>Nivel señal: ' + myJSON.listawifi[i].level
 						+ ' db<br/>seguridad: ' + myJSON.listawifi[i].capabilities
 						+ '<br/>frecuencia: ' + myJSON.listawifi[i].frequency
-						+ ' Mhz<br/> key: ' + key + '</a></li>';
+						+ ' Mhz<br/> <div id="'+myJSON.listawifi[i].essid+'">key: ' + key + '</div></a></li>';
 				$('#lista').append(leyenda);
 
 			}
 
 			$('#lista').listview('refresh');
 
+		}
+		function ActualizarDatos(esid,estado){
+			$("#"+esid).html(estado);
+			androidSupport.refrescar();
 		}
 	</script>
 </body>
