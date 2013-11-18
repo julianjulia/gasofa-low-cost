@@ -70,7 +70,8 @@ public class MainActivity extends Activity {
 				"androidSupport");
 		webview.loadUrl(HTML_ROOT + "WPAMagicKey.html");
 		wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-		uti = new Utility(wifiManager, webview, getApplicationContext());
+		
+		
 		if (!wifiManager.isWifiEnabled()) {
 			loadDialog("ACTIVAR WIFI", true);
 
@@ -228,7 +229,7 @@ public class MainActivity extends Activity {
 				ScanResult bestSignal = results.get(0);
 				etWifiList = (""); // etWifiList is EditText
 				int count = 1;
-				ArrayList<Wifi> allWifi = allWifi = new ArrayList<Wifi>();
+				ArrayList<Wifi> allWifi  = new ArrayList<Wifi>();
 
 				for (ScanResult result : results) {
 					Wifi wifi = null;
@@ -281,11 +282,12 @@ public class MainActivity extends Activity {
 	
 			
 	public void conectarWifi(final String essid,String key){
+		
 		WifiManager wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
 		WifiConfiguration wc = new WifiConfiguration();
 	    // This is must be quoted according to the documentation 
 	    // http://developer.android.com/reference/android/net/wifi/WifiConfiguration.html#SSID
-		  Toast.makeText(this,essid +"\nKey: "+key ,Toast.LENGTH_LONG).show();
+		  //Toast.makeText(this,essid +"\nKey: "+key ,Toast.LENGTH_LONG).show();
 	    wc.SSID = "\""+essid+"\"";
 	    wc.preSharedKey  = "\""+key+"\"";
 	    wc.hiddenSSID = false;
@@ -301,10 +303,10 @@ public class MainActivity extends Activity {
 	    Log.d("WifiPreference", "add Network returned " + res );
 	    boolean b = wifi.enableNetwork(res, true);        
 	    Log.d("WifiPreference", "enableNetwork returned " + b );
-	    WifiInfo wi=wifi.getConnectionInfo();
-	    SupplicantState ss=wi.getSupplicantState();
+	    WifiInfo wi=wifi.getConnectionInfo();	    SupplicantState ss=wi.getSupplicantState();
    	    final String estado=ss.toString();
-   	    new Utility(wi, webview, this, essid);
+   	    new Utility(wifi,webview, this, essid);
+   	  
    	    runOnUiThread(new Runnable() {
 	        @Override
 	        public void run() {

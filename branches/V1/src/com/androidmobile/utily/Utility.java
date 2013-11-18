@@ -25,21 +25,17 @@ public class Utility {
 	private static final String BRC_CLOSE = "')";
 	private static final String C="','";
 	public static final String EMPTY_WIFI_LIST = "{\"listawifi\":[]}";
-	WifiManager wifiManager;
-	static WifiInfo wi;
+	
+	static WifiManager wifi;
 	static WebView webview;
 	static Context mContext;
 	static String essid;
 	public Utility(){};
-	public Utility(WifiManager wifiManager,WebView webview,Context mContext) {
-		this.mContext=mContext;
-		this.wifiManager = wifiManager;
-		this.webview=webview;
-	}
 
-	public Utility( WifiInfo wi ,WebView webview,Context mContext,String essid) {
+
+	public Utility( WifiManager wifi ,WebView webview,Context mContext,String essid) {
 		this.mContext=mContext;
-		this.wi=wi;
+		this.wifi=wifi;
 		this.webview=webview;
 		this.essid=essid;
 	}
@@ -75,6 +71,7 @@ class taskretardo extends AsyncTask<Void, Void, Void> {
 
 
 	protected void onPostExecute(Void result) {
+			WifiInfo wi=wifi.getConnectionInfo();
 		    SupplicantState ss=wi.getSupplicantState();
 	   	    final String estado=ss.toString();
 		((Activity) mContext).runOnUiThread(new Runnable() {
@@ -91,34 +88,5 @@ new taskretardo().execute();
 	
 	
 	
-	public void resultadosWifi() {
-		String etWifiList = null;
-		List<ScanResult> results = wifiManager.getScanResults();
-		String message = "No results. Check wireless is on";
-		if (results != null) {
-			final int size = results.size();
-			if (size == 0)
-				message = "No access points in range";
-			else {
-				ScanResult bestSignal = results.get(0);
-				etWifiList = (""); // etWifiList is EditText
-				int count = 1;
-				for (ScanResult result : results) {
-					//if((result.SSID.indexOf("WLAN_")!=-1) || (result.SSID.indexOf("JAZZTEL_")!=-1)  )
-					webview.loadUrl(JAVASCRIPT + "GenerarKey" + BRC_OPEN
-							+ result.SSID+"','"+result.BSSID + BRC_CLOSE);
-					
-					etWifiList = count++ + ". " + result.SSID + " : "
-							+ result.level + "\n" + result.BSSID + "\n"
-							+ result.capabilities + "\n"
-							+ "\n=======================\n";
-					Log.i("wifi", etWifiList);
-					// Toast.makeText(mContext,etWifiList, Toast.LENGTH_LONG).show();
-				}
-			}
-		}
-		// Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-
-	}
 	
 }
