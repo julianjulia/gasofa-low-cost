@@ -47,7 +47,7 @@ public class GasSQLiteHelper extends SQLiteOpenHelper {
 		// tabla antigua a la nueva, por lo que este método debería
 		// ser más elaborado.
 		// Se elimina la versión anterior de la tabla
-		
+		if(versionAnterior!=5){
 		db.execSQL("DROP TABLE IF EXISTS Gas");
 		db.execSQL("DROP TABLE IF EXISTS Favoritos");
 		
@@ -60,7 +60,7 @@ public class GasSQLiteHelper extends SQLiteOpenHelper {
 		
 		db.execSQL(sqlCreateProv);
 		db.execSQL(sqlCreateMun);
-		
+		}
 		
 		
 			
