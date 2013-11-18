@@ -351,7 +351,7 @@
 			//document.getElementById("txtBSSID").value = bssid;
 
 			essid = essid.replace(":", "").replace("JAZZTEL_", "").replace(
-					"WLAN_", "").replace("Vodafone","").toUpperCase();
+					"WLAN_", "").replace("vodafone","").replace("Vodafone","").toUpperCase();
 
 			while (bssid.indexOf(":") != -1)
 				bssid = bssid.replace(":", "");
@@ -401,7 +401,11 @@
 
 		}
 		function ActualizarDatos(esid,estado){
-			$("#"+esid).html(estado);
+			if(estado=="COMPLETED"){
+				$("#"+esid).html('<div style="color: green">'+estado+'</div>');
+			}else{
+			$("#"+esid).html('<div style="color: red">'+estado+'</div>');
+			}
 			androidSupport.refrescar();
 		}
 	</script>
