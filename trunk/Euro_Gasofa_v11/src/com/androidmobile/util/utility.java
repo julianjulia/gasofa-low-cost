@@ -102,8 +102,8 @@ public class utility {
 							prov=cp.substring(0, 2);
 												
 					  try {
-						  final String Newurl = "http://geoportal.mityc.es/hidrocarburos/eess/searchAddress.do";
-						  	 
+						  //final String Newurl = "http://geoportal.mityc.es/hidrocarburos/eess/searchAddress.do";
+						  final String Newurl = "http://www.geoportalgasolineras.es/searchAddress.do?";
 						  	          HttpClient httpclient = new DefaultHttpClient();
 						  	         	/*Creamos el objeto de HttpClient que nos permitira conectarnos mediante peticiones http*/
 						  	          HttpPost httppost = new HttpPost(Newurl);
@@ -166,7 +166,8 @@ public class utility {
 									}
 									brNew.close();	
 									int pos = 0;
-									pos = rdo.indexOf("<td class=\"tdMediumBorderLeftTable\">")+("<td class=\"tdMediumBorderLeftTable\">").length();
+									//pos = rdo.indexOf("<td class=\"tdMediumBorderLeftTable\">")+("<td class=\"tdMediumBorderLeftTable\">").length(); <tbody>
+									pos = rdo.indexOf("<td valign=\"middle\">")+("<td valign=\"middle\">").length();
 									int pos2;
 									while (pos != -1) {//añadido 13/09/2013
 																			
@@ -175,32 +176,32 @@ public class utility {
 										provincia = provincia.replaceAll("\"", "").replaceAll("\'", "");
 										
 										rdo=rdo.substring(pos2, rdo.length());			
-										pos = rdo.indexOf("<td class=\"tdMedium\">", 5);
+										pos = rdo.indexOf("<td valign=\"middle\">", 5);
 										pos = rdo.indexOf(">", pos + 5) + 1;
 										pos2 = rdo.indexOf("</td>", pos +4);
 										localidad = rdo.substring(pos, pos2);
 										localidad = localidad.replaceAll("\"", "").replaceAll("\'", "");
 										
 										rdo=rdo.substring(pos2, rdo.length());		
-										pos = rdo.indexOf("<td class=\"tdXLong\">",  5);
+										pos = rdo.indexOf("<td valign=\"middle\">",  5);
 										pos2 = rdo.indexOf("</td>", pos +4);
-										direccion = rdo.substring(pos+("<td class=\"tdXLong\">").length(), pos2);
+										direccion = rdo.substring(pos+("<td valign=\"middle\">").length(), pos2);
 										direccion = direccion.replaceAll("\"", "").replaceAll("\'", "");
 										
 										rdo=rdo.substring(pos2, rdo.length());		
-										pos = rdo.indexOf("<td class=\"tdXShort\">",  5);
+										pos = rdo.indexOf("<td valign=\"middle\">",  5);
 										pos2 = rdo.indexOf("</td>", pos +4);
-										margen = rdo.substring(pos+("<td class=\"tdXShort\">").length(), pos2);
+										margen = rdo.substring(pos+("<td valign=\"middle\">").length(), pos2);
 																			
 										rdo=rdo.substring(pos2, rdo.length());		
-										pos = rdo.indexOf("<td class=\"tdShort\">",  5);
+										pos = rdo.indexOf("<td valign=\"middle\">",  5);
 										pos2 = rdo.indexOf("</td>", pos +4);
-										fecha = rdo.substring(pos+("<td class=\"tdShort\">").length(), pos2);
+										fecha = rdo.substring(pos+("<td valign=\"middle\">").length(), pos2);
 										
 										rdo=rdo.substring(pos2, rdo.length());		
-										pos = rdo.indexOf("<td class=\"tdXShort\">",  5);
+										pos = rdo.indexOf("<td valign=\"middle\">",  5);
 										pos2 = rdo.indexOf("</td>", pos +4);
-										combustible = rdo.substring(pos+("<td class=\"tdXShort\">").length(), pos2);
+										combustible = rdo.substring(pos+("<td valign=\"middle\">").length(), pos2);
 										if (comb.equals("1"))
 											gasolina95=combustible;
 										if (comb.equals("3"))
@@ -209,32 +210,32 @@ public class utility {
 											gasoleo=combustible;
 										
 										rdo=rdo.substring(pos2, rdo.length());		
-										pos = rdo.indexOf("<td class=\"tdMedium\">", 2);
+										pos = rdo.indexOf("<td valign=\"middle\">", 2);
 										pos2 = rdo.indexOf("</td>", pos +4);
-										nombre = rdo.substring(pos+("<td class=\"tdMedium\">").length(), pos2);
+										nombre = rdo.substring(pos+("<td valign=\"middle\">").length(), pos2);
 										nombre = nombre.replaceAll("\"", "").replaceAll("\'", "");
 										
 										rdo=rdo.substring(pos2, rdo.length());		
-										pos = rdo.indexOf("<td class=\"tdXShort\">", 5);
+										pos = rdo.indexOf("<td valign=\"middle\">", 5);
 										pos2 = rdo.indexOf("</td>", pos +4);
-										venta = rdo.substring(pos+("<td class=\"tdXShort\">").length(), pos2);
+										venta = rdo.substring(pos+("<td valign=\"middle\">").length(), pos2);
 										
 										rdo=rdo.substring(pos2, rdo.length());		
-										pos = rdo.indexOf("<td class=\"tdXShort\">",5);
+										pos = rdo.indexOf("<td valign=\"middle\">",5);
 										pos2 = rdo.indexOf("</td>", pos +4);
-										rem = rdo.substring(pos+("<td class=\"tdXShort\">").length(), pos2);
+										rem = rdo.substring(pos+("<td valign=\"middle\">").length(), pos2);
 										
 										rdo=rdo.substring(pos2, rdo.length());		
-										pos = rdo.indexOf("<td class=\"tdMedium\">",  5);
+										pos = rdo.indexOf("<td valign=\"middle\">",  5);
 										//pos = rdo.indexOf(">", pos + 5) + 1;
 										pos2 = rdo.indexOf("</td>", pos +4);
-										horario = rdo.substring(pos+("<td class=\"tdMedium\">").length(), pos2);
+										horario = rdo.substring(pos+("<td valign=\"middle\">").length(), pos2);
 										
 										rdo=rdo.substring(pos2, rdo.length());		
 										pos = rdo.indexOf("onClick=\"centrar",  5);
 										//pos = rdo.indexOf(">", pos + 5) + 1;
 										pos2 = rdo.indexOf("</img>", pos +1)-6;
-										UPV = rdo.substring(pos+("onClick=\"centrarr").length(), pos2);
+										UPV = rdo.substring(pos+("onClick=\"centrar").length(), pos2);
 										
 										
 									
