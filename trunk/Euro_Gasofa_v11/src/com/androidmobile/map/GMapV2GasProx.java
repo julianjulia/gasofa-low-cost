@@ -73,7 +73,8 @@ public class GMapV2GasProx {
 		  url="https://maps.googleapis.com/maps/api/place/textsearch/"
 					+"xml?location="+lat+","+lon+"&query=gasolinera&radius=2000&sensor=true&key=AIzaSyBbew32IyIjmhVtRqOuw1VDVeESwyJUMjk";									
 		  
-		  url="http://geoportal.mityc.es/hidrocarburos/eess/queryPopUp.do?urlValor=http://geoportal.mityc.es/cgi-bin/mapserv?SERVICE=WFS&VERSION=1.0.0&REQUEST=GetFeature&TYPENAME=estaciones_servicio_brief&BBOX="+(lon-variable)+","+(lat-variable)+","+(lon+variable)+","+(lat+variable)+"&tipoCarburante="+comb+"&tipoBusqueda=0";
+		  //url="http://geoportal.mityc.es/hidrocarburos/eess/queryPopUp.do?urlValor=http://geoportal.mityc.es/cgi-bin/mapserv?SERVICE=WFS&VERSION=1.0.0&REQUEST=GetFeature&TYPENAME=estaciones_servicio_brief&BBOX="+(lon-variable)+","+(lat-variable)+","+(lon+variable)+","+(lat+variable)+"&tipoCarburante="+comb+"&tipoBusqueda=0";
+		  url="http://www.geoportalgasolineras.es/queryPopUp.do?urlValor=http://geoportalgasolineras.es/cgi-bin/mapserv?SERVICE=WFS&VERSION=1.0.0&REQUEST=GetFeature&TYPENAME=estaciones_servicio_brief&BBOX="+(lon-variable)+","+(lat-variable)+","+(lon+variable)+","+(lat+variable)+"&tipoCarburante="+comb+"&tipoBusqueda=0"; 
 		  
 		  SupportMapFragment fm = (SupportMapFragment) ((FragmentActivity) mContext).getSupportFragmentManager().findFragmentById(R.id.map);
 			 
