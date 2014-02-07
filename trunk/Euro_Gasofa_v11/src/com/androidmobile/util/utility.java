@@ -1,6 +1,8 @@
 package com.androidmobile.util;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
@@ -134,13 +136,9 @@ public class utility {
 						  	                  /*Finalmente ejecutamos enviando la info al server*/
 						  	          HttpResponse resp = httpclient.execute(httppost);
 						  	      				  	         
-						  	          
-						  	      
-						  	 
-						  	      
-						  	         
+						  	         						  	         
 						  	        InputStream in = resp.getEntity().getContent();
-						  	        
+						  	       
 						  	      brNew = new BufferedReader(new InputStreamReader(in));
 									String text;
 									String rdo = "";
@@ -161,16 +159,24 @@ public class utility {
 									String horario="-";
 									String UPV="-";
 									String combustible;
-									while ((text = brNew.readLine()) != null) {
+								//	while ((text = brNew.readLine()).trim() != null) {
+									while ((text = brNew.readLine().trim()) != null ) {
+										
 										rdo += text.trim();
+										if (rdo.indexOf("</tbody>") != -1)
+											 break;
+										Log.i("INFO", text);
+										
 									}
-									brNew.close();	
+									//brNew.close();	
 									int pos = 0;
+									
 									//pos = rdo.indexOf("<td class=\"tdMediumBorderLeftTable\">")+("<td class=\"tdMediumBorderLeftTable\">").length(); <tbody>
-									pos = rdo.indexOf("<td valign=\"middle\">")+("<td valign=\"middle\">").length();
+									 
+									pos =  rdo.indexOf("<td valign=\"middle\">"); 
 									int pos2;
-									while (pos != -1) {//añadido 13/09/2013
-																			
+									while (pos != -1 ) {//añadido 13/09/2013
+										pos= pos+("<td valign=\"middle\">").length(); 									
 										pos2 = rdo.indexOf("</td>", pos +4 );
 										provincia = (rdo.substring(pos , pos2 ));
 										provincia = provincia.replaceAll("\"", "").replaceAll("\'", "");
@@ -232,7 +238,7 @@ public class utility {
 										horario = rdo.substring(pos+("<td valign=\"middle\">").length(), pos2);
 										
 										rdo=rdo.substring(pos2, rdo.length());		
-										pos = rdo.indexOf("onClick=\"centrar",  5);
+										pos = rdo.indexOf("onClick=\"centrar",  6)+1;
 										//pos = rdo.indexOf(">", pos + 5) + 1;
 										pos2 = rdo.indexOf("</img>", pos +1)-6;
 										UPV = rdo.substring(pos+("onClick=\"centrar").length(), pos2);
@@ -247,7 +253,7 @@ public class utility {
 										
 										
 											rdo=rdo.substring(pos2, rdo.length());													
-											pos = rdo.indexOf("<td class=\"tdMediumBorderLeftTable\">",4 )+("<td class=\"tdMediumBorderLeftTable\">").length();
+											pos = rdo.indexOf("<td valign=\"middle\">");
 											
 											
 									}
