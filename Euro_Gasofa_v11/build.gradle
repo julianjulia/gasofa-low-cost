@@ -1,0 +1,38 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.4'
+    }
+}
+apply plugin: 'android'
+
+dependencies {
+    compile files('../../../../Euro_Gasofa_V11/libs/jackson-core-asl-1.9.12.jar')
+    compile files('../../../../Euro_Gasofa_V11/libs/jackson-mapper-asl-1.9.12.jar')
+    compile files('../../../../Euro_Gasofa_V11/libs/GoogleAdMobAdsSdk-6.4.1.jar')
+}
+
+android {
+    compileSdkVersion 14
+    buildToolsVersion "14"
+
+    defaultConfig {
+        minSdkVersion 8
+        targetSdkVersion 14
+    }
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+        }
+
+        instrumentTest.setRoot('tests')
+    }
+}

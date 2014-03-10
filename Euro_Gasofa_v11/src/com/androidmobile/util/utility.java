@@ -160,10 +160,10 @@ public class utility {
 									String UPV="-";
 									String combustible;
 								//	while ((text = brNew.readLine()).trim() != null) {
-									while ((text = brNew.readLine().trim()) != null ) {
+									while ((text = brNew.readLine()) != null ) {
 										
 										rdo += text.trim();
-										if (rdo.indexOf("</tbody>") != -1)
+										if ((rdo.indexOf("</tbody>") != -1) || (rdo.indexOf("No se han encontrado concordancias")!=-1))
 											 break;
 										Log.i("INFO", text);
 										
