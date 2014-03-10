@@ -169,14 +169,11 @@ public class MapActivity extends FragmentActivity  implements
 	}
 	public void animateCamera_N(View view) {
 		 if(radio==null){
-			 final CharSequence[] items =new CharSequence[17]; 
+			 final CharSequence[] items =new CharSequence[6]; 
 				ContextThemeWrapper ctw = new ContextThemeWrapper( this, R.style.miestilo);
 				AlertDialog.Builder builder = new AlertDialog.Builder(ctw);
-				for(int i=4;i<21;i++){			
-				items[i-4] = String.valueOf(i);
-				}
-					
-				
+				items[0] = "5";items[1] = "10";items[2] = "15";items[3] = "20";items[4] = "30";items[5] = "50";
+								
 				builder.setTitle("Radio de Busqueda en Km");
 				builder.setItems(items, new DialogInterface.OnClickListener() {
 				    public void onClick(DialogInterface dialog, int item) {
@@ -346,6 +343,7 @@ public class MapActivity extends FragmentActivity  implements
 			int com= valor.indexOf(",");
 			Double lon=  Double.parseDouble(valor.substring(0,com));
 			Double lat=  Double.parseDouble(valor.substring(com+1));
+			combustible="";
 			if(!g.getGasoleo().equals("-"))
 				combustible= "gasoleo: "+g.getGasoleo()+"\n\r";
 			if(!g.getGasolina95().equals("-"))

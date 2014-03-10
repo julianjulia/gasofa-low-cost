@@ -119,12 +119,18 @@ public class GMapGeocoderInverter {
 			@Override
 			protected void onPostExecute(Void json) {
 				//pd.dismiss();
-				
+				// error play store 01/03/2014
+				//java.lang.NullPointerException	at com.androidmobile.map.GMapGeocoderInverter.getDirection(GMapGeocoderInverter.java:138)
+				try{
 				getDirection(doc);
 				if (aldir.get(0)!=null && aldir.get(0)!="")
 					 mapa.addMarker(new MarkerOptions().position(UPV).title("Ubicacion").snippet(aldir.get(0))
 			      			  .icon(BitmapDescriptorFactory.fromResource(R.drawable.start)));
-				
+				}catch(Exception e){
+					 mapa.addMarker(new MarkerOptions().position(UPV).title("Ubicacion").snippet(" -- ")
+			      			  .icon(BitmapDescriptorFactory.fromResource(R.drawable.start)));
+					e.printStackTrace();
+				}
 				
 				
 			}
