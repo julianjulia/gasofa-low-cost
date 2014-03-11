@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.androidmobile.JR"
     android:versionCode="18"
-    android:versionName="3.0" >
+    android:versionName="3.0.1" >
 
     <uses-sdk
         android:minSdkVersion="8"
