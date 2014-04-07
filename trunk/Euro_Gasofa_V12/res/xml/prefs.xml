@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#6a3ab2" >
+  <PreferenceCategory android:title="GENERAL" >
+       <ListPreference
+            android:dialogTitle="Tipo de Combustible por defecto"
+            android:entries="@array/combustible"
+            android:entryValues="@array/combustible"
+            android:key="combustible"
+            android:summary="@string/Sumary_combustible"
+            android:title="@string/Title_Combustible"/>
+    </PreferenceCategory>
+      
+    <PreferenceCategory android:title="NOTIFICACIONES" >
+        <CheckBoxPreference
+            android:key="alerta"
+            android:title="@string/Title_Notificaciones" />
+        <CheckBoxPreference
+            android:key="vibrate"
+            android:title="@string/Title_Vibrate" 
+            android:dependency="alerta" />
+        <RingtonePreference
+            android:key="tono"
+            android:ringtoneType="notification"  
+            android:summary="@string/Sumary_Tono"
+            android:title="@string/Title_Tono"
+			android:dependency="alerta" />
+        <ListPreference
+            android:dialogTitle="Seleccion de Notificacion"
+            android:entries="@array/condicion"
+            android:entryValues="@array/id_condicion"
+            android:key="condicion"
+            android:summary="@string/Sumary_Condicion"
+            android:title="@string/Title_Condicion"
+            android:dependency="alerta"  />
+    </PreferenceCategory>
+
+</PreferenceScreen>
