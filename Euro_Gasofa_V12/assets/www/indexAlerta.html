@@ -1,0 +1,123 @@
+<html title="Alertas">
+<head>
+<link rel="stylesheet"
+	href="css-js/jquery.mobile-1.0a4.1.css" />	
+<script type="text/javascript"
+	src="css-js/jquery-1.7.1.js"></script>
+<script type="text/javascript"
+	src="css-js/jquery.mobile-1.0a4.1.js"></script>
+<link rel="stylesheet" href="css-js/Stile.css" />
+</head>
+<body  >
+		<div data-role="page" data-theme="c"  id="pageResultados">
+		<div data-role="header" >
+		<table width="100%">
+			<div>
+				<th><a  href="#" id="inicio"  style="text-decoration: none;"><img style="opacity:0.8;"src="img/ic_menu_home.png" align="left" /></a></th>
+				<th><a style="opacity:0.8; ">Notificaciones</a></th>
+			</div>
+		</table>
+		</div>
+		<div  data-role="content" >
+		
+			<div id="notation">
+			<ul style="opacity:0.7;" data-role="listview" data-inset="true" id="lista">
+			</ul>
+		</div>
+				
+		</div>
+		
+		<div data-role="footer" data-theme="c"></div>
+	</div>
+	<script>
+	$(document).ready(function() {		
+		androidSupportAlerta.ReadAlert();
+		
+		$("#inicio").click(
+				function(e) {
+					
+					androidSupportAlerta.inicioMain();
+					
+														
+				});	
+		});
+	
+	function buscarimg(valor){
+		var dir="img/"
+		valor=valor.toLowerCase();
+		if(valor.indexOf("alcampo")!=-1)
+			return dir+"alcampo.jpg";
+		if(valor.indexOf("ballenoil")!=-1)
+			return dir+"ballenoil.png";
+		if(valor.indexOf("bp")!=-1)
+			return dir+"bp.gif";
+		if(valor.indexOf("carrefour")!=-1)
+			return dir+"carrefur.gif";
+		if(valor.indexOf("cepsa")!=-1)
+			return dir+"cepsa.gif";
+		if(valor.indexOf("campsa")!=-1)
+			return dir+"repsol.gif";
+		if(valor.indexOf("galp")!=-1)
+			return dir+"galp.gif";
+		if(valor.indexOf("meroil")!=-1)
+			return dir+"meroil.gif";
+		if(valor.indexOf("repsol")!=-1)
+			return dir+"repsol.gif";
+		if(valor.indexOf("shell")!=-1)
+			return dir+"shell.gif";
+		if(valor.indexOf("makro")!=-1)
+			return dir+"makro.jpg";
+		if(valor.indexOf("eroski")!=-1)
+			return dir+"eroski.jpg";	
+		
+	 return dir+"gasolinera.gif";
+	}
+	
+	
+	
+	function setRestList(jsonText) {
+		var data = JSON.parse(jsonText);
+		$("#lista").html('');
+		for ( var i in data.listaalertas) {
+			var p_actual=data.listaalertas[i].condicion;
+			var p_alerta=data.listaalertas[i].pvp;
+			var posicion_upv=data.listaalertas[i].upv;
+			var imagen=buscarimg(data.listaalertas[i].nombre);
+			var dif=p_actual - p_alerta;
+			dif=dif.toFixed(3);
+			if (dif<0){
+				var fc='<font color="green">'
+			}else{
+				var fc='<font color="red">'
+			}
+			combustible=data.listaalertas[i].ic_comb;
+			
+			
+			if (i%2==0){
+				output = '<li id="ligas" ><a href="javascript:showRest('+"'"+posicion_upv+"'"+');"><table width="100%" style="font-size: 10px;font-family:verdana"><tr><td width="50%">'
+				
+			}else{
+				output = '<li id="ligas" style="background:#d2d2d2"><a href="javascript:showRest('+"'"+posicion_upv+"'"+');"><table width="100%" style="font-size: 10px;font-family:verdana"><tr><td width="50%">'
+				
+			}
+			output=output + data.listaalertas[i].localidad + '</td><td width="50%">'
+			+ data.listaalertas[i].provincia
+			+ '</td></tr><tr><td colspan="2" width="100%">'
+			+ data.listaalertas[i].direccion
+			+ '</td></tr><tr><td width="50%"><img style="opacity:0.8;" src='+imagen+' align="left" /></td><td width="50%">'
+			+ data.listaalertas[i].nombre
+			+ '</td></tr><tr><td width="50%">pvp actual: '+p_actual+'</td><td width="50%">pvp anterior'
+			+ p_alerta
+			+ '</td></tr><tr><td width="50%">diferencia: </td><td width="50%">'
+			+ fc + dif 
+			+ '</font></td></tr></table></a></li>';
+	$('#lista').append(output);
+		}
+
+		$('#lista').listview('refresh');
+		
+	}
+	
+	</script>
+</body>
+</html>

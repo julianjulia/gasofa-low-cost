@@ -1,0 +1,58 @@
+ <RelativeLayout  
+    xmlns:android="http://schemas.android.com/apk/res/android"
+ 
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+
+    android:layout_height="match_parent">
+	
+    <fragment
+        android:id="@+id/map"
+
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent"
+
+        class="com.google.android.gms.maps.SupportMapFragment"/>
+
+	
+        <Button android:id="@+id/menu"
+
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentTop="true"
+
+            android:onClick="menu"
+
+           android:drawableRight="@drawable/ic_drawer"/>
+    
+    <Button android:id="@+id/button2"
+
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentBottom="true"
+
+            android:onClick="animateCamera_N"
+
+            android:text="como llegar" />
+
+ 
+      <Button android:id="@+id/button3"
+
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:onClick="leyenda"
+
+            android:text="leyenda" />
+
+    
+</RelativeLayout>

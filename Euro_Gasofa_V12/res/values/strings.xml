@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">€ Gasofa - Gasolineras Baratas</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_main">€ Gasofa</string>
+    <string name="title_activity_leyenda">LeyendaActivity</string>
+    <string name="title_activity_alertas">AlertasActivity</string>
+    <string name="hello_world">Hello world!</string>
+
+     <string name="Title_Notificaciones">Notificaciones</string>
+     <string name="Sumary_Notificaciones">Activar notificaciones</string>
+    
+     <string name="Title_Tono">Tono</string>
+     <string name="Sumary_Tono">Seleccione un tono de notificacion</string>
+
+ 	 <string name="Title_Vibrate">Vibracion</string>
+     <string name="Sumary_Vibrate">Activar vibracion</string>
+     
+     <string name="Title_Condicion">Seleccion de Notificacion</string>
+     <string name="Sumary_Condicion">Seleccione condicion de la notificacion</string>
+
+     <string name="Title_Combustible">Combustible por defecto</string>
+     <string name="Sumary_combustible">Seleccione el combustible por defecto</string>
+     
+     <string name="pref_ringtone_silent">Sin sonido</string>
+     
+     
+     
+    
+</resources>

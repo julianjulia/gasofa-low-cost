@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="condicion" >
+        <item>
+aumento de precio
+        </item>
+        <item>
+disminuye el precio
+        </item>
+        <item>
+cambia de precio           
+        </item>
+    </string-array>
+    <string-array name="id_condicion" >
+        <item>
+aumento de precio
+        </item>
+        <item>
+disminuye el precio
+        </item>
+        <item>
+cambia de precio
+        </item>
+    </string-array>
+
+ <string-array name="combustible" >
+        <item>
+gasoleo
+        </item>
+        <item>
+gasolina95
+        </item>
+        <item>
+gasolina98
+        </item>
+    </string-array>    
+    
+</resources>
