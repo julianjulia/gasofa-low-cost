@@ -1,10 +1,10 @@
 package com.androidmobile.JR;
 
 import java.io.IOException;
+
 import java.util.List;
 import com.androidmobile.bd.BdGas;
 import java.util.Locale;
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -415,7 +415,8 @@ public class MapActivity extends FragmentActivity  implements
 	
 	
 	public void showresultados(String dir) throws IOException{
-		Geocoder geoCoder = new Geocoder(getBaseContext(), Locale.getDefault());
+		// modificación obtener dirección  28/04/2014   cambiamos a mContext
+		Geocoder geoCoder = new Geocoder(mContext, Locale.getDefault());
 		
 		addresses = geoCoder.getFromLocationName(dir, 5);
 		if ( addresses!=null && addresses.size() > 0) {
