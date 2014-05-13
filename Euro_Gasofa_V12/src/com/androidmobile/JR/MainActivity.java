@@ -488,8 +488,7 @@ public void dialMun(String cod_prov) throws ParserConfigurationException, SAXExc
 	        	  webview.loadUrl(JAVASCRIPT + "loadprov" + BRC_OPEN
 		    				+ des_prov + BRC_CLOSE);
 	        }
-	    });
-	        
+	    });	        
 	  
 		
 	}
