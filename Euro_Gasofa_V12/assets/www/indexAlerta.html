@@ -83,8 +83,8 @@
 			var p_alerta=data.listaalertas[i].pvp;
 			var posicion_upv=data.listaalertas[i].upv;
 			var imagen=buscarimg(data.listaalertas[i].nombre);
-			var dif=p_actual - p_alerta;
-			dif=dif.toFixed(3);
+			var dif=(p_actual - p_alerta)*100;
+			dif=dif.toFixed(2);
 			if (dif<0){
 				var fc='<font color="green">'
 			}else{
@@ -106,10 +106,10 @@
 			+ data.listaalertas[i].direccion
 			+ '</td></tr><tr><td width="50%"><img style="opacity:0.8;" src='+imagen+' align="left" /></td><td width="50%">'
 			+ data.listaalertas[i].nombre
-			+ '</td></tr><tr><td width="50%">pvp actual: '+p_actual+'</td><td width="50%">pvp anterior'
+			+ '</td></tr><tr><td width="50%">pvp actual: '+p_actual+'</td><td width="50%">pvp anterior: '
 			+ p_alerta
 			+ '</td></tr><tr><td width="50%">diferencia: </td><td width="50%">'
-			+ fc + dif 
+			+ fc + dif + ' centimos ' 
 			+ '</font></td></tr></table></a></li>';
 	$('#lista').append(output);
 		}
