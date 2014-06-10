@@ -1,19 +1,15 @@
 package com.androidmobile.utily;
 
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import android.app.Activity;
 import android.content.Context;
-import android.net.wifi.ScanResult;
 import android.net.wifi.SupplicantState;
-import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.webkit.WebView;
-import android.widget.Toast;
+
 
 
 public class Utility {
