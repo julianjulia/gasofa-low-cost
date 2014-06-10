@@ -35,5 +35,13 @@ gasolina95
 gasolina98
         </item>
     </string-array>    
-    
+<string-array name="vista" >
+        <item>
+2D
+        </item>
+        <item>
+3D
+        </item>
+
+    </string-array>        
 </resources>
