@@ -23,6 +23,9 @@
      <string name="Title_Combustible">Combustible por defecto</string>
      <string name="Sumary_combustible">Seleccione el combustible por defecto</string>
      
+     <string name="Title_Vista">Vista por defecto</string>
+     <string name="Sumary_vista">Seleccione la vista por defecto</string>
+     
      <string name="pref_ringtone_silent">Sin sonido</string>
      
      

@@ -10,7 +10,15 @@
             android:summary="@string/Sumary_combustible"
             android:title="@string/Title_Combustible"/>
     </PreferenceCategory>
-      
+    <PreferenceCategory android:title="MAPA" >
+       <ListPreference
+            android:dialogTitle="Vista"
+            android:entries="@array/vista"
+            android:entryValues="@array/vista"
+            android:key="vista"
+            android:summary="@string/Sumary_vista"
+            android:title="@string/Title_Vista"/>
+    </PreferenceCategory>  
     <PreferenceCategory android:title="NOTIFICACIONES" >
         <CheckBoxPreference
             android:key="alerta"
