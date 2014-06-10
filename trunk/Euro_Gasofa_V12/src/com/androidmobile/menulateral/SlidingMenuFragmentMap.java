@@ -9,6 +9,7 @@ import com.androidmobile.JR.MapActivity;
 import com.androidmobile.JR.R;
 import com.androidmobile.JR.R.id;
 import com.androidmobile.JR.R.layout;
+import com.androidmobile.JR.StreetView;
 import com.androidmobile.map.GMapV2GasProx;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -75,7 +76,7 @@ public class SlidingMenuFragmentMap extends Fragment implements ExpandableListVi
         oGeneralSection.addSectionItem(201, " Normal", "ic_action_location_searching");
         oGeneralSection.addSectionItem(202, " Relieve", "ic_action_location_found");
         oGeneralSection.addSectionItem(203, " Satelite", "ic_action_location_off");
-     
+       // oGeneralSection.addSectionItem(204, " Street View", "ic_action_location_off");
              
         Section oOtrosSection = new Section("Otros");
         oOtrosSection.addSectionItem(301," Acerca de Gasofa", "ic_menu_contact");
@@ -144,6 +145,11 @@ public class SlidingMenuFragmentMap extends Fragment implements ExpandableListVi
         	map.slidingMenu.toggle();
             break;     
         
+        case 204:
+        	Intent intent2 = new Intent(getActivity(), StreetView.class);
+			startActivity(intent2);
+        	break;   
+            
         case 301:
         		AlertDialog.Builder dialog = new AlertDialog.Builder(ctw);
         		dialog.setTitle("€ Gasofa V 3.1");

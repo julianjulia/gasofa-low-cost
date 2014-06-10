@@ -8,6 +8,7 @@ import com.androidmobile.service.UpdaterService;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.res.Configuration;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -31,6 +32,7 @@ public class PrefesActivity extends PreferenceActivity implements OnPreferenceCh
 	RingtonePreference mTono;
 	ListPreference lpref;
 	ListPreference lpref2;
+	ListPreference lpref3;
 	private SharedPreferences prefs;
 	protected void onCreate(Bundle savedInstanceState) {
 		
@@ -46,13 +48,16 @@ public class PrefesActivity extends PreferenceActivity implements OnPreferenceCh
 		 PreferenceScreen prefs = getPreferenceScreen();
 		 	lpref = (ListPreference) prefs.findPreference("condicion"); 
 		 	lpref2 = (ListPreference) prefs.findPreference("combustible");
+		 	lpref3 = (ListPreference) prefs.findPreference("vista");
 		 	mTono = (RingtonePreference) prefs.findPreference("tono"); 
         	mTono.setOnPreferenceChangeListener(this);   
         	lpref.setOnPreferenceChangeListener(this);
         	lpref2.setOnPreferenceChangeListener(this);
+        	lpref3.setOnPreferenceChangeListener(this);
         	try{
             String combustible = lpref2.getSharedPreferences().getString("combustible","gasoil");
             String condicion =	 lpref.getSharedPreferences().getString("condicion","cambia de precio");	
+            String vista =	 lpref.getSharedPreferences().getString("vista","3D");	
         	String tono= mTono.getSharedPreferences().getString("tono","content://settings/system/notification_sound");
         	Ringtone ringtone = RingtoneManager.getRingtone(
 					this, Uri.parse(tono));
@@ -61,6 +66,7 @@ public class PrefesActivity extends PreferenceActivity implements OnPreferenceCh
         	mTono.setSummary(name);
         	lpref.setSummary(condicion);
         	lpref2.setSummary(combustible);
+        	lpref3.setSummary(vista);
         	}catch(Exception e){
         		
         	
@@ -139,7 +145,14 @@ public class PrefesActivity extends PreferenceActivity implements OnPreferenceCh
 	  	        	webview.loadUrl(JAVASCRIPT + "loadCombustible" + BRC_OPEN +stringValue+ BRC_CLOSE); 
 	  	        }
 	  	    });
+		}else if ((stringValue.equals("2D")||stringValue.equals("3D"))){
+			if (stringValue.equals("2D")){
+				MapActivity.vtilt=0;
+			}else{
+				MapActivity.vtilt=45;
+			}
 		}
+			
 		return true;
 	}
 
@@ -154,5 +167,11 @@ boolean alerta = arg0.getBoolean("alerta", false);
 		
 		}
 	}
-	
+	 @Override
+
+	 public void onConfigurationChanged(Configuration newConfig) {
+
+	 super.onConfigurationChanged(newConfig);
+
+	 }
 }

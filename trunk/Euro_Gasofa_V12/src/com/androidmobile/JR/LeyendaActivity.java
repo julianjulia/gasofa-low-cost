@@ -14,6 +14,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.util.Log;
 import android.view.Window;
 import android.webkit.WebSettings;
@@ -107,4 +108,11 @@ public class LeyendaActivity extends Activity {
 		
 		
 	}
+	 @Override
+
+	 public void onConfigurationChanged(Configuration newConfig) {
+
+	 super.onConfigurationChanged(newConfig);
+
+	 }
 }
