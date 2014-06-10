@@ -1,6 +1,7 @@
 package com.androidmobile.JR;
 
 import java.io.IOException;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +23,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
@@ -76,7 +78,7 @@ public class MainActivity extends FragmentActivity {
 	public static SlidingMenu slidingMenu ;
 	public static SlidingMenu slidingFavoritos ;
 	public static FragmentActivity actividad;
-	 private SharedPreferences prefs;;
+	 private SharedPreferences prefs;
 	public String upv_checkbox;
 	
 	
@@ -88,6 +90,16 @@ public class MainActivity extends FragmentActivity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
 		actividad =this;
+		
+        
+		// Creamos la variable webview
+		webview = (WebView) findViewById(R.id.mainWebView);
+		lytMain = (LinearLayout) findViewById(R.id.lytMain);
+		adView = new AdView(this, AdSize.BANNER, "a151b059515123b");
+		lytMain.addView(adView);
+		adView.bringToFront();
+		adView.loadAd(new AdRequest());
+		
 		slidingMenu = new SlidingMenu(this);
 	    slidingMenu.setMode(SlidingMenu.LEFT);
 	    slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
@@ -108,16 +120,6 @@ public class MainActivity extends FragmentActivity {
 	    slidingFavoritos.setFadeDegree(0.35f);
 	    slidingFavoritos.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
 	    slidingFavoritos.setMenu(R.layout.slidingfavoritos);
-        
-		// Creamos la variable webview
-		webview = (WebView) findViewById(R.id.mainWebView);
-		lytMain = (LinearLayout) findViewById(R.id.lytMain);
-		adView = new AdView(this, AdSize.BANNER, "a151b059515123b");
-		lytMain.addView(adView);
-		adView.bringToFront();
-		adView.loadAd(new AdRequest());
-		
-		
 		
 		this.prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		
@@ -753,5 +755,11 @@ public void dialMun(String cod_prov) throws ParserConfigurationException, SAXExc
 					notManager.notify(1234, notif);
 
 				}
-	
+				 @Override
+
+				 public void onConfigurationChanged(Configuration newConfig) {
+
+				 super.onConfigurationChanged(newConfig);
+
+				 }
 }

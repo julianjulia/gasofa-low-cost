@@ -10,11 +10,14 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.view.ContextThemeWrapper;
@@ -30,12 +33,14 @@ import com.androidmobile.map.GMapV2GasProx;
 import com.androidmobile.model.Gasolinera;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -63,6 +68,8 @@ public class MapActivity extends FragmentActivity  implements
 	public static Gasolinera g;
 	public static SlidingMenu slidingMenu ;
 	public static FragmentActivity actividad;
+	public static float vtilt=80;
+	private SharedPreferences prefs;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
@@ -82,6 +89,13 @@ public class MapActivity extends FragmentActivity  implements
 	    slidingMenu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
 	    slidingMenu.setMenu(R.layout.slidingmenumap);
 		
+	    this.prefs = PreferenceManager.getDefaultSharedPreferences(this);
+	    final String vista  = prefs.getString("vista", "3D");
+	    if (vista.equals("2D")){
+	    	vtilt=0;
+	    }else{
+	    	vtilt=45;
+	    }
 		 int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getBaseContext());
 		 
 	        // Showing status
@@ -347,8 +361,18 @@ public class MapActivity extends FragmentActivity  implements
 			if(!g.getGasolina98().equals("-"))
 				combustible= combustible+"gasolina98: "+g.getGasolina98();
 	            UPV2= new LatLng(lat,lon);
-	        	 mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(UPV2,15));
-	         
+	        	 //mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(UPV2,15));
+	        	 CameraPosition newCameraPosition = new CameraPosition.Builder()
+	        	 	  .target(UPV2)     
+	        	 	  .zoom(15)                  
+	        	 	  .bearing(0)       
+	        	 	  .tilt(vtilt)                 
+	        	 	  .build(); 
+	        	 	 
+	        	 	  mapa.animateCamera(CameraUpdateFactory.newCameraPosition(newCameraPosition));
+	        	 
+	        	 
+	        	 
 	        	 mapa.addMarker(new MarkerOptions().position(UPV2).title(g.getNombre()+ " "+combustible).snippet(g.getDireccion()+"\r\n"+g.getLocalidad())
 	        			 .icon(BitmapDescriptorFactory.fromResource(R.drawable.gazstation)));
 	            
@@ -371,7 +395,17 @@ public class MapActivity extends FragmentActivity  implements
 
 	public static void GasolineraNormal(){
 		 mapa.clear();
-		 mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(UPV2,15));
+		// mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(UPV2,15));
+		 CameraPosition newCameraPosition = new CameraPosition.Builder()
+	 	  .target(UPV2)     
+	 	  .zoom(15)                  
+	 	  .bearing(0)       
+	 	  .tilt(vtilt)                 
+	 	  .build(); 
+	 	 
+	 	  mapa.animateCamera(CameraUpdateFactory.newCameraPosition(newCameraPosition));
+	 	 
+	 	  mapa.animateCamera(CameraUpdateFactory.newCameraPosition(newCameraPosition));
 		 mapa.addMarker(new MarkerOptions().position(UPV2).title(g.getNombre()+ " "+combustible).snippet(g.getDireccion()+"\r\n"+g.getLocalidad())
    			 .icon(BitmapDescriptorFactory.fromResource(R.drawable.gazstation)));
 		
@@ -382,7 +416,17 @@ public class MapActivity extends FragmentActivity  implements
 		 mapa.clear();
 		  new GMapV2GasProx(mContext);
 		int icon= GMapV2GasProx.buscarIcono(g.getNombre().toLowerCase());
-		 mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(UPV2,15));
+		//mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(UPV2,15));
+		 CameraPosition newCameraPosition = new CameraPosition.Builder()
+	 	  .target(UPV2)     
+	 	  .zoom(15)                  
+	 	  .bearing(0)       
+	 	  .tilt(vtilt)                 
+	 	  .build(); 
+	 	 
+	 	  mapa.animateCamera(CameraUpdateFactory.newCameraPosition(newCameraPosition));
+	 	 
+	 	  mapa.animateCamera(CameraUpdateFactory.newCameraPosition(newCameraPosition));
 		 mapa.addMarker(new MarkerOptions().position(UPV2).title(g.getNombre()+ " "+combustible).snippet(g.getDireccion()+"\r\n"+g.getLocalidad())
     			 .icon(BitmapDescriptorFactory.fromResource(icon)));
 		
@@ -522,5 +566,11 @@ public class MapActivity extends FragmentActivity  implements
 		        }
 			return super.onKeyDown(keyCode, event);
 		}
-		
+		 @Override
+
+		 public void onConfigurationChanged(Configuration newConfig) {
+
+		 super.onConfigurationChanged(newConfig);
+
+		 }
 }

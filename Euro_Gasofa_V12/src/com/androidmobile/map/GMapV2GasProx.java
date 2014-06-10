@@ -29,11 +29,13 @@ import android.support.v4.app.FragmentActivity;
 import android.view.ContextThemeWrapper;
 import android.widget.Toast;
 
+import com.androidmobile.JR.MapActivity;
 import com.androidmobile.JR.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -139,8 +141,16 @@ public class GMapV2GasProx {
 				pd.dismiss();
 				
 				 lt= getDirection(doc);
-				 mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(UPV,14));
-				for (int i = 0;i<lt.size();i++){
+				// mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(UPV,14));
+				 CameraPosition newCameraPosition = new CameraPosition.Builder()
+			 	  .target(UPV)     
+			 	  .zoom(15)                  
+			 	  .bearing(0)       
+			 	  .tilt(MapActivity.vtilt)                 
+			 	  .build(); 
+			 	 
+			 	  mapa.animateCamera(CameraUpdateFactory.newCameraPosition(newCameraPosition));
+				 for (int i = 0;i<lt.size();i++){
 				if(((alprec.get(i)>pMin) && (alprec.get(i) < V1)) || (alprec.get(i)==pMin) )
 	             mapa.addMarker(new MarkerOptions().position(lt.get(i)).title(alname.get(i)).snippet(dcomb+" "+alprec.get(i))
 	            		 .icon(BitmapDescriptorFactory.fromResource(R.drawable.gazstation_v)));
@@ -237,7 +247,15 @@ public class GMapV2GasProx {
 			public static void LoadLogosGas(){
 				mapa.clear();
 				int icon = 0;
-				 mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(UPV,14));
+				 //mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(UPV,14));
+				 CameraPosition newCameraPosition = new CameraPosition.Builder()
+			 	  .target(UPV)     
+			 	  .zoom(15)                  
+			 	  .bearing(0)       
+			 	  .tilt(MapActivity.vtilt)                 
+			 	  .build(); 
+			 	 
+			 	  mapa.animateCamera(CameraUpdateFactory.newCameraPosition(newCameraPosition));
 					for (int i = 0;i<lt.size();i++){
 						icon= buscarIcono(alname.get(i).toLowerCase());
 					if(((alprec.get(i)>pMin) && (alprec.get(i) < V1)) || (alprec.get(i)==pMin) ){
@@ -288,7 +306,16 @@ public class GMapV2GasProx {
 				
 				mapa.clear();
 				
-				 mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(UPV,14));
+				 //mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(UPV,14));
+				 CameraPosition newCameraPosition = new CameraPosition.Builder()
+			 	  .target(UPV)     
+			 	  .zoom(15)                  
+			 	  .bearing(0)       
+			 	  .tilt(MapActivity.vtilt)                 
+			 	  .build(); 
+			 	 
+			 	  mapa.animateCamera(CameraUpdateFactory.newCameraPosition(newCameraPosition));
+				 
 				for (int i = 0;i<lt.size();i++){
 				if(((alprec.get(i)>pMin) && (alprec.get(i) < V1)) || (alprec.get(i)==pMin) )
 	             mapa.addMarker(new MarkerOptions().position(lt.get(i)).title(alname.get(i)).snippet(dcomb+" "+alprec.get(i))

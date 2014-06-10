@@ -206,18 +206,21 @@ public class UpdaterService extends Service {
 						.newDocumentBuilder();
 				doc = builder.parse(in);
 				pvp = getDirection(doc);
+				String Str_lon= corrector(lon+"",6);
+				String Str_lat= corrector(lat+"",6);
+				String UPV_C=Str_lon+","+Str_lat;
 				if (condicion.equals("aumento de precio") && pvp > p_comb ){
 					totalSize++;
 					datos+=pvp+" ";
-					bdgas.updateAlerta(lon+","+lat, id_comb, pvp+"","true");
+					bdgas.updateAlerta(UPV_C, id_comb, pvp+"","true");
 				}else if (condicion.equals("disminuye el precio") && pvp < p_comb ){
 					totalSize++;
 					datos+=pvp+" ";
-					bdgas.updateAlerta(lon+","+lat, id_comb, pvp+"","true");
+					bdgas.updateAlerta(UPV_C, id_comb, pvp+"","true");
 				}else if(condicion.equals("cambia de precio") && pvp != p_comb ){
 					totalSize++;
 					datos+=pvp+" ";
-					bdgas.updateAlerta(lon+","+lat, id_comb, pvp+"","true");
+					bdgas.updateAlerta(UPV_C, id_comb, pvp+"","true");
 				}/*else if(pvp != p_comb){
 					totalSize++;
 					datos+=pvp+" ";
@@ -241,6 +244,20 @@ public class UpdaterService extends Service {
 		        	}
 		        datos = totalSize+" "+ datos;
 			return  totalSize;
+		}
+
+		private String corrector(String string, int i) {
+			 int com = string.indexOf(".");
+		     String entero = string.substring(0, com).trim();
+		     String decimal = string.substring(com + 1).trim();
+			int l = decimal.length();
+			int x=i-l;
+			if (i>l){
+				for(int a=0;a<x;a++){
+					decimal=decimal+"0";
+				}
+			}
+			return entero+"."+decimal;
 		}
 
 		@Override
