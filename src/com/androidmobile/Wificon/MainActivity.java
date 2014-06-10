@@ -2,6 +2,7 @@ package com.androidmobile.Wificon;
 
 import java.io.StringWriter;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -11,8 +12,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 import com.androidmobile.model.ListaWifi;
 import com.androidmobile.model.Wifi;
 import com.androidmobile.utily.Utility;
-
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -50,7 +49,7 @@ public class MainActivity extends Activity {
 	WifiManager wifiManager;
 	int bescanear = 0;
 
-	@SuppressLint("SetJavaScriptEnabled")
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
