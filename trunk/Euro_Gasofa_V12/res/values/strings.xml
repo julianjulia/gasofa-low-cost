@@ -28,7 +28,8 @@
      
      <string name="pref_ringtone_silent">Sin sonido</string>
      
-     
+     <string name="titulopersonalizado">Buscando Ubicación</string>
+	<string name="proveedor">Ubicación por</string>    
      
     
 </resources>
