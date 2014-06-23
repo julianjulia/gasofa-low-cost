@@ -2,6 +2,7 @@ package com.androidmobile.JR;
 
 import java.io.IOException;
 
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,7 +24,10 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.content.res.Configuration;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
@@ -34,9 +38,10 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.androidmobile.bd.BdGas;
+import com.androidmobile.map.GMapGeocoderInverter;
 import com.androidmobile.menulateral.SlidingMenuFragment;
 import com.androidmobile.model.Alerta;
 import com.androidmobile.model.DatosIni;
@@ -45,17 +50,13 @@ import com.androidmobile.model.Municipio;
 import com.androidmobile.model.Provincia;
 import com.androidmobile.util.utilMun;
 import com.androidmobile.util.utility;
-import com.google.ads.AdRequest;
-import com.google.ads.AdSize;
-import com.google.ads.AdView;
+import com.google.android.gms.maps.model.LatLng;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 
 //19/08/2013
 @SuppressLint("JavascriptInterface")
 public class MainActivity extends FragmentActivity {
-	private AdView adView;
-	private LinearLayout lytMain;
 	static WebView webview;
 	public static boolean salir = true;
 	private static final String HTML_ROOT = "file:///android_asset/www/";
@@ -80,26 +81,30 @@ public class MainActivity extends FragmentActivity {
 	public static FragmentActivity actividad;
 	 private SharedPreferences prefs;
 	public String upv_checkbox;
-	
-	
-	
+	public static TextView ubicacion;
+	public static TextView proveedor;
+	public  String UPV;
+	public  String  provee;
+	public  LocationListener locListener;
+	boolean _b=true;
 	@SuppressLint("SetJavaScriptEnabled")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		//requestWindowFeature(Window.FEATURE_NO_TITLE);
+		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 		setContentView(R.layout.activity_main);
-		actividad =this;
+		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.barratitulo);
 		
-        
-		// Creamos la variable webview
+        // Creamos la variable webview
 		webview = (WebView) findViewById(R.id.mainWebView);
+		/*
 		lytMain = (LinearLayout) findViewById(R.id.lytMain);
 		adView = new AdView(this, AdSize.BANNER, "a151b059515123b");
 		lytMain.addView(adView);
 		adView.bringToFront();
 		adView.loadAd(new AdRequest());
-		
+		*/
 		slidingMenu = new SlidingMenu(this);
 	    slidingMenu.setMode(SlidingMenu.LEFT);
 	    slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
@@ -157,10 +162,85 @@ public class MainActivity extends FragmentActivity {
 		 bd= new BdGas(this);
 		 //DatosIni datos= bd.obtenerIni();
 		 //Intent intent = new Intent(this, MyAlarmasActivity.class);
-			
-			//startActivity(intent);
 		
+		 //startActivity(intent);
+		 provee="Ubicación por ";
+		 LocationManager locManager = null;
+		 ubicacion= (TextView) findViewById(R.id.titulo2);//
+		 proveedor= (TextView) findViewById(R.id.titulo);
+		 
+		 Location l=null;
+		 
+		 try{
+			 locManager= (LocationManager)getSystemService(LOCATION_SERVICE);	
+		 Criteria req = new Criteria();
+		 req.setAccuracy(Criteria.ACCURACY_FINE);
+		 req.setAltitudeRequired(true);
+		 String mejorProviderCrit = locManager.getBestProvider(req, false);
+		// LocationProvider provider = locManager.getProvider(mejorProviderCrit);
+		 l=locManager.getLastKnownLocation(mejorProviderCrit);
+		 provee="Ult Ubicación por Gps           "+"";
+		       
+		 if (l==null){
+			 l=locManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+			 provee= "Ult Ubicación por Red Movil     "+"";
+			 }
+		 UPV=l.getLatitude()+","+l.getLongitude();
+		 
+		// ubicacion.setText(UPV);
+		 LatLng UPV2= new LatLng(l.getLatitude(), l.getLongitude());
+		  new GMapGeocoderInverter(this,UPV2,0);
+		  proveedor.setText(provee+"Precisión: "+l.getAccuracy()+" m");
+		 
+		 }catch(Exception e){
+			 ubicacion.setText("sin ubicacion definida");
+		 }
+		 locListener = new LocationListener() {
+			 
+			    public void onLocationChanged(Location location) {
+			    	try{
+			    		
+			    	LatLng UPV2= new LatLng(location.getLatitude(), location.getLongitude());
+					new GMapGeocoderInverter(getApplicationContext(),UPV2,0);
+					if(_b){
+						proveedor.setText(provee +"Precisión: "+location.getAccuracy()+" m");
+						_b=false;
+					}else{
+					String _provee=provee.substring(4);
+					proveedor.setText(_provee +"      Precisión: "+location.getAccuracy()+" m");
+					}
+					//ubicacion.setText(UPV);
+			    	}catch(Exception e){
+			    		ubicacion.setText("sin ubicacion definida");
+			    	}
+			    }
+			 
+			    public void onProviderDisabled(String provider){
+			       //
+			    }
+			 
+			    public void onProviderEnabled(String provider){
+			       //
+			    }
+			 
+			    public void onStatusChanged(String provider, int status, Bundle extras){
+			       //
+			    }
+			};
+		    try{
+			if( LocationManager.GPS_PROVIDER.equals(l.getProvider()) )
+				 locManager.requestLocationUpdates(
+					        LocationManager.GPS_PROVIDER, 20000, 0, locListener);
+			  else
+				  locManager.requestLocationUpdates(
+					        LocationManager.NETWORK_PROVIDER, 20000, 0, locListener);
+		    }catch(Exception e){
+		    	
+		    }
+
 	}
+	
+	
 	@Override
 	public void onBackPressed() {
 		 if ( slidingMenu.isMenuShowing()) {
@@ -173,8 +253,7 @@ public class MainActivity extends FragmentActivity {
 	
 	@Override
 	public void onDestroy() {
-		if (adView != null)
-			adView.destroy();
+		
 		super.onDestroy();
 	}
 	
@@ -755,11 +834,8 @@ public void dialMun(String cod_prov) throws ParserConfigurationException, SAXExc
 					notManager.notify(1234, notif);
 
 				}
-				 @Override
+			
+			
 
-				 public void onConfigurationChanged(Configuration newConfig) {
 
-				 super.onConfigurationChanged(newConfig);
-
-				 }
 }

@@ -6,17 +6,6 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
     
-<LinearLayout
-        android:id="@+id/lytMain"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:background="#FFFFFF"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal" />
-
-
-
     
   
     <WebView

@@ -29,4 +29,12 @@
 	
 </style> 
     
+   <style name="FondoBarraPersonalizada">
+	         <item name="android:background">#3366CC</item>
+	</style>
+	<style name="TemaPersonalizado" parent="android:Theme.Translucent">
+	         <item name="android:windowTitleSize">65dip</item>
+	         <item name="android:windowTitleBackgroundStyle">@style/FondoBarraPersonalizada</item>
+	</style>
+           
 </resources>

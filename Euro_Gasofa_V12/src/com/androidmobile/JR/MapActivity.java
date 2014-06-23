@@ -219,7 +219,7 @@ public class MapActivity extends FragmentActivity  implements
 		    			 try{
 		    				 dialog.cancel();
 		    			UPV= new LatLng(mapa.getMyLocation().getLatitude(),mapa.getMyLocation().getLongitude());
-		    			new GMapGeocoderInverter(mContext,UPV);
+		    			new GMapGeocoderInverter(mContext,UPV,1);
 		    			resulgascer("mi ubicacion");
 		    		
 		    			 }catch(Exception e){
@@ -441,7 +441,7 @@ public class MapActivity extends FragmentActivity  implements
 			
 			 UPV= new LatLng(mapa.getMyLocation().getLatitude(),mapa.getMyLocation().getLongitude());
 		
-			new GMapGeocoderInverter(mContext,UPV); 
+			new GMapGeocoderInverter(mContext,UPV,1); 
 			 
 		GMapV2Direction md = new GMapV2Direction(this);		
 		try{
@@ -517,7 +517,7 @@ public class MapActivity extends FragmentActivity  implements
      		try{
  			md.getDocument(UPV, UPV2, GMapV2Direction.MODE_DRIVING);
  					
- 			new GMapGeocoderInverter(mContext,UPV);
+ 			new GMapGeocoderInverter(mContext,UPV,1);
  		 //mapa.addMarker(new MarkerOptions().position(UPV).title("Ubicacion").snippet(d)
   			//  .icon(BitmapDescriptorFactory.fromResource(R.drawable.start)));
      		}catch(Exception e){

@@ -2,13 +2,10 @@ package com.androidmobile.JR;
 import java.util.ArrayList;
 
 
+
 import org.json.JSONArray;
 
 import com.androidmobile.map.GMapV2Direction;
-import com.google.ads.AdRequest;
-import com.google.ads.AdSize;
-import com.google.ads.AdView;
-
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -25,7 +22,7 @@ import android.widget.Toast;
 @SuppressLint("JavascriptInterface")
 public class LeyendaActivity extends Activity {
 	WebView webview;
-	private AdView adView ;
+	
 	private LinearLayout lytMain;
 	private static final String JAVASCRIPT = "javascript:";
 	private static final String BRC_OPEN = "('";
@@ -36,15 +33,12 @@ public class LeyendaActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 		setContentView(R.layout.activity_leyenda);
-		webview = (WebView) findViewById(R.id.LeyWebView);
-		lytMain = (LinearLayout) findViewById(R.id.lytMain);
-	      adView = new AdView(this, AdSize.BANNER, "a151b059515123b");
-	      lytMain.addView(adView);
-	      adView.bringToFront();
-	      adView.loadAd(new AdRequest());
+		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.barratitulo);
 		
+		webview = (WebView) findViewById(R.id.LeyWebView);
+				
 		
 		WebSettings webSettings = webview.getSettings();
 		webSettings.setJavaScriptEnabled(true);
