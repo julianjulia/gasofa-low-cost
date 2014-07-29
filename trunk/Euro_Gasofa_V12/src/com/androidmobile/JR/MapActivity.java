@@ -2,9 +2,12 @@ package com.androidmobile.JR;
 
 import java.io.IOException;
 
+
 import java.util.List;
 import com.androidmobile.bd.BdGas;
 import java.util.Locale;
+
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -13,6 +16,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -26,6 +30,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.androidmobile.map.GMapGeocoderInverter;
 import com.androidmobile.map.GMapV2Direction;
@@ -33,11 +38,12 @@ import com.androidmobile.map.GMapV2GasProx;
 import com.androidmobile.model.Gasolinera;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
+import com.google.android.gms.maps.Projection;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
@@ -70,6 +76,11 @@ public class MapActivity extends FragmentActivity  implements
 	public static FragmentActivity actividad;
 	public static float vtilt=80;
 	private SharedPreferences prefs;
+	private TextView coord;
+	public String vista ;
+	public static FragmentActivity _map;
+	private MainActivity ma=new MainActivity();
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
@@ -89,9 +100,12 @@ public class MapActivity extends FragmentActivity  implements
 	    slidingMenu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
 	    slidingMenu.setMenu(R.layout.slidingmenumap);
 		
+	    coord = (TextView) findViewById(R.id.cord);
+	    _map=this;
+	    
 	    this.prefs = PreferenceManager.getDefaultSharedPreferences(this);
-	    final String vista  = prefs.getString("vista", "3D");
-	    if (vista.equals("2D")){
+	    vista  = prefs.getString("vista", "3D");
+	    if (vista.indexOf("2D")!=-1){
 	    	vtilt=0;
 	    }else{
 	    	vtilt=45;
@@ -125,10 +139,13 @@ public class MapActivity extends FragmentActivity  implements
 		
 		mapa.setOnMarkerClickListener(new OnMarkerClickListener() {
 		    public boolean onMarkerClick(Marker marker) {
-		    		
+		    	
 		        	//Toast.makeText(getApplicationContext(),"Es visible", Toast.LENGTH_LONG).show();
 		            UPV2=marker.getPosition();
-		           		 
+		            if (vista.indexOf("coordenadas")!=-1){
+		            CharSequence _coord=UPV2.latitude+","+UPV2.longitude;
+		    		coord.setText(_coord); 
+		            }
 		        return false;
 		    }
 			
@@ -137,6 +154,31 @@ public class MapActivity extends FragmentActivity  implements
 	       
 		mapa.setOnMapClickListener(this);
 		
+		// CLICK SOBRE EL MAPA
+		 mapa.setOnMapClickListener(new OnMapClickListener() {
+		     public void onMapClick(LatLng point) {
+		    	 if (vista.indexOf("coordenadas")!=-1){
+			           
+			    		coord.setText(""); 
+			            }
+		     }
+		 });
+		 
+		 mapa.setOnMapLongClickListener(new OnMapLongClickListener() {
+			
+			@Override
+			public void onMapLongClick(LatLng arg0) {
+				// TODO Auto-generated method stub
+				 if (vista.indexOf("coordenadas")!=-1){
+			           
+					 CharSequence _coord=arg0.latitude+","+arg0.longitude;
+			    		coord.setText(_coord); 
+			            }
+			}
+		 });
+		
+		 
+		 
 		 
 		  bundle = getIntent().getExtras();
 			gasprox= bundle.getString("gas");
@@ -164,6 +206,11 @@ public class MapActivity extends FragmentActivity  implements
 		startActivity(intent);
 	}
 
+	public  void StreetView() {
+		
+		
+	}
+	
 	public void menu(View view) {
 
 		slidingMenu.toggle();
@@ -559,7 +606,9 @@ public class MapActivity extends FragmentActivity  implements
 		
 		
 		public boolean onKeyDown(int keyCode, KeyEvent event) {
-		
+			if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+				this.finish();
+			}
 			   if ( keyCode == KeyEvent.KEYCODE_MENU ) {
 		            slidingMenu.toggle();
 		            return true;
@@ -573,4 +622,11 @@ public class MapActivity extends FragmentActivity  implements
 		 super.onConfigurationChanged(newConfig);
 
 		 }
+		 
+		
+				 
+		  
+		 
+		
+		 
 }

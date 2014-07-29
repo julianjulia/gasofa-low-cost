@@ -341,7 +341,7 @@ public class UpdaterService extends Service {
 			notificacion.sound = Uri.parse(tono);
 			 
 			//notificacion.defaults |= Notification.DEFAULT_SOUND;
-		// notif.defaults |= Notification.DEFAULT_LIGHTS;
+		notificacion.defaults |= Notification.DEFAULT_LIGHTS;
 		nm.notify(ID_NOTIFICACION_CREAR, notificacion);
 
 	}

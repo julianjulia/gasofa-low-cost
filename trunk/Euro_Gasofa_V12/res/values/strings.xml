@@ -31,5 +31,5 @@
      <string name="titulopersonalizado">Buscando Ubicación</string>
 	<string name="proveedor">Ubicación por</string>    
      
-    
+    <string name="coordenadas"></string>   
 </resources>

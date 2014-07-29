@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 
 
+
 import org.json.JSONArray;
 
 import com.androidmobile.map.GMapV2Direction;
@@ -16,14 +17,12 @@ import android.util.Log;
 import android.view.Window;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 // he modificado para probar
 @SuppressLint("JavascriptInterface")
 public class LeyendaActivity extends Activity {
 	WebView webview;
 	
-	private LinearLayout lytMain;
 	private static final String JAVASCRIPT = "javascript:";
 	private static final String BRC_OPEN = "('";
 	private static final String BRC_CLOSE = "')";

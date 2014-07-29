@@ -9,7 +9,7 @@
       }
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-    <script>
+  <script>
 	var bryantPark ;
 function initialize() {
   //bryantPark = new google.maps.LatLng(37.869260, -122.254811);
@@ -25,11 +25,24 @@ function initialize() {
       document.getElementById('map-canvas'),
       panoramaOptions);
   myPano.setVisible(true);
+ 
 }
-
-bryantPark = new google.maps.LatLng(39.481106, -0.340987);
+var lon=getQueryVariable("lon");
+var lat=getQueryVariable("lat");
+//bryantPark = new google.maps.LatLng(39.481106, -0.340987);
+bryantPark = new google.maps.LatLng(lat,lon);
 google.maps.event.addDomListener(window, 'load', initialize);
 
+function getQueryVariable(variable)
+{
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+       }
+       return(false);
+}
     </script>
 
 </head>
