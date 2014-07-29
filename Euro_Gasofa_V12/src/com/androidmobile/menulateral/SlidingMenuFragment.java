@@ -50,6 +50,8 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
   
     private BdGas bd;
     public boolean flat ;
+    private MainActivity ma=new MainActivity();
+	private MapActivity map= new MapActivity();
      @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -114,8 +116,7 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
             int groupPosition, int childPosition, long id) {
     	ContextThemeWrapper ctw = new ContextThemeWrapper( getActivity(), R.style.miestilo);
     	  final WebView webview = (WebView)  ((Activity) getActivity()).findViewById(R.id.mainWebView);
-    	  final MainActivity ma=new MainActivity();
-    	  final MapActivity map= new MapActivity();
+    	 
         switch ((int)id) {
        
         case 102:        	
@@ -137,7 +138,7 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
         case 301:
         	
         	AlertDialog.Builder dialog = new AlertDialog.Builder(ctw);
-    		dialog.setTitle("€ Gasofa V 3.1");
+    		dialog.setTitle("€ Gasofa V 3.2");
     		dialog.setMessage("Desarrollado" + " por J.R.  "
   					+ "email: jrmh@ya.com  ");
     		dialog.setPositiveButton("OK", new OnClickListener() {
@@ -154,11 +155,9 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
 			alert.setMessage("Salir de Gasofa");
 			alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int whichButton) {
-					if(map.actividad!=null)
-		        		map.actividad.finish();
-		        	if(ma.actividad!=null)
-		        		ma.actividad.finish();
-		        	getActivity().finish();
+					map._map.finish();
+		        	ma._ma.finish();
+		        	
 				}
 				});
 			alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

@@ -42,6 +42,8 @@ gasolina98
         <item>
 3D
         </item>
-
+ 		<item>
+3D + coordenadas
+        </item>
     </string-array>        
 </resources>

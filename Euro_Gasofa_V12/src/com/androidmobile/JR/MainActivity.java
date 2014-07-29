@@ -15,6 +15,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -87,6 +88,7 @@ public class MainActivity extends FragmentActivity {
 	public  String  provee;
 	public  LocationListener locListener;
 	boolean _b=true;
+    public static FragmentActivity _ma;
 	@SuppressLint("SetJavaScriptEnabled")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +97,7 @@ public class MainActivity extends FragmentActivity {
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 		setContentView(R.layout.activity_main);
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.barratitulo);
-		
+		_ma=this;
         // Creamos la variable webview
 		webview = (WebView) findViewById(R.id.mainWebView);
 		/*
@@ -138,14 +140,7 @@ public class MainActivity extends FragmentActivity {
 		webview.addJavascriptInterface(new JavaScriptInterface(this),
 				"androidSupport");
 
-		// Cargamos la Url en nuestro WebView
-		runOnUiThread(new Runnable() {
-	        @Override
-	        public void run() {
-	        	webview.loadUrl(HTML_ROOT + "indexGas.html");
-	        }
-	    });
-	
+		
 
 		try {
 			alProv = Xml_BD();
@@ -164,7 +159,7 @@ public class MainActivity extends FragmentActivity {
 		 //Intent intent = new Intent(this, MyAlarmasActivity.class);
 		
 		 //startActivity(intent);
-		 provee="Ubicación por ";
+		 provee="Ubic. por ";
 		 LocationManager locManager = null;
 		 ubicacion= (TextView) findViewById(R.id.titulo2);//
 		 proveedor= (TextView) findViewById(R.id.titulo);
@@ -179,11 +174,11 @@ public class MainActivity extends FragmentActivity {
 		 String mejorProviderCrit = locManager.getBestProvider(req, false);
 		// LocationProvider provider = locManager.getProvider(mejorProviderCrit);
 		 l=locManager.getLastKnownLocation(mejorProviderCrit);
-		 provee="Ult Ubicación por Gps           "+"";
+		 provee="Ult Ubic. por Gps           "+"";
 		       
 		 if (l==null){
 			 l=locManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-			 provee= "Ult Ubicación por Red Movil     "+"";
+			 provee= "Ult Ubi. por Red Movil     "+"";
 			 }
 		 UPV=l.getLatitude()+","+l.getLongitude();
 		 
@@ -237,6 +232,21 @@ public class MainActivity extends FragmentActivity {
 		    }catch(Exception e){
 		    	
 		    }
+		    
+		 // Cargamos la Url en nuestro WebView
+			runOnUiThread(new Runnable() {
+		        @Override
+		        public void run() {
+		        	webview.loadUrl(HTML_ROOT + "indexGas.html");
+		        }
+		    });
+			runOnUiThread(new Runnable() {
+		        @Override
+		        public void run() {
+		        	webview.loadUrl(HTML_ROOT + "indexGas.html");
+		        }
+		    });
+		
 
 	}
 	
@@ -444,7 +454,7 @@ public class MainActivity extends FragmentActivity {
 					}
 					utility.tratamientoDatosGasolinera(datos, mContext);
 				} else {
-
+					salir=true;
 					Toast.makeText(mContext, "Debe seleccionar una Provincia",
 							Toast.LENGTH_LONG).show();
 					runOnUiThread(new Runnable() {
@@ -487,6 +497,7 @@ public class MainActivity extends FragmentActivity {
 			bundle.putString("comb", comb);
 						intent.putExtras(bundle);
 			startActivity(intent);
+			//_ma.finish();
 		}
 
 		
@@ -593,7 +604,7 @@ public void dialMun(String cod_prov) throws ParserConfigurationException, SAXExc
 				alert.setMessage("Salir de Gasofa");
 				alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
-						System.exit(0);
+						_ma.finish();
 					}
 					});
 				alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

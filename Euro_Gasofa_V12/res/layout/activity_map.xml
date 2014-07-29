@@ -29,6 +29,16 @@
 
            android:drawableRight="@drawable/ic_drawer"/>
     
+     <TextView android:id="@+id/cord"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentTop="true"
+          android:layout_centerHorizontal="true"
+          android:textColor="#6a3ab2"
+          android:textSize="10dp"
+          android:text="@string/coordenadas" />   
+        
+        
     <Button android:id="@+id/button2"
 
             android:layout_width="wrap_content"

@@ -8,6 +8,8 @@ import android.content.res.Configuration;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.Window;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -46,16 +48,19 @@ public class StreetView extends Activity {
 		
 	
 		webview.addJavascriptInterface(new JavaScriptInterface (this),"androidSupportSV");
-		
+		Bundle bundle = getIntent().getExtras();
+		final double lat= bundle.getDouble("lat");
+		final double lon= bundle.getDouble("lon");
+		//final double lon=37.869260;
+		//final double lat=-122.254811;
 		runOnUiThread(new Runnable() {
 	        @Override
 	        public void run() {
-	        	webview.loadUrl(HTML_ROOT + "indexStreetView.html");
+	        	webview.loadUrl(HTML_ROOT + "indexStreetView.html?lon="+lon+"&lat="+lat);
 	        }
 	    });
-		final double lon=37.869260;
-		final double lat=-122.254811;
 		
+		/*
 		 runOnUiThread(new Runnable() {
 	  	        @Override
 	  	        public void run() {
@@ -69,7 +74,7 @@ public class StreetView extends Activity {
 	  	        	webview.loadUrl(JAVASCRIPT + "cargaUPV" + BRC_OPEN +lon+Q+lat+ BRC_CLOSE); 
 	  	        }
 	  	    });
-
+*/
 	}
 	public class JavaScriptInterface {
 		Context mContext;
@@ -92,6 +97,19 @@ public class StreetView extends Activity {
 		
 		
 	}
+	
+	/*
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		
+		   if ( keyCode == KeyEvent.KEYCODE_BACK ) {
+	            
+	            return true;
+	        }
+		return super.onKeyDown(keyCode, event);
+	}
+	*/
+	
+	
 	 @Override
 
 	 public void onConfigurationChanged(Configuration newConfig) {
