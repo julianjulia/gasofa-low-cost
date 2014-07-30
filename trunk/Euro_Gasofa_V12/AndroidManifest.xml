@@ -65,7 +65,8 @@
         
          <meta-data
          android:name="com.google.android.maps.v2.API_KEY"
-         android:value="AIzaSyD7RQsZg3ii-nmqoJ0xdr35E7iTkthGTeE" />
+     
+ 			android:value="AIzaSyD7RQsZg3ii-nmqoJ0xdr35E7iTkthGTeE" /> 
          
     </application>
 
@@ -86,7 +87,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
-
+	<uses-permission android:name="android.permission." />
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
