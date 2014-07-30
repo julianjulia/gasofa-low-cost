@@ -1,30 +1,22 @@
 package com.androidmobile.menulateral;
 
 import java.io.StringWriter;
-
 import java.util.ArrayList;
-
 import java.util.List;
-
 import org.codehaus.jackson.map.ObjectMapper;
-
 import com.androidmobile.JR.MainActivity;
 import com.androidmobile.JR.MapActivity;
 import com.androidmobile.JR.R;
 import com.androidmobile.bd.BdGas;
 import com.androidmobile.model.Alerta;
 import com.androidmobile.model.ListaAlertas;
-import com.androidmobile.service.UpdaterService;
 import com.androidmobile.JR.PrefesActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
@@ -38,7 +30,7 @@ import android.widget.Toast;
 
 public class SlidingMenuFragment extends Fragment implements ExpandableListView.OnChildClickListener {
 
-	private static final String HTML_ROOT = "file:///android_asset/www/";
+	//private static final String HTML_ROOT = "file:///android_asset/www/";
 	private static final String JAVASCRIPT = "javascript:";
 	private static final String BRC_OPEN = "('";
 	private static final String Q = "','";

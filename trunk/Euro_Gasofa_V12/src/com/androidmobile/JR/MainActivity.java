@@ -3,6 +3,7 @@ package com.androidmobile.JR;
 import java.io.IOException;
 
 
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,7 +16,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
