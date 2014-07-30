@@ -2,14 +2,12 @@ package com.androidmobile.JR;
 
 
 import android.annotation.SuppressLint;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
-
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.MenuItem;
 import android.view.Window;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -22,10 +20,10 @@ public class StreetView extends Activity {
 	WebView webview;
 	
 
-	private static final String JAVASCRIPT = "javascript:";
-	private static final String BRC_OPEN = "('";
-	private static final String Q = "','";
-	private static final String BRC_CLOSE = "')";
+	//private static final String JAVASCRIPT = "javascript:";
+	//private static final String BRC_OPEN = "('";
+	//private static final String Q = "','";
+	//private static final String BRC_CLOSE = "')";
 	private static final String HTML_ROOT = "file:///android_asset/www/";
 	
 

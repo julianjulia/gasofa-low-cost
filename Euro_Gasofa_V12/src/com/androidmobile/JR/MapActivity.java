@@ -3,11 +3,11 @@ package com.androidmobile.JR;
 import java.io.IOException;
 
 
+
 import java.util.List;
 import com.androidmobile.bd.BdGas;
 import java.util.Locale;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -16,7 +16,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
-import android.graphics.Point;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -44,7 +43,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
-import com.google.android.gms.maps.Projection;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
@@ -80,7 +78,7 @@ public class MapActivity extends FragmentActivity  implements
 	private TextView coord;
 	public String vista ;
 	public static FragmentActivity _map;
-	private MainActivity ma=new MainActivity();
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

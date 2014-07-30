@@ -2,20 +2,16 @@ package com.androidmobile.menulateral;
 
 import java.util.ArrayList;
 
+
 import java.util.List;
 
 import com.androidmobile.JR.MainActivity;
 import com.androidmobile.JR.MapActivity;
 import com.androidmobile.JR.R;
-import com.androidmobile.JR.R.id;
-import com.androidmobile.JR.R.layout;
 import com.androidmobile.JR.StreetView;
 import com.androidmobile.map.GMapV2GasProx;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;

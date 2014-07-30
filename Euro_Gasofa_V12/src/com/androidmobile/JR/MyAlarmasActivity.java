@@ -3,21 +3,16 @@ package com.androidmobile.JR;
 
 import java.io.StringWriter;
 import java.util.ArrayList;
-
 import org.codehaus.jackson.map.ObjectMapper;
-
-import com.androidmobile.JR.MainActivity.JavaScriptInterface;
 import com.androidmobile.bd.BdGas;
 import com.androidmobile.model.Alerta;
 import com.androidmobile.model.ListaAlertas;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -32,9 +27,10 @@ public class MyAlarmasActivity extends FragmentActivity {
 	private static final String JAVASCRIPT = "javascript:";
 	private static final String BRC_OPEN = "('";
 	private static final String BRC_CLOSE = "')";
-	private static final String Q = "','";
+	//private static final String Q = "','";
 	public static final String EMPTY_ALERT_LIST = "{\"listaalertas\":[]}";
 	public String json;
+	@SuppressLint("SetJavaScriptEnabled")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
