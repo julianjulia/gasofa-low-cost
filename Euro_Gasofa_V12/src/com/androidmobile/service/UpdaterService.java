@@ -48,6 +48,7 @@ import android.util.Log;
 public class UpdaterService extends Service {
 
 	private final int PERIODIC_EVENT_MIN = 60 * 4 ; // 1/2 hora
+	//private final int PERIODIC_EVENT_MIN = 5 ; // 1/2 hora
 	private final int HORA_INICIO = 9;
 	private final int HORA_FINAL = 23;
 	final String TAG = "UpdaterService";
@@ -98,15 +99,15 @@ public class UpdaterService extends Service {
 		condicion = prefs.getString("condicion", "cambia de precio");
 		tono = prefs.getString("tono", "content://settings/system/notification_sound");
 		
-		if (alerta)
+		if (alerta){
 			iniciarServicio();
-		
+		}
+		stopSelf();
 		return START_NOT_STICKY;
 	}
 
 	public void iniciarServicio() {
 
-		
 		Intent intent = new Intent(this, this.getClass());
 		pendingIntent = PendingIntent.getService(this, 0, intent,
 				PendingIntent.FLAG_UPDATE_CURRENT);
@@ -161,9 +162,6 @@ public class UpdaterService extends Service {
 		
 		Document doc;
 		
-		
-		
-
 		@Override
 		protected void onPreExecute() {
 
@@ -342,6 +340,7 @@ public class UpdaterService extends Service {
 			 
 			//notificacion.defaults |= Notification.DEFAULT_SOUND;
 		notificacion.defaults |= Notification.DEFAULT_LIGHTS;
+		notificacion.flags |= Notification.FLAG_SHOW_LIGHTS;
 		nm.notify(ID_NOTIFICACION_CREAR, notificacion);
 
 	}
@@ -351,9 +350,6 @@ public class UpdaterService extends Service {
 	public void onDestroy() {
 		nm.cancel(ID_NOTIFICACION_CREAR);
 		this.runflag = false;
-
-		
-
 		Log.d(TAG, "onDestroyed");
 
 		super.onDestroy();
