@@ -21,6 +21,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
@@ -144,8 +145,10 @@ public class MapActivity extends FragmentActivity  implements
 		            UPV2=marker.getPosition();
 		            if (vista.indexOf("coordenadas")!=-1){
 		            CharSequence _coord=UPV2.latitude+","+UPV2.longitude;
-		    		coord.setText(_coord); 
+		    		coord.setText(_coord); 		    		
 		            }
+		            Vibrator vibrator =(Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+		            vibrator.vibrate(50);
 		        return false;
 		    }
 			
@@ -158,8 +161,7 @@ public class MapActivity extends FragmentActivity  implements
 		 mapa.setOnMapClickListener(new OnMapClickListener() {
 		     public void onMapClick(LatLng point) {
 		    	 if (vista.indexOf("coordenadas")!=-1){
-			           
-			    		coord.setText(""); 
+			      	coord.setText(""); 
 			            }
 		     }
 		 });
@@ -169,10 +171,11 @@ public class MapActivity extends FragmentActivity  implements
 			@Override
 			public void onMapLongClick(LatLng arg0) {
 				// TODO Auto-generated method stub
-				 if (vista.indexOf("coordenadas")!=-1){
-			           
+				 if (vista.indexOf("coordenadas")!=-1){			           
 					 CharSequence _coord=arg0.latitude+","+arg0.longitude;
 			    		coord.setText(_coord); 
+			    		Vibrator vibrator =(Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+			            vibrator.vibrate(50);
 			            }
 			}
 		 });
