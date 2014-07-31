@@ -16,5 +16,12 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+ <!--   <style name="miestilo" parent="android:Theme.Dialog">   -->
+    <style name="miestilo" parent="android:Theme.Holo">
+    <item name="android:windowNoTitle">true</item>
 
+	<item name="android:typeface">monospace</item>
+	<item name="android:textSize">22px</item>
+	 <!-- 	<item name="android:textColor">#AA7755</item>	 -->
+    </style> 
 </resources>
