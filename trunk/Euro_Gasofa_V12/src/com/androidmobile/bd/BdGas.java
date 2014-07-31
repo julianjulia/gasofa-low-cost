@@ -548,9 +548,9 @@ public class BdGas {
 		if (c.moveToFirst()) {
 			// Recorremos el cursor hasta que no haya más registros
 			do {
-				int s=c.getInt(0);
+				/*int s=c.getInt(0);
 						String s1=c.getString(1);
-						String s2=c.getString(2);
+						String s2=c.getString(2);*/
 						String s3=c.getDouble(3)+"";
 						System.out.println(s3);
 				
