@@ -18,6 +18,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -36,6 +37,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+@SuppressLint("DefaultLocale")
 public class GMapV2GasProx {
 	static GoogleMap mapa;
 	Double variable=0.08;  // recordar 0.01 aprox 1km   es decir 16km
@@ -53,7 +55,8 @@ public class GMapV2GasProx {
 	static double V1;
 	static double V2;
 	static ArrayList<LatLng> lt;
-	   public GMapV2GasProx(Context mContext,LatLng UPV , String comb,Double variable){
+	   @SuppressWarnings("static-access")
+	public GMapV2GasProx(Context mContext,LatLng UPV , String comb,Double variable){
 		   pMax= 0;
 		   pMin= 0;
 		   pm= 0;
@@ -82,7 +85,8 @@ public class GMapV2GasProx {
 	        mapa = fm.getMap();
 		  new taskgasP().execute();
 	   }
-	   public GMapV2GasProx(Context mContext){
+	   @SuppressWarnings("static-access")
+	public GMapV2GasProx(Context mContext){
 		   this.mContext=mContext;
 	   }
 	   class taskgasP extends AsyncTask<Void, Void, Void> implements OnCancelListener{
@@ -241,6 +245,7 @@ public class GMapV2GasProx {
 	            return -1;
 	        }
 	        
+			@SuppressLint("DefaultLocale")
 			public static void LoadLogosGas(){
 				mapa.clear();
 				int icon = 0;
