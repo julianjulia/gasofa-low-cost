@@ -142,9 +142,12 @@ public class MapActivity extends FragmentActivity  implements
 		        	//Toast.makeText(getApplicationContext(),"Es visible", Toast.LENGTH_LONG).show();
 		            UPV2=marker.getPosition();
 		            if (vista.indexOf("coordenadas")!=-1){
-		            CharSequence _coord=UPV2.latitude+","+UPV2.longitude;
+		            String lat=(UPV2.latitude+"").substring(0,9);
+		            String lon=(UPV2.longitude+"").substring(0,9);
+		            CharSequence _coord=lat+" , "+lon;
 		    		coord.setText(_coord); 		    		
 		            }
+		            // ACTIVAMOS VIBRACION
 		            Vibrator vibrator =(Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 		            vibrator.vibrate(50);
 		        return false;
@@ -163,14 +166,16 @@ public class MapActivity extends FragmentActivity  implements
 			            }
 		     }
 		 });
-		 
+		// CLICK LARGO SOBRE EL MAPA
 		 mapa.setOnMapLongClickListener(new OnMapLongClickListener() {
 			
 			@Override
 			public void onMapLongClick(LatLng arg0) {
 				// TODO Auto-generated method stub
 				 if (vista.indexOf("coordenadas")!=-1){			           
-					 CharSequence _coord=arg0.latitude+","+arg0.longitude;
+					 String lat=(arg0.latitude+"").substring(0,9);
+			            String lon=(arg0.longitude+"").substring(0,9);
+			            CharSequence _coord=lat+" , "+lon;
 			    		coord.setText(_coord); 
 			    		Vibrator vibrator =(Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 			            vibrator.vibrate(50);
