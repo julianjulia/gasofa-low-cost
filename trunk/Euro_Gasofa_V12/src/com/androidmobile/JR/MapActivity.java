@@ -8,6 +8,7 @@ import java.util.List;
 import com.androidmobile.bd.BdGas;
 import java.util.Locale;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -54,6 +55,7 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 
 
+@SuppressLint("DefaultLocale")
 public class MapActivity extends FragmentActivity  implements
 		OnMapClickListener {
 	
@@ -465,6 +467,7 @@ public class MapActivity extends FragmentActivity  implements
 	}
 	
 
+	@SuppressLint("DefaultLocale")
 	public static void GasolineraLogo(){
 		 mapa.clear();
 		  new GMapV2GasProx(mContext);
@@ -628,11 +631,5 @@ public class MapActivity extends FragmentActivity  implements
 		 super.onConfigurationChanged(newConfig);
 
 		 }
-		 
-		
-				 
-		  
-		 
-		
-		 
+		 		 
 }
