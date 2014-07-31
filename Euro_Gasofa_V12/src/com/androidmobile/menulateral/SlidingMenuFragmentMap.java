@@ -89,7 +89,8 @@ public class SlidingMenuFragmentMap extends Fragment implements ExpandableListVi
         return sectionList;
     }
 
-    @Override
+    @SuppressWarnings({ "unused", "static-access" })
+	@Override
     public boolean onChildClick(ExpandableListView parent, View v,
             int groupPosition, int childPosition, long id) {
  SupportMapFragment fm = (SupportMapFragment) ((FragmentActivity) getActivity()).getSupportFragmentManager().findFragmentById(R.id.map);
