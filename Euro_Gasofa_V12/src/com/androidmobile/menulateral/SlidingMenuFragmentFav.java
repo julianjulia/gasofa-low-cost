@@ -90,7 +90,8 @@ public class SlidingMenuFragmentFav extends Fragment implements ExpandableListVi
         return sectionList;
     }
 
-    @Override
+    @SuppressWarnings("static-access")
+	@Override
     public boolean onChildClick(ExpandableListView parent, View v,
           int groupPosition, int childPosition, long id) {
     	  final WebView webview = (WebView)  ((Activity) getActivity()).findViewById(R.id.mainWebView);
