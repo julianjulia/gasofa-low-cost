@@ -70,8 +70,7 @@ public class SlidingMenuFragmentMap extends Fragment implements ExpandableListVi
         Section oBusquedaSection = new Section("Busqueda");
         oBusquedaSection.addSectionItem(101," Provincia/Municipio", "ic_menu_search");
         //oBusquedaSection.addSectionItem(102, "Mapa(ubicacion/Direcc)", "gazstation");
-       
-        
+              
         
         Section oGeneralSection = new Section("Vistas Mapa");
         oGeneralSection.addSectionItem(201, " Normal", "ic_action_location_searching");
