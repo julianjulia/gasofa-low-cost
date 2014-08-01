@@ -23,6 +23,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import com.androidmobile.JR.MainActivity;
 import com.androidmobile.JR.MyAlarmasActivity;
 import com.androidmobile.bd.BdGas;
 import com.androidmobile.model.Alerta;
@@ -41,6 +43,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.Log;
@@ -53,7 +56,7 @@ public class UpdaterService extends Service {
 	private final int HORA_FINAL = 23;
 	final String TAG = "UpdaterService";
 	private SharedPreferences prefs;
-	private NotificationManager nm;
+	public NotificationManager nm;
 	private static final int ID_NOTIFICACION_CREAR = 1;
 	AlarmManager alarmManager;
 	PendingIntent pendingIntent;
@@ -82,7 +85,7 @@ public class UpdaterService extends Service {
 		
 		this.runflag = true;
 		Log.d(TAG, "onCreated");
-		nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+		//nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		bdgas = new BdGas(getApplicationContext());
 
 		super.onCreate();
@@ -225,7 +228,6 @@ public class UpdaterService extends Service {
 					bdgas.updateAlerta(lon+","+lat, id_comb, pvp+"","true");
 				}*/
 				
-
 			} catch (ClientProtocolException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -317,38 +319,58 @@ public class UpdaterService extends Service {
 
 	@SuppressLint("SimpleDateFormat")
 	public void notificacionBarraEstado(String gas) {
+		nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		Date date = new Date();
 		DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
 		String fecha_hora = " " + hourdateFormat.format(date);
 		int drawableResource = getApplicationContext().getResources()
 				.getIdentifier("ic_launcher2", "drawable",
 						getApplicationContext().getPackageName());
-		Notification notificacion = new Notification(drawableResource,
-				"Alerta Gasofa", System.currentTimeMillis());
-		PendingIntent intencionPendiente = PendingIntent.getActivity(
-				getApplicationContext(), 0, new Intent(getApplicationContext(),
-						MyAlarmasActivity.class), 0);
-		notificacion.setLatestEventInfo(getApplicationContext(), fecha_hora,
-				gas, intencionPendiente);
+		Notification notification;
+		
+		if (Integer.valueOf(android.os.Build.VERSION.SDK) < android.os.Build.VERSION_CODES.HONEYCOMB) {
+			PendingIntent intencionPendiente = PendingIntent.getActivity(
+    				this, 0, new Intent(this,
+    						MyAlarmasActivity.class), 0);
+            notification = new Notification(drawableResource,
+    				"Alerta Gasofa", System.currentTimeMillis());
+            notification.setLatestEventInfo(this, fecha_hora,
+    				gas, intencionPendiente);
+            // notification.flags |= Notification.FLAG_AUTO_CANCEL;
+           // mNM.notify(NOTIFICATION, notification);
+        } else {
+        	PendingIntent intencionPendiente = PendingIntent.getActivity(
+    				this, 1, new Intent(this,
+    						MyAlarmasActivity.class), 0);
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(
+                    this);
+            notification = builder.setContentIntent(intencionPendiente)
+                    .setSmallIcon(drawableResource).setTicker("Alerta Gasofa").setWhen(System.currentTimeMillis())
+                    .setAutoCancel(true).setContentTitle(fecha_hora)
+                    .setContentText(gas).build();
+
+           // mNM.notify(NOTIFICATION, notification);
+        }
+			
 		// AutoCancel: cuando se pulsa la notificaión ésta desaparece
-		notificacion.flags |= Notification.FLAG_AUTO_CANCEL;
+		//notification.flags |= Notification.FLAG_AUTO_CANCEL;
 		if (vibrate)
-			notificacion.defaults |= Notification.DEFAULT_VIBRATE;
+			notification.defaults |= Notification.DEFAULT_VIBRATE;
 		// Añadir sonido, vibración y luces
 		if (sound)
-			notificacion.sound = Uri.parse(tono);
+			notification.sound = Uri.parse(tono);
 			 
 			//notificacion.defaults |= Notification.DEFAULT_SOUND;
-		notificacion.defaults |= Notification.DEFAULT_LIGHTS;
-		notificacion.flags |= Notification.FLAG_SHOW_LIGHTS;
-		nm.notify(ID_NOTIFICACION_CREAR, notificacion);
-
+		notification.defaults |= Notification.DEFAULT_LIGHTS;
+		notification.flags |= Notification.FLAG_SHOW_LIGHTS;
+		//nm.notify(ID_NOTIFICACION_CREAR, notification);
+		nm.notify(ID_NOTIFICACION_CREAR, notification);
 	}
 
 	@SuppressWarnings("static-access")
 	@Override
 	public void onDestroy() {
-		nm.cancel(ID_NOTIFICACION_CREAR);
+		//nm.cancel(ID_NOTIFICACION_CREAR);
 		this.runflag = false;
 		Log.d(TAG, "onDestroyed");
 
