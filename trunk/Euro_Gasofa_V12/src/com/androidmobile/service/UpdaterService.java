@@ -9,6 +9,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -51,7 +53,7 @@ import android.util.Log;
 public class UpdaterService extends Service {
 
 	private final int PERIODIC_EVENT_MIN = 60 * 4 ; // 1/2 hora
-	//private final int PERIODIC_EVENT_MIN = 5 ; // 1/2 hora
+	//private final int PERIODIC_EVENT_MIN = 60 ; 
 	private final int HORA_INICIO = 9;
 	private final int HORA_FINAL = 23;
 	final String TAG = "UpdaterService";
@@ -340,7 +342,7 @@ public class UpdaterService extends Service {
            // mNM.notify(NOTIFICATION, notification);
         } else {
         	PendingIntent intencionPendiente = PendingIntent.getActivity(
-    				this, 1, new Intent(this,
+    				this,new Random().nextInt(), new Intent(this,
     						MyAlarmasActivity.class), 0);
             NotificationCompat.Builder builder = new NotificationCompat.Builder(
                     this);
