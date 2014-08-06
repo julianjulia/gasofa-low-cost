@@ -49,6 +49,7 @@ import com.androidmobile.model.DatosIni;
 import com.androidmobile.model.Gasolinera;
 import com.androidmobile.model.Municipio;
 import com.androidmobile.model.Provincia;
+import com.androidmobile.service.UpdaterService;
 import com.androidmobile.util.utilMun;
 import com.androidmobile.util.utility;
 import com.google.android.gms.maps.model.LatLng;
@@ -240,13 +241,12 @@ public class MainActivity extends FragmentActivity {
 		        	webview.loadUrl(HTML_ROOT + "indexGas.html");
 		        }
 		    });
-			runOnUiThread(new Runnable() {
-		        @Override
-		        public void run() {
-		        	webview.loadUrl(HTML_ROOT + "indexGas.html");
-		        }
-		    });
-		
+			try{
+				startService(new Intent(this, UpdaterService.class));
+			}catch(Exception e){
+				Log.i(this.getClass().toString(), "error al iniciar el servicio");
+				Toast.makeText(this, "problemas al iniciar el service", Toast.LENGTH_LONG).show();
+			}
 
 	}
 	
