@@ -92,7 +92,7 @@ public class SlidingMenuFragmentMap extends Fragment implements ExpandableListVi
 	@Override
     public boolean onChildClick(ExpandableListView parent, View v,
             int groupPosition, int childPosition, long id) {
- SupportMapFragment fm = (SupportMapFragment) ((FragmentActivity) getActivity()).getSupportFragmentManager().findFragmentById(R.id.map);
+    	SupportMapFragment fm = (SupportMapFragment) ((FragmentActivity) getActivity()).getSupportFragmentManager().findFragmentById(R.id.map);
  		ContextThemeWrapper ctw = new ContextThemeWrapper( getActivity(), R.style.miestilo);		 
 
          // Getting GoogleMap object from the fragment
