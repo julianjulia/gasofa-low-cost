@@ -140,13 +140,19 @@ public class MapActivity extends FragmentActivity  implements
 		
 		mapa.setOnMarkerClickListener(new OnMarkerClickListener() {
 		    public boolean onMarkerClick(Marker marker) {
-		    	
-		        	//Toast.makeText(getApplicationContext(),"Es visible", Toast.LENGTH_LONG).show();
+		    	    //Toast.makeText(getApplicationContext(),"Es visible", Toast.LENGTH_LONG).show();
 		            UPV2=marker.getPosition();
+		            
 		            if (vista.indexOf("coordenadas")!=-1){
-		            String lat=(UPV2.latitude+"").substring(0,9);
-		            String lon=(UPV2.longitude+"").substring(0,9);
-		            CharSequence _coord=lat+" , "+lon;
+		            	String _lat = UPV2.latitude+"";
+			            String _lon = UPV2.longitude+"";
+			            if (_lat.length()>9){
+			            	_lat=(UPV2.latitude+"").substring(0,9);
+			            }
+			            if (_lon.length()>9){
+			            	_lon=(UPV2.longitude+"").substring(0,9);
+			            }
+		            CharSequence _coord=_lat+" , "+_lon;
 		    		coord.setText(_coord); 		    		
 		            }
 		            // ACTIVAMOS VIBRACION
