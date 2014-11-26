@@ -97,7 +97,8 @@ public class utility {
 				 String num=datos.getNum();
 				 String cp=datos.getCp();
 			     String comb=datos.getCombustible();;
-			
+			if (mun.equals("HOSPITALET DE LLOBREGAT (L)"))
+				mun="HOSPITALET DE LLOBREGAT (L')";
 				ArrayList<Gasolinera> alg = new ArrayList<Gasolinera>();
 					if(prov.equals("") && !cp.equals(""))
 							prov=cp.substring(0, 2);
