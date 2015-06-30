@@ -130,7 +130,7 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
         case 301:
         	
         	AlertDialog.Builder dialog = new AlertDialog.Builder(ctw);
-    		dialog.setTitle("€ Gasofa V 3.2");
+    		dialog.setTitle("€ Gasofa V 4.0");
     		dialog.setMessage("Desarrollado" + " por J.R.  "
   					+ "email: jrmh@ya.com  ");
     		dialog.setPositiveButton("OK", new OnClickListener() {

@@ -1,28 +1,11 @@
 <html>
 <head>
-<link rel="stylesheet"
-	href="css-js/jquery.mobile-1.0a4.1.css" />	
-<script type="text/javascript"
-	src="css-js/jquery-1.7.1.js"></script>
-<script type="text/javascript"
-	src="css-js/jquery.mobile-1.0a4.1.js"></script>
+<link rel="stylesheet" href="css-js/jquery.mobile-1.4.5.min.css" />
 <link rel="stylesheet" href="css-js/Stile.css" />
-</head>
-<body  >
-		<div data-role="page" data-theme="c"  id="pageleyenda">
-		<div data-role="header" ></div>
-		<div data-role="content" >
-		
-			<div id="contextleyenda">
-			<ul style="opacity:0.7;" data-role="listview" data-inset="true" id="listaleyenda">
-			</ul>
-		</div>
-				
-		</div>
-		
-		<div data-role="footer" data-theme="c"></div>
-	</div>
-	<script>
+<script type="text/javascript" src="css-js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="css-js/jquery.mobile-1.4.5.min.js"></script>
+
+<script>
 	$(document).ready(function() {
 		
 		androidSupportley.writeLeyenda();
@@ -43,6 +26,23 @@
 				
 	}
 	
-	</script>
+</script>
+
+</head>
+<body  >
+		<div data-role="page"   id="pageleyenda">
+		
+		<div data-role="content" >
+		
+			<div id="contextleyenda">
+			<ul style="opacity:0.7;" data-role="listview" data-inset="true" id="listaleyenda">
+			</ul>
+		</div>
+				
+		</div>
+		
+		
+	</div>
+	
 </body>
 </html>
