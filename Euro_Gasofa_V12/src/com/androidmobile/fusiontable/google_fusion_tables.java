@@ -6,7 +6,7 @@ class google_fusion_tables {
 FusionTable ft;
  
 void setup() {
-  String tableId = "1Em2OUwEI0wrZCFU0FJO8wo8tA1Q_TFhlZY_AVvw";   
+  String tableId = "16_ZqhEkU7u0-RUDuOZgh_T8IS_U0yGSAUgSUlnH-";   // usuarios
   ft = new FusionTable(tableId);   
 }
  
