@@ -11,7 +11,7 @@ class FusionTable {
   boolean querying;
 
   FusionTable(String tableId_) {  
-    auth = ClientLogin.authorize("sumadecodigos@gmail.com", "processing");  
+    auth = ClientLogin.authorize("julianjulia@gmail.com", "4610550");  
     tableId = tableId_; 
     baseUrl = "https://www.google.com/fusiontables/api/query";
   }
