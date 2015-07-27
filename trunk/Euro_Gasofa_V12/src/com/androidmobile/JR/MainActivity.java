@@ -5,6 +5,7 @@ import java.io.IOException;
 
 
 
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -143,7 +144,9 @@ public class MainActivity extends FragmentActivity {
 				"androidSupport");
 
 		
-
+		
+		
+		
 		try {
 			alProv = Xml_BD();
 		} catch (SAXException e) {
